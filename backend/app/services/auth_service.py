@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 
-from app.auth.hashing import hash_password
+from app.auth.hashing import hash_password, verify_password
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserRegister
@@ -29,3 +29,19 @@ class AuthService:
         )
 
         return self.repository.create(new_user)
+    
+    def authenticate_user(self, email: str, password: str):
+        user = self.repository.get_by_email(email)
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password."
+            )
+        
+        if not verify_password(password, user.hashed_password):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password."
+            )
+        
+        return user
