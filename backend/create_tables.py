@@ -3,4 +3,4 @@ from app.database.session import engine
 
 Base.metadata.create_all(bind=engine)
 
-print("✅ Tables created successfully!")
+print("Tables created successfully!")

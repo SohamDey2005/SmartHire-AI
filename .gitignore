@@ -37,3 +37,17 @@ build/
 # Coverage
 .coverage
 htmlcov/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+
+# Uploaded files
+backend/uploads/resumes/*
+
+# Keep folder structure
+!backend/uploads/resumes/.gitkeep
