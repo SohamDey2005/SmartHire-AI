@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from app.auth.jwt_handler import create_access_token
@@ -40,15 +41,15 @@ def register(
     response_model=TokenResponse
 )
 def login(
-    user: UserLogin,
+    form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
     repository = UserRepository(db)
     service = AuthService(repository)
 
     authenticated_user = service.authenticate_user(
-        user.email,
-        user.password
+        form_data.username,
+        form_data.password
     )
 
     access_token = create_access_token(
