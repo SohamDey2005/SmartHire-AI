@@ -308,8 +308,11 @@ LinkedIn: https://www.linkedin.com/in/sohamdeydurgapur
 Current Progress
 
 ✅ Milestone 1
+
 🚧 Milestone 2 (In Progress)
+
 ⬜ Milestone 3
+
 ⬜ Milestone 4
 
 The project is actively being developed with AI-powered recruitment features planned in the upcoming milestones.
