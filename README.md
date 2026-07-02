@@ -283,7 +283,7 @@ Completed
 
 ## 📷 Screenshots
 
-Screenshots will be added after the completion of all project milestones.
+Screenshots will be added after the completion of all four project milestones.
 
 ---
 
@@ -305,14 +305,6 @@ LinkedIn: https://www.linkedin.com/in/sohamdeydurgapur
 
 **Current Version:** v1.0 (Milestone 1)
 
-Current Progress
-
-✅ Milestone 1
-
-🚧 Milestone 2 (In Progress)
-
-⬜ Milestone 3
-
-⬜ Milestone 4
+✅ Milestone 1 Completed 
 
 The project is actively being developed with AI-powered recruitment features planned in the upcoming milestones.
