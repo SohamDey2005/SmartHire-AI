@@ -1,5 +1,13 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.sql import func
+from datetime import datetime
+
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    ForeignKey,
+    DateTime,
+    func,
+)
 from sqlalchemy.orm import relationship
 
 from app.database.base import Base
@@ -8,21 +16,34 @@ from app.database.base import Base
 class Resume(Base):
     __tablename__ = "resumes"
 
-    id = Column(Integer, primary_key=True, index=True)
-
-    user_id = Column(
+    id = Column(
         Integer,
-        ForeignKey("users.id", ondelete="CASCADE"),
-        nullable=False
+        primary_key=True,
+        index=True,
     )
 
-    file_name = Column(String(255), nullable=False)
+    filename = Column(
+        String,
+        nullable=False,
+    )
 
-    file_path = Column(String(500), nullable=False)
+    file_path = Column(
+        String,
+        nullable=False,
+    )
 
     uploaded_at = Column(
         DateTime(timezone=True),
-        server_default=func.now()
+        server_default=func.now(),
     )
 
-    user = relationship("User", back_populates="resumes")
+    owner_id = Column(
+        Integer,
+        ForeignKey("users.id"),
+        nullable=False,
+    )
+
+    owner = relationship(
+        "User",
+        back_populates="resumes",
+    )

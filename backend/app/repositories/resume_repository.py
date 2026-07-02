@@ -8,48 +8,41 @@ class ResumeRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def get_by_user_id(self, user_id: int):
+    def create(self, resume: Resume):
+
+        self.db.add(resume)
+
+        self.db.commit()
+
+        self.db.refresh(resume)
+
+        return resume
+
+    def get_by_user(self, user_id: int):
+
         return (
             self.db.query(Resume)
-            .filter(Resume.user_id == user_id)
+            .filter(
+                Resume.owner_id == user_id
+            )
+            .order_by(
+                Resume.uploaded_at.desc()
+            )
+            .all()
+        )
+
+    def get_by_id(self, resume_id: int):
+
+        return (
+            self.db.query(Resume)
+            .filter(
+                Resume.id == resume_id
+            )
             .first()
         )
 
-    def create(
-        self,
-        user_id: int,
-        file_name: str,
-        file_path: str
-    ):
-        resume = Resume(
-            user_id=user_id,
-            file_name=file_name,
-            file_path=file_path
-        )
+    def delete(self, resume: Resume):
 
-        self.db.add(resume)
-        self.db.commit()
-        self.db.refresh(resume)
-
-        return resume
-
-    def update(
-        self,
-        resume: Resume,
-        file_name: str,
-        file_path: str
-    ):
-        resume.file_name = file_name
-        resume.file_path = file_path
-
-        self.db.commit()
-        self.db.refresh(resume)
-
-        return resume
-
-    def delete(
-        self,
-        resume: Resume
-    ):
         self.db.delete(resume)
+
         self.db.commit()

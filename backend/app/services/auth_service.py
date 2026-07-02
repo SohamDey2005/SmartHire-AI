@@ -32,16 +32,19 @@ class AuthService:
     
     def authenticate_user(self, email: str, password: str):
         user = self.repository.get_by_email(email)
+        
         if not user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid email or password."
             )
+        print("Entered password:", password)
+        print("Stored hash:", user.hashed_password)
+        print("Verify result:", verify_password(password, user.hashed_password))
         
         if not verify_password(password, user.hashed_password):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid email or password."
             )
-        
         return user

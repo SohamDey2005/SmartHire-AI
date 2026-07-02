@@ -52,7 +52,7 @@ This document outlines the planned user interface screens for the SmartHire AI p
 +-------------------------------------------+
 | Upload Resume                             |
 |-------------------------------------------|
-| Select PDF/DOCX                           |
+| Select PDF                                |
 | [ Choose File ]                           |
 |                                           |
 | [ Upload ]                                |

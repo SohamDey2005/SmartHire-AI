@@ -4,8 +4,13 @@ from pydantic import BaseModel
 
 
 class ResumeResponse(BaseModel):
+
     id: int
-    file_name: str
+
+    filename: str
+
+    file_path: str
+
     uploaded_at: datetime
 
     model_config = {

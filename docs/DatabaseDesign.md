@@ -61,7 +61,6 @@ Attributes:
 - file_name
 - file_path
 - uploaded_at
-- updated_at
 
 Relationship:
 
