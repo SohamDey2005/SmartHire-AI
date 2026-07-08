@@ -177,6 +177,22 @@ export default function ResumeList() {
 
                             </p>
 
+                            <p className="mt-4 text-sm text-gray-700">
+
+                                <span className="font-semibold">
+
+                                    Extracted Text Preview:
+
+                                </span>
+
+                                <br />
+
+                                {resume.extracted_text.length > 300
+                                    ? resume.extracted_text.slice(0, 300) + "..."
+                                    : resume.extracted_text}
+                            
+                            </p>
+
                         </div>
 
                         <div className="flex gap-3">

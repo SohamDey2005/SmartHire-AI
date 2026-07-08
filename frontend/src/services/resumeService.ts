@@ -4,6 +4,7 @@ export interface Resume {
     id: number;
     filename: string;
     file_path: string;
+    extracted_text: string;
     uploaded_at: string;
 }
 

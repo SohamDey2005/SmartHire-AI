@@ -4,10 +4,12 @@ from sqlalchemy import (
     Column,
     Integer,
     String,
+    Text,
     ForeignKey,
     DateTime,
     func,
 )
+
 from sqlalchemy.orm import relationship
 
 from app.database.base import Base
@@ -30,6 +32,11 @@ class Resume(Base):
     file_path = Column(
         String,
         nullable=False,
+    )
+
+    extracted_text = Column(
+        Text,
+        nullable=True,
     )
 
     uploaded_at = Column(

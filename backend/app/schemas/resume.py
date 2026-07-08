@@ -16,3 +16,20 @@ class ResumeResponse(BaseModel):
     model_config = {
         "from_attributes": True
     }
+
+
+class ResumeDetailsResponse(BaseModel):
+
+    id: int
+
+    filename: str
+
+    file_path: str
+
+    uploaded_at: datetime
+
+    extracted_text: str | None
+
+    model_config = {
+        "from_attributes": True
+    }
