@@ -8,3 +8,4 @@ class Base(DeclarativeBase):
 # Import models here
 import app.models.user
 import app.models.resume
+from app.models.resume_analysis import ResumeAnalysis

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
@@ -7,17 +8,31 @@ import {
     getResumes,
     deleteResume,
     downloadResume,
+    analyzeResume,
 } from "../../services/resumeService";
 
-import type { Resume } from "../../services/resumeService";
+import type {
+    Resume,
+    ResumeAnalysis,
+} from "../../services/resumeService";
+
+import ResumeAnalysisCard from "./ResumeAnalysisCard";
 
 export default function ResumeList() {
 
     const { token } = useAuth();
 
+    const navigate = useNavigate();
+
     const [resumes, setResumes] = useState<Resume[]>([]);
 
     const [loading, setLoading] = useState(true);
+
+    const [analysis, setAnalysis] =
+        useState<ResumeAnalysis | null>(null);
+    
+    const [analyzingId, setAnalyzingId] =
+        useState<number | null>(null);
 
     async function loadResumes() {
 
@@ -72,6 +87,45 @@ export default function ResumeList() {
 
         }
 
+    }
+
+    async function handleAnalyze(
+        resumeId: number,
+    ) {
+        
+        if (!token) return;
+
+        try {
+
+            setAnalyzingId(resumeId);
+
+            const result =
+            
+                await analyzeResume(
+                    resumeId,
+                    token,
+                );
+
+            setAnalysis(
+                result.analysis
+            );
+        
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Resume analysis failed."
+            );
+        }
+
+        finally {
+
+            setAnalyzingId(null);
+        
+        }
     }
 
     useEffect(() => {
@@ -177,22 +231,6 @@ export default function ResumeList() {
 
                             </p>
 
-                            <p className="mt-4 text-sm text-gray-700">
-
-                                <span className="font-semibold">
-
-                                    Extracted Text Preview:
-
-                                </span>
-
-                                <br />
-
-                                {resume.extracted_text.length > 300
-                                    ? resume.extracted_text.slice(0, 300) + "..."
-                                    : resume.extracted_text}
-                            
-                            </p>
-
                         </div>
 
                         <div className="flex gap-3">
@@ -208,6 +246,45 @@ export default function ResumeList() {
                             >
 
                                 Download
+
+                            </button>
+
+                            <button
+                                onClick={() =>
+                                    handleAnalyze(
+                                        resume.id
+                                    )
+                                }
+                                disabled={
+                                    analyzingId ===
+                                    resume.id
+                                }
+                                className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 transition text-white px-5 py-2 rounded-lg"
+                            >
+                                {
+                                    analyzingId ===
+                                    resume.id
+                                        ? "Analyzing..."
+                                        : "Analyze"
+                                }
+
+                            </button>
+
+                            <button
+                                onClick={() =>
+                                    navigate(
+                                        "/interview",
+                                        {
+                                            state: {
+                                                resumeId: resume.id,
+                                            },
+                                        }
+                                    )
+                                }
+                                className="bg-purple-600 hover:bg-purple-700 transition text-white px-5 py-2 rounded-lg"
+                            >
+
+                                Interview
 
                             </button>
 
@@ -231,6 +308,14 @@ export default function ResumeList() {
                 ))}
 
             </div>
+
+            {
+                analysis && (
+                    <ResumeAnalysisCard
+                        analysis={analysis}
+                    />
+                )
+            }
 
         </div>
 

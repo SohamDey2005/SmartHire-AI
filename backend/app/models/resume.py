@@ -1,12 +1,10 @@
-from datetime import datetime
-
 from sqlalchemy import (
     Column,
     Integer,
     String,
-    Text,
     ForeignKey,
     DateTime,
+    Text,
     func,
 )
 
@@ -53,4 +51,22 @@ class Resume(Base):
     owner = relationship(
         "User",
         back_populates="resumes",
+    )
+    
+    analysis = relationship(
+        "ResumeAnalysis",
+        back_populates="resume",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+    
+    questions = relationship(
+        "InterviewQuestion",
+        back_populates="resume",
+        cascade="all, delete-orphan",
+    )
+    
+    sessions = relationship(
+        "InterviewSession",
+        cascade="all, delete-orphan",
     )

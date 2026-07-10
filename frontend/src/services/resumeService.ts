@@ -4,8 +4,65 @@ export interface Resume {
     id: number;
     filename: string;
     file_path: string;
-    extracted_text: string;
     uploaded_at: string;
+}
+
+export interface Education {
+    institution: string;
+    degree: string;
+    gpa?: string;
+    grade?: string;
+    start_date?: string;
+    end_date?: string;
+}
+
+export interface Experience {
+    title: string;
+    company: string;
+    location?: string;
+    start_date?: string;
+    end_date?: string;
+    description: string[];
+}
+
+export interface Project {
+    title: string;
+    tech_stack: string[];
+    start_date?: string;
+    end_date?: string;
+    description: string[];
+}
+
+export interface ResumeAnalysis {
+    id: number;
+
+    resume_id: number;
+
+    technical_skills: string[];
+
+    soft_skills: string[];
+
+    frameworks: string[];
+
+    tools: string[];
+
+    databases: string[];
+
+    cloud: string[];
+
+    certifications: string[];
+
+    education: Education[];
+
+    experience: Experience[];
+
+    projects: Project[];
+}
+
+export interface ResumeAnalysisResult {
+    resume: Resume;
+
+    analysis: ResumeAnalysis;
 }
 
 export async function uploadResume(
@@ -88,4 +145,21 @@ export async function downloadResume(
     link.remove();
 
     window.URL.revokeObjectURL(url);
+}
+
+export async function analyzeResume(
+    resumeId: number,
+    token: string,
+): Promise<ResumeAnalysisResult> {
+
+    const response = await api.get(
+        `/resume/analyze/${resumeId}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+
+    return response.data;
 }

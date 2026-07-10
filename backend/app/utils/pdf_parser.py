@@ -1,18 +1,21 @@
-import fitz
+import pdfplumber
 
 
-def extract_text_from_pdf(file_path: str) -> str:
-    """
-    Extract all text from a PDF using PyMuPDF.
-    """
-
-    document = fitz.open(file_path)
+def extract_text_from_pdf(
+    pdf_path: str,
+) -> str:
 
     extracted_text = ""
 
-    for page in document:
-        extracted_text += page.get_text()
+    with pdfplumber.open(pdf_path) as pdf:
 
-    document.close()
+        for page in pdf.pages:
+
+            page_text = page.extract_text()
+
+            if page_text:
+
+                extracted_text += page_text
+                extracted_text += "\n"
 
     return extracted_text.strip()

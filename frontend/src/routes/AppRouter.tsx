@@ -12,6 +12,9 @@ import RecruiterDashboard from "../pages/recruiter/RecruiterDashboard";
 import TestAPI from "../pages/shared/TestAPI";
 import ProtectedRoute from "../components/common/ProtectedRoute";
 import LoginPage from "../pages/auth/LoginPage";
+import InterviewPage from "../pages/candidate/InterviewPage";
+import InterviewReportPage from "../pages/candidate/InterviewReportPage";
+
 
 export default function AppRouter() {
     return (
@@ -38,6 +41,24 @@ export default function AppRouter() {
                     element={
                         <ProtectedRoute>
                             <Dashboard />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/interview"
+                    element={
+                        <ProtectedRoute>
+                            <InterviewPage />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route
+                    path="/interview/report"
+                    element={
+                        <ProtectedRoute>
+                            <InterviewReportPage />
                         </ProtectedRoute>
                     }
                 />

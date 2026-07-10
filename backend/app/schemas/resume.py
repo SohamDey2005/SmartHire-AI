@@ -2,6 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+from app.schemas.resume_analysis import ResumeAnalysisResponse
 
 class ResumeResponse(BaseModel):
 
@@ -26,10 +27,16 @@ class ResumeDetailsResponse(BaseModel):
 
     file_path: str
 
-    uploaded_at: datetime
+    extracted_text: str | None = None
 
-    extracted_text: str | None
+    uploaded_at: datetime
 
     model_config = {
         "from_attributes": True
     }
+
+class ResumeAnalysisResult(BaseModel):
+
+    resume: ResumeDetailsResponse
+
+    analysis: ResumeAnalysisResponse
