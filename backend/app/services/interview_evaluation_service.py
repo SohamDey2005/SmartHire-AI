@@ -54,7 +54,8 @@ class InterviewEvaluationService:
 
             ideal_answer=result["ideal_answer"],
 
-            feedback=result["feedback"],
+            feedback=result.get("feedback","No feedback generated."),
+        
         )
 
         return self.repository.create(

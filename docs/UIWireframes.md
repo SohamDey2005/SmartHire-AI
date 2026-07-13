@@ -1,137 +1,389 @@
+# SmartHire AI
+
 # UI Wireframes
 
 ## Introduction
 
-This document outlines the planned user interface screens for the SmartHire AI platform. These wireframes provide a high-level view of the application layout and navigation flow before frontend implementation.
+This document presents the user interface wireframes for the SmartHire AI platform.
+
+The wireframes represent the application screens implemented up to **Milestone 2 (Resume Parsing & AI Interview Engine)** while also illustrating planned interfaces for future milestones.
 
 ---
 
 # Candidate Interface
 
-## Login Page
+## 1. Home Page
 
 ```
-+--------------------------------------+
-|              SmartHire AI            |
-|--------------------------------------|
-| Email                                |
-| [______________________________]      |
-| Password                             |
-| [______________________________]      |
-|                                      |
-| [ Login ]                            |
-|                                      |
-| New user? Register                   |
-+--------------------------------------+
++--------------------------------------------------------+
+|                    SmartHire AI                        |
+|--------------------------------------------------------|
+|                                                        |
+|        AI-Powered Recruitment Platform                 |
+|                                                        |
+|         [ Login ]      [ Register ]                    |
+|                                                        |
++--------------------------------------------------------+
 ```
 
 ---
 
-## Candidate Dashboard
+## 2. Login Page
 
 ```
-+--------------------------------------------------+
-| SmartHire AI                                     |
-|--------------------------------------------------|
-| Sidebar             | Main Dashboard             |
-|---------------------|----------------------------|
-| Dashboard           | Welcome, Candidate         |
-| Profile             | Resume Score              |
-| Resume              | Applied Jobs              |
-| Jobs                | Upcoming Interviews       |
-| Interviews          | AI Feedback               |
-| Logout              | Notifications             |
-+--------------------------------------------------+
-```
-
----
-
-## Resume Upload
-
-```
-+-------------------------------------------+
-| Upload Resume                             |
-|-------------------------------------------|
-| Select PDF                                |
-| [ Choose File ]                           |
-|                                           |
-| [ Upload ]                                |
-|                                           |
-| Uploaded Resume                           |
-+-------------------------------------------+
++------------------------------------------------+
+|                SmartHire AI                    |
+|------------------------------------------------|
+| Email                                          |
+| [______________________________]               |
+|                                                |
+| Password                                       |
+| [______________________________]               |
+|                                                |
+|           [ Login ]                            |
+|                                                |
+| New User? Register                             |
++------------------------------------------------+
 ```
 
 ---
 
-## Recruiter Interface
+## 3. Registration Page
+
+```
++------------------------------------------------+
+|              Create Account                    |
+|------------------------------------------------|
+| Full Name                                      |
+| [______________________________]               |
+|                                                |
+| Email                                          |
+| [______________________________]               |
+|                                                |
+| Password                                       |
+| [______________________________]               |
+|                                                |
+| Role                                            |
+| [ Candidate ▼ ]                                |
+|                                                |
+|         [ Register ]                           |
++------------------------------------------------+
+```
+
+---
+
+## 4. Candidate Dashboard
+
+```
++--------------------------------------------------------------------+
+| SmartHire AI                                      Logout           |
+|--------------------------------------------------------------------|
+| Welcome, Candidate                                              |
+| Role Badge                                                      |
+| Current Date & Time                                             |
+|------------------------------------------------------------------|
+|                                                            |
+| Resume Upload Card                                          |
+|------------------------------------------------------------|
+| Choose Resume (PDF)                                        |
+| [ Choose File ]                                            |
+| [ Upload Resume ]                                          |
+|                                                            |
+|------------------------------------------------------------|
+| My Resumes                                                 |
+|------------------------------------------------------------|
+| Resume.pdf                                                 |
+| Uploaded On:                                               |
+|                                                            |
+| [Download] [Analyze] [Interview] [Delete]                  |
+|                                                            |
++--------------------------------------------------------------------+
+```
+
+---
+
+## 5. Resume Upload
+
+```
++----------------------------------------------+
+| Upload Resume                                |
+|----------------------------------------------|
+| Select PDF Resume                            |
+|                                              |
+| [ Choose File ]                              |
+|                                              |
+|      [ Upload Resume ]                       |
++----------------------------------------------+
+```
+
+---
+
+## 6. AI Resume Analysis
+
+```
++---------------------------------------------------------------+
+| AI Resume Analysis                                            |
+|---------------------------------------------------------------|
+| Technical Skills                                              |
+| Python  FastAPI  SQL  React                                  |
+|                                                               |
+| Soft Skills                                                   |
+| Leadership  Communication                                    |
+|                                                               |
+| Frameworks                                                    |
+| FastAPI  React                                                |
+|                                                               |
+| Tools                                                         |
+| Git  Docker                                                   |
+|                                                               |
+| Databases                                                     |
+| PostgreSQL                                                    |
+|                                                               |
+| Cloud                                                         |
+| Google Cloud                                                  |
+|                                                               |
+| Certifications                                                |
+| Azure AI Fundamentals                                         |
+|                                                               |
+| Education                                                     |
+| Bachelor of Engineering                                       |
+|                                                               |
+| Experience                                                    |
+| AI Intern                                                     |
+|                                                               |
+| Projects                                                      |
+| DocuMind AI                                                   |
++---------------------------------------------------------------+
+```
+
+---
+
+## 7. AI Interview Page
+
+```
++--------------------------------------------------------------+
+| AI Interview                                                  |
+|--------------------------------------------------------------|
+| Resume Selected                                              |
+| Resume ID: XX                                                |
+|--------------------------------------------------------------|
+|        [ Start Interview ]                                  |
+|--------------------------------------------------------------|
+| Question 1                                                   |
+|                                                             |
+| Your Answer                                                 |
+| [__________________________________________]               |
+|                                                             |
+| [ Next Question ]                                           |
++--------------------------------------------------------------+
+```
+
+---
+
+## 8. Interview Session
+
+```
++--------------------------------------------------------------+
+| Interview Session                                            |
+|--------------------------------------------------------------|
+| Status : Active                                              |
+| Started At : 10:30 AM                                        |
+| Resume : Resume.pdf                                          |
+|--------------------------------------------------------------|
+| Question List                                                |
+|                                                             |
+| Question 1                                                  |
+| Question 2                                                  |
+| Question 3                                                  |
+|                                                             |
+| [ Finish Interview ]                                        |
++--------------------------------------------------------------+
+```
+
+---
+
+# Recruiter Interface (Future)
 
 ## Recruiter Dashboard
 
 ```
-+--------------------------------------------------+
-| SmartHire AI                                     |
-|--------------------------------------------------|
-| Sidebar             | Main Dashboard             |
-|---------------------|----------------------------|
-| Dashboard           | Active Jobs               |
-| Create Job          | Total Applicants          |
-| Manage Jobs         | Interviews Scheduled      |
-| Candidates          | AI Rankings               |
-| Logout              | Notifications             |
-+--------------------------------------------------+
++----------------------------------------------------------------+
+| SmartHire AI                                                   |
+|----------------------------------------------------------------|
+| Sidebar                  | Dashboard                           |
+|---------------------------------------------------------------|
+| Dashboard                | Active Jobs                         |
+| Jobs                     | Applicants                          |
+| Candidates               | AI Resume Scores                    |
+| Interviews               | Hiring Statistics                   |
+| Logout                   | Notifications                       |
++----------------------------------------------------------------+
 ```
 
 ---
 
-## Job Creation
+## Job Management
 
 ```
-+-------------------------------------------+
-| Create Job                                |
-|-------------------------------------------|
-| Job Title                                 |
-| Company                                   |
-| Location                                  |
-| Employment Type                           |
-| Salary                                    |
-| Description                               |
-|                                           |
-| [ Create Job ]                            |
-+-------------------------------------------+
++------------------------------------------------+
+| Create Job                                     |
+|------------------------------------------------|
+| Job Title                                      |
+| Company                                        |
+| Location                                       |
+| Employment Type                                |
+| Salary                                         |
+| Description                                    |
+|                                                |
+|        [ Create Job ]                          |
++------------------------------------------------+
 ```
 
 ---
 
-## Admin Interface
+# Administrator Interface (Future)
 
 ## Admin Dashboard
 
 ```
-+--------------------------------------------------+
-| SmartHire AI                                     |
-|--------------------------------------------------|
-| Sidebar             | Main Dashboard             |
-|---------------------|----------------------------|
-| Users               | Total Users               |
-| Recruiters          | Platform Statistics       |
-| Reports             | AI Usage                  |
-| Logs                | System Health             |
-| Logout              | Notifications             |
-+--------------------------------------------------+
++----------------------------------------------------------------+
+| SmartHire AI                                                   |
+|----------------------------------------------------------------|
+| Sidebar                  | Dashboard                           |
+|---------------------------------------------------------------|
+| Users                    | Total Users                         |
+| Recruiters               | AI Usage                            |
+| Reports                  | System Statistics                   |
+| Logs                     | Platform Health                     |
+| Logout                   | Notifications                       |
++----------------------------------------------------------------+
 ```
 
 ---
 
 # Navigation Flow
 
-Candidate:
+## Candidate Workflow (Implemented)
 
-Login → Dashboard → Resume → Jobs → Interview → Feedback
+```
+Home
 
-Recruiter:
+↓
 
-Login → Dashboard → Jobs → Candidates → Interviews
+Login / Register
 
-Administrator:
+↓
 
-Login → Dashboard → User Management → Reports
+Candidate Dashboard
+
+↓
+
+Upload Resume
+
+↓
+
+Resume List
+
+↓
+
+AI Resume Analysis
+
+↓
+
+Generate Interview Questions
+
+↓
+
+Start Interview Session
+
+↓
+
+Finish Interview
+```
+
+---
+
+## Recruiter Workflow (Future)
+
+```
+Login
+
+↓
+
+Recruiter Dashboard
+
+↓
+
+Create Job
+
+↓
+
+View Applicants
+
+↓
+
+Review AI Analysis
+
+↓
+
+Schedule Interview
+```
+
+---
+
+## Administrator Workflow (Future)
+
+```
+Login
+
+↓
+
+Admin Dashboard
+
+↓
+
+Manage Users
+
+↓
+
+View Reports
+
+↓
+
+Platform Monitoring
+```
+
+---
+
+# UI Status
+
+## Implemented (Milestone 2)
+
+- ✅ Home Page
+- ✅ Login Page
+- ✅ Registration Page
+- ✅ Candidate Dashboard
+- ✅ Resume Upload
+- ✅ Resume Management
+- ✅ AI Resume Analysis
+- ✅ Interview Page
+- ✅ Interview Session Workflow
+
+---
+
+## Planned (Milestone 3)
+
+- Speech Analysis Screen
+- Live Camera Monitoring
+- Emotion Detection Dashboard
+- AI Evaluation Report
+
+---
+
+## Planned (Milestone 4)
+
+- Recruiter Dashboard
+- Job Management
+- Candidate Ranking
+- Analytics Dashboard
+- Admin Dashboard

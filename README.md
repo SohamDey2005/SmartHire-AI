@@ -2,63 +2,113 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![Google Gemini](https://img.shields.io/badge/Google-Gemini-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 # SmartHire AI
 
-An AI-powered Resume Management and Recruitment Platform built using **FastAPI**, **React**, and **PostgreSQL**. The platform enables candidates to securely manage resumes while laying the foundation for AI-powered resume analysis, mock interviews, and recruiter-driven hiring workflows.
+An AI-powered Resume Management and Recruitment Platform built using **FastAPI**, **React**, **TypeScript**, **PostgreSQL**, and **Google Gemini AI**.
+
+SmartHire AI streamlines the recruitment process by enabling candidates to securely manage resumes, receive AI-powered resume analysis, generate personalized interview questions, participate in AI-driven mock interviews, and receive detailed interview evaluation reports.
 
 ---
 
 # 📌 Project Overview
 
-SmartHire AI is designed to simplify the recruitment process for both candidates and recruiters.
+SmartHire AI is an intelligent recruitment platform that combines modern web technologies with Generative AI to enhance the hiring experience for both candidates and recruiters.
 
-Current implementation (Milestone 1) includes:
+The platform currently supports:
 
-- Secure JWT Authentication
-- Role-Based Access Control (RBAC)
-- Resume Management System
-- Protected Candidate Dashboard
-- PostgreSQL Integration
-- RESTful Backend APIs
+- Secure User Authentication
+- Resume Management
+- AI Resume Analysis
+- AI Skill Extraction
+- AI Interview Question Generation
+- Interview Session Management
+- AI Answer Evaluation
+- AI Interview Reports
 
-Future milestones will introduce AI-powered resume parsing, ATS scoring, interview generation, candidate evaluation, and recruiter dashboards.
+Future milestones will introduce speech analysis, emotion recognition, eye-contact tracking, recruiter analytics, and cloud deployment.
 
 ---
 
-# 🚀 Features (Milestone 1)
+# 🚀 Features (Milestone 2)
 
-### Authentication
+## 🔐 Authentication
 
 - User Registration
 - Secure Login
 - JWT Authentication
-- Logout
+- Password Hashing (BCrypt)
 - Protected Routes
-- Role-Based Access Control (Candidate, Recruiter, Administrator)
+- Role-Based Access Control
+- Logout
 
-### Resume Management
+---
 
-- Upload PDF Resume
+## 📄 Resume Management
+
+- Upload Resume (PDF)
 - View Uploaded Resumes
 - Download Resume
 - Delete Resume
+- Resume Storage
+- Resume Parsing
 
-### Dashboard
+---
 
-- Candidate Dashboard
-- Live User Information
+## 🤖 AI Resume Analysis
+
+Powered by **Google Gemini AI**
+
+Automatically extracts:
+
+- Technical Skills
+- Soft Skills
+- Frameworks
+- Tools
+- Databases
+- Cloud Technologies
+- Certifications
+- Education Details
+- Work Experience
+- Projects
+
+---
+
+## 🎤 AI Interview System
+
+- AI Interview Question Generation
+- Personalized Questions based on Resume
+- Interview Session Creation
+- Question-wise Answer Submission
+- AI Answer Evaluation
+- Overall Interview Score
+- AI Feedback Generation
+- Interview Report
+
+---
+
+## 💻 Candidate Dashboard
+
+- Secure Dashboard
+- Resume Management
+- AI Resume Analysis
+- AI Interview Access
+- Interview Reports
 - Responsive UI
-- Resume Management Portal
 
-### Backend
+---
+
+## ⚙ Backend
 
 - REST APIs using FastAPI
 - SQLAlchemy ORM
-- PostgreSQL Database
-- Password Hashing using BCrypt
-- JWT Token Authentication
+- PostgreSQL Integration
+- JWT Authentication
+- Repository Pattern
+- Service Layer Architecture
+- Pydantic Validation
 
 ---
 
@@ -66,13 +116,15 @@ Future milestones will introduce AI-powered resume parsing, ATS scoring, intervi
 
 ## Frontend
 
-- React
+- React 19
 - TypeScript
 - Vite
 - Tailwind CSS
-- React Router
+- React Router DOM
 - Axios
 - React Hot Toast
+
+---
 
 ## Backend
 
@@ -80,9 +132,26 @@ Future milestones will introduce AI-powered resume parsing, ATS scoring, intervi
 - SQLAlchemy
 - PostgreSQL
 - Alembic
-- Passlib (BCrypt)
-- JWT Authentication
 - Pydantic
+- JWT Authentication
+- Passlib (BCrypt)
+
+---
+
+## Artificial Intelligence
+
+- Google Gemini API
+- Prompt Engineering
+- AI Resume Parsing
+- AI Skill Extraction
+- AI Interview Generation
+- AI Answer Evaluation
+
+---
+
+## Database
+
+- PostgreSQL
 
 ---
 
@@ -93,6 +162,17 @@ SmartHire-AI
 │
 ├── backend
 │   ├── app
+│   │   ├── ai
+│   │   ├── api
+│   │   ├── auth
+│   │   ├── core
+│   │   ├── database
+│   │   ├── models
+│   │   ├── repositories
+│   │   ├── schemas
+│   │   ├── services
+│   │   └── ...
+│   │
 │   ├── uploads
 │   ├── alembic
 │   ├── requirements.txt
@@ -100,8 +180,14 @@ SmartHire-AI
 │
 ├── frontend
 │   ├── src
+│   │   ├── components
+│   │   ├── contexts
+│   │   ├── pages
+│   │   ├── routes
+│   │   ├── services
+│   │   └── ...
+│   │
 │   ├── public
-│   ├── package.json
 │   └── ...
 │
 ├── docs
@@ -118,7 +204,43 @@ SmartHire-AI
 
 ---
 
-# ⚙️ Installation
+# 🌐 REST API Endpoints
+
+## Authentication
+
+```
+POST   /api/v1/auth/register
+POST   /api/v1/auth/login
+GET    /api/v1/users/me
+```
+
+---
+
+## Resume
+
+```
+POST   /api/v1/resume/upload
+GET    /api/v1/resume/me
+GET    /api/v1/resume/{id}
+GET    /api/v1/resume/download/{id}
+GET    /api/v1/resume/analyze/{id}
+DELETE /api/v1/resume/{id}
+```
+
+---
+
+## Interview
+
+```
+GET    /api/v1/interview/generate/{resume_id}
+POST   /api/v1/interview/start/{resume_id}
+POST   /api/v1/interview/finish/{session_id}
+GET    /api/v1/interview/sessions
+```
+
+---
+
+# ⚙ Installation
 
 ## 1. Clone Repository
 
@@ -142,27 +264,36 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Create a `.env` file inside the backend folder.
-
-Example:
+Create a `.env` file.
 
 ```env
 DATABASE_URL=postgresql://postgres:your_password@localhost:5432/smarthire_ai
+
 SECRET_KEY=your_secret_key
+
 ALGORITHM=HS256
+
 ACCESS_TOKEN_EXPIRE_MINUTES=60
+
+GEMINI_API_KEY=your_gemini_api_key
 ```
 
-Run the backend:
+Run backend
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-Backend runs at:
+Backend
 
 ```
 http://127.0.0.1:8000
+```
+
+Swagger
+
+```
+http://127.0.0.1:8000/docs
 ```
 
 ---
@@ -177,7 +308,7 @@ npm install
 npm run dev
 ```
 
-Frontend runs at:
+Frontend
 
 ```
 http://localhost:5173
@@ -187,29 +318,27 @@ http://localhost:5173
 
 # 🗄 Database
 
-Database: PostgreSQL
-
-Current Tables
+Current Database Tables
 
 - Users
 - Resumes
+- Resume Analysis
+- Interview Questions
+- Interview Sessions
+- Interview Answers
 
 Future Tables
 
 - Jobs
 - Applications
-- Interviews
-- Interview Questions
-- Interview Responses
-- AI Feedback
 - Notifications
-- Skills
+- Recruiter Feedback
 
 ---
 
 # 📖 Documentation
 
-Project documentation is available in the **docs/** directory.
+Project documentation is available inside the **docs/** directory.
 
 - Project Scope
 - Functional Requirements
@@ -221,90 +350,108 @@ Project documentation is available in the **docs/** directory.
 
 ---
 
-# ✅ Milestone 1 Status
+# ✅ Milestone Progress
 
-Completed
+## ✅ Milestone 1 (Completed)
 
-✔ Project Setup
+- Project Setup
+- FastAPI Backend
+- React Frontend
+- PostgreSQL Integration
+- SQLAlchemy ORM
+- JWT Authentication
+- Role-Based Access Control
+- Candidate Dashboard
+- Resume Upload
+- Resume Download
+- Resume Delete
+- Protected Routes
 
-✔ FastAPI Backend
+---
 
-✔ React Frontend
+## ✅ Milestone 2 (Completed)
 
-✔ PostgreSQL Integration
-
-✔ SQLAlchemy ORM
-
-✔ JWT Authentication
-
-✔ Role-Based Access Control
-
-✔ Candidate Dashboard
-
-✔ Resume Upload
-
-✔ Resume Download
-
-✔ Resume Delete
-
-✔ Protected Routes
-
-✔ Documentation
+- Resume Parsing
+- AI Resume Analysis
+- Skill Extraction
+- Education Extraction
+- Experience Extraction
+- Project Extraction
+- AI Interview Question Generation
+- Interview Session Management
+- AI Answer Evaluation
+- Interview Reports
 
 ---
 
 # 🚧 Upcoming Milestones
 
-## Milestone 2
-
-- Resume Parsing
-- AI Resume Analysis
-- ATS Score Generation
-- Skill Extraction
-- Resume Feedback
-
 ## Milestone 3
 
-- Job Management
-- Candidate Applications
-- Recruiter Dashboard
-- Job Matching
-- Notifications
+- Speech-to-Text
+- Filler Word Detection
+- Emotion Recognition
+- Eye Contact Tracking
+- Confidence Analysis
+- Real-Time AI Monitoring
+
+---
 
 ## Milestone 4
 
-- AI Mock Interview
-- Speech-to-Text
-- AI Evaluation
-- Performance Reports
 - Analytics Dashboard
+- Performance Charts
+- Recruiter Dashboard
+- Admin Dashboard
+- Notifications
+- Cloud Deployment
+- End-to-End Testing
 
 ---
 
-## 📷 Screenshots
+# 📷 Screenshots
 
-Screenshots will be added after the completion of all four project milestones.
+Screenshots will be added after completion of the remaining milestones.
+
+Planned screenshots include:
+
+- Home Page
+- Login
+- Register
+- Candidate Dashboard
+- Resume Upload
+- Resume Analysis
+- AI Interview
+- Interview Report
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Soham Dey**
 
-B.E. in Computer Science & Engineering (CSE)
+B.E. Computer Science & Engineering
 
-Machine Learning | Artificial Intelligence | Full-Stack Development
+University Institute of Technology, The University of Burdwan
 
-GitHub: https://github.com/SohamDey2005
+Machine Learning • Artificial Intelligence • Full-Stack Development
 
-LinkedIn: https://www.linkedin.com/in/sohamdeydurgapur
+GitHub:
+https://github.com/SohamDey2005
+
+LinkedIn:
+https://www.linkedin.com/in/sohamdeydurgapur
 
 ---
 
 # ⭐ Project Status
 
-**Current Version:** v1.0 (Milestone 1)
+**Current Version:** **v2.0 (Milestone 2)**
 
-✅ Milestone 1 Completed 
+✅ Milestone 1 Completed
 
-The project is actively being developed with AI-powered recruitment features planned in the upcoming milestones.
+✅ Milestone 2 Completed
+
+🚀 SmartHire AI now supports AI-powered resume analysis, interview question generation, AI interview evaluation, and intelligent recruitment workflows.
+
+The project is actively being enhanced with speech analysis, emotion detection, eye-contact tracking, analytics dashboards, and cloud deployment in the upcoming milestones.

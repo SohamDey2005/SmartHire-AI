@@ -2,154 +2,311 @@
 
 ## Introduction
 
-This document describes how different users interact with SmartHire AI. The workflows help define the system behavior before implementation.
+This document describes the interaction flows for different users of the SmartHire AI platform. It outlines how users navigate through the system and how AI-powered services process resume and interview data.
+
+Current workflows represent the implementation completed up to **Milestone 2**, including authentication, resume management, AI resume analysis, interview question generation, and interview session management.
 
 ---
 
 # Candidate Workflow
 
-```
+```text
 Candidate Registration
         │
         ▼
 Candidate Login
         │
         ▼
-Dashboard
+Candidate Dashboard
         │
-        ├──────────────► Update Profile
-        │
-        ├──────────────► Upload Resume
+        ├──────────────► Upload Resume (PDF)
         │                      │
         │                      ▼
         │             Resume Stored
         │                      │
         │                      ▼
-        │             AI Resume Analysis
+        │             Resume Text Extraction
+        │                      │
+        │                      ▼
+        │          AI Resume Analysis
+        │                      │
+        │                      ▼
+        │     Skills, Education, Experience,
+        │     Projects & Certifications Extracted
+        │                      │
+        │                      ▼
+        │          View Analysis Results
         │
-        ├──────────────► Browse Jobs
-        │                      │
-        │                      ▼
-        │               Apply for Job
+        ├──────────────► Download Resume
         │
-        ├──────────────► Mock Interview
+        ├──────────────► Delete Resume
+        │
+        ├──────────────► Start AI Interview
         │                      │
         │                      ▼
-        │            AI Interview Questions
+        │          Create Interview Session
         │                      │
         │                      ▼
-        │             Submit Responses
+        │     Generate AI Interview Questions
         │                      │
         │                      ▼
-        │             AI Evaluation
-        │                      │
-        │                      ▼
-        │              View Feedback
+        │         View Interview Questions
+        │
+        └──────────────► Logout
+```
+
+---
+
+# AI Resume Analysis Workflow
+
+```text
+Resume Upload
+      │
+      ▼
+Validate PDF
+      │
+      ▼
+Store Resume
+      │
+      ▼
+Extract Resume Text
+      │
+      ▼
+Generate AI Prompt
+      │
+      ▼
+Gemini AI Processing
+      │
+      ▼
+Extract
+
+• Technical Skills
+• Soft Skills
+• Frameworks
+• Tools
+• Databases
+• Cloud Platforms
+• Certifications
+• Education
+• Experience
+• Projects
+
+      │
+      ▼
+Store Resume Analysis
+      │
+      ▼
+Display Analysis Dashboard
+```
+
+---
+
+# AI Interview Workflow
+
+```text
+Candidate Clicks
+"Start Interview"
         │
         ▼
+Validate Resume
+        │
+        ▼
+Load Resume Analysis
+        │
+        ▼
+Generate AI Interview Questions
+        │
+        ▼
+Save Questions
+        │
+        ▼
+Create Interview Session
+        │
+        ▼
+Display Interview Page
+        │
+        ▼
+Interview Session Active
+```
+
+---
+
+# Resume Management Workflow
+
+```text
+Upload Resume
+      │
+      ▼
+Validate PDF
+      │
+      ▼
+Save File
+      │
+      ▼
+Create Database Record
+      │
+      ▼
+Resume Appears in Dashboard
+      │
+      ├────────► Download Resume
+      │
+      ├────────► Analyze Resume
+      │
+      ├────────► Start Interview
+      │
+      └────────► Delete Resume
+```
+
+---
+
+# Authentication Workflow
+
+```text
+Register
+    │
+    ▼
+Validate User Details
+    │
+    ▼
+Hash Password
+    │
+    ▼
+Save User
+    │
+    ▼
+Login
+    │
+    ▼
+Verify Password
+    │
+    ▼
+Generate JWT Token
+    │
+    ▼
+Access Protected Routes
+    │
+    ▼
 Logout
 ```
 
 ---
 
-# Recruiter Workflow
+# Interview Session Workflow
 
-```
-Recruiter Registration
+```text
+Start Interview
         │
         ▼
+Create Session
+(Status = Active)
+        │
+        ▼
+Generate Questions
+        │
+        ▼
+Candidate Views Questions
+        │
+        ▼
+Finish Interview
+        │
+        ▼
+Session Status Updated
+(Status = Completed)
+```
+
+---
+
+# Recruiter Workflow (Planned)
+
+```text
 Recruiter Login
         │
         ▼
 Recruiter Dashboard
         │
-        ├──────────────► Create Job
+        ├────────► Create Job
         │
-        ├──────────────► Edit Job
+        ├────────► Manage Jobs
         │
-        ├──────────────► View Applicants
+        ├────────► View Applicants
         │
-        ├──────────────► View Candidate Resume
+        ├────────► View Candidate Resume
         │
-        ├──────────────► AI Candidate Ranking
+        ├────────► AI Candidate Ranking
         │
-        ├──────────────► Schedule Interview
-        │
-        └──────────────► Review AI Feedback
+        └────────► Schedule Interview
 ```
 
 ---
 
-# Administrator Workflow
+# Administrator Workflow (Planned)
 
-```
-Admin Login
-      │
-      ▼
-Dashboard
-      │
-      ├────────► Manage Users
-      │
-      ├────────► Manage Recruiters
-      │
-      ├────────► Platform Analytics
-      │
-      ├────────► View Logs
-      │
-      └────────► Monitor AI Usage
-```
-
----
-
-# AI Workflow
-
-```
-Resume Upload
-      │
-      ▼
-Extract Text
-      │
-      ▼
-Parse Resume
-      │
-      ▼
-Identify Skills
-      │
-      ▼
-Resume Score
-      │
-      ▼
-Generate Feedback
-      │
-      ▼
-Store Results
+```text
+Administrator Login
+        │
+        ▼
+Admin Dashboard
+        │
+        ├────────► Manage Users
+        │
+        ├────────► Manage Recruiters
+        │
+        ├────────► Platform Analytics
+        │
+        ├────────► System Logs
+        │
+        └────────► Monitor AI Usage
 ```
 
 ---
 
-# Interview AI Workflow
+# Current Workflow Status
 
-```
-Candidate Starts Interview
-         │
-         ▼
-Read Resume
-         │
-         ▼
-Read Job Description
-         │
-         ▼
-Generate Questions
-         │
-         ▼
-Candidate Answers
-         │
-         ▼
-Evaluate Answers
-         │
-         ▼
-Generate Feedback
-         │
-         ▼
-Store Interview Report
-```
+## ✅ Implemented (Milestone 2)
+
+- User Registration
+- User Login
+- JWT Authentication
+- Role-Based Access Control
+- Candidate Dashboard
+- Resume Upload
+- Resume Download
+- Resume Deletion
+- Resume Text Extraction
+- AI Resume Analysis
+- Skill Extraction
+- Education Extraction
+- Experience Extraction
+- Project Extraction
+- Certification Extraction
+- Interview Question Generation
+- Interview Session Creation
+- Interview Session Completion
+- Interview Page
+- Protected Routes
+
+---
+
+## 🚧 Planned (Milestone 3)
+
+- Speech-to-Text
+- Voice Recording
+- Filler Word Detection
+- Emotion Recognition
+- Eye Contact Tracking
+- AI Interview Evaluation
+- Communication Scoring
+- Confidence Analysis
+
+---
+
+## 📅 Planned (Milestone 4)
+
+- Analytics Dashboard
+- Performance Reports
+- Recruiter Dashboard
+- Job Management
+- Notifications
+- Cloud Deployment
+- AI Feedback Reports
+- End-to-End Interview Assessment

@@ -1,41 +1,77 @@
 # SmartHire AI
 
+# Project Scope
+
 ## Project Overview
 
-SmartHire AI is an AI-powered interview preparation and recruitment assistance platform that helps candidates improve their interview skills while enabling recruiters to efficiently manage hiring workflows.
+SmartHire AI is an AI-powered recruitment and interview preparation platform developed using **FastAPI**, **React**, **PostgreSQL**, and **Google Gemini AI**.
 
-The platform integrates Artificial Intelligence, Natural Language Processing (NLP), and Large Language Models (LLMs) to automate resume analysis, interview question generation, candidate evaluation, and personalized feedback.
+The platform enables candidates to securely manage resumes, perform AI-powered resume analysis, generate personalized interview questions, and participate in AI-driven mock interview sessions. The architecture is designed to be scalable, allowing future integration of recruiter workflows, speech analysis, candidate evaluation, and analytics.
+
+This document reflects the project scope up to **Milestone 2 (Resume Parsing & Interview Engine)**.
 
 ---
 
 # Problem Statement
 
-Traditional hiring processes are often time-consuming, inconsistent, and require significant manual effort from recruiters. Candidates also lack access to personalized interview practice and meaningful feedback.
+Traditional recruitment processes require significant manual effort for resume screening, technical evaluation, and interview preparation. Recruiters spend considerable time reviewing resumes, while candidates often lack access to personalized interview practice and constructive feedback.
 
-SmartHire AI aims to bridge this gap by providing an intelligent platform that assists both candidates and recruiters throughout the recruitment lifecycle.
+SmartHire AI addresses these challenges by automating resume analysis and interview preparation using Artificial Intelligence, enabling a more efficient and personalized recruitment experience.
 
 ---
 
-# Objectives
+# Project Objectives
 
 The primary objectives of SmartHire AI are:
 
 - Build a secure recruitment platform.
-- Provide AI-powered resume analysis.
-- Generate personalized interview questions.
-- Evaluate candidate responses using AI.
-- Offer detailed performance feedback.
-- Simplify recruiter hiring workflows.
+- Provide role-based authentication and authorization.
+- Enable secure resume management.
+- Extract structured information from resumes using AI.
+- Generate personalized interview questions from resume content.
+- Manage AI mock interview sessions.
+- Establish a scalable architecture for future AI-powered recruitment features.
 
 ---
 
 # Target Users
 
-The system supports three types of users:
+The platform supports three categories of users:
 
-- Candidate
-- Recruiter
-- Administrator
+## Candidate
+
+Candidates can:
+
+- Register and login securely.
+- Upload multiple resumes.
+- Download and delete resumes.
+- Analyze resumes using AI.
+- View extracted skills and resume details.
+- Generate AI interview questions.
+- Start and manage interview sessions.
+
+---
+
+## Recruiter (Future)
+
+Recruiters will be able to:
+
+- Create and manage job postings.
+- Review candidate resumes.
+- Access AI-generated resume insights.
+- Evaluate interview performance.
+- Track applicants.
+
+---
+
+## Administrator (Future)
+
+Administrators will be able to:
+
+- Manage platform users.
+- Monitor system usage.
+- View analytics.
+- Manage platform configuration.
 
 ---
 
@@ -43,55 +79,221 @@ The system supports three types of users:
 
 ## Frontend
 
-- React
+- React 19
+- TypeScript
 - Vite
 - Tailwind CSS
+- React Router
+- Axios
+- React Hot Toast
+
+---
 
 ## Backend
 
 - FastAPI
-- Python
+- Python 3.10
+- SQLAlchemy ORM
+- Pydantic
+- Alembic
+
+---
 
 ## Database
 
 - PostgreSQL
 
-## ORM
-
-- SQLAlchemy
-
-## Database Migration
-
-- Alembic
+---
 
 ## Authentication
 
 - JWT Authentication
-
-## AI & Machine Learning
-
-- OpenAI GPT
-- Hugging Face Transformers
-- LangChain
-- Sentence Transformers
+- BCrypt Password Hashing
+- Role-Based Access Control (RBAC)
 
 ---
 
-# Project Modules
+## Artificial Intelligence
 
-1. Authentication
-2. Resume Management
-3. Job Management
-4. Candidate Applications
-5. AI Resume Analysis
-6. AI Interview Generator
-7. AI Candidate Evaluation
-8. Recruiter Dashboard
-9. Candidate Dashboard
-10. Admin Dashboard
+- Google Gemini API
+- Large Language Models (LLMs)
+- Prompt Engineering
+- JSON-based AI Extraction
 
 ---
 
-# Expected Outcome
+# Current Project Modules (Implemented)
 
-SmartHire AI will provide a secure, scalable, and intelligent recruitment platform that improves the hiring experience for recruiters while helping candidates prepare effectively for technical and HR interviews.
+## Authentication Module
+
+- User Registration
+- User Login
+- JWT Authentication
+- Protected Routes
+- Role-Based Authorization
+
+---
+
+## Resume Management Module
+
+- Resume Upload
+- Resume Download
+- Resume Deletion
+- Resume Listing
+- Resume Text Extraction
+
+---
+
+## AI Resume Analysis Module
+
+- Technical Skill Extraction
+- Soft Skill Extraction
+- Framework Detection
+- Tool Detection
+- Database Detection
+- Cloud Technology Detection
+- Certification Extraction
+- Education Extraction
+- Experience Extraction
+- Project Extraction
+
+---
+
+## AI Interview Engine
+
+- AI Interview Question Generation
+- Resume-Based Questions
+- Categorized Questions
+- Dynamic Question Generation
+
+---
+
+## Interview Session Module
+
+- Start Interview Session
+- Finish Interview Session
+- Session Status Tracking
+- Session History
+
+---
+
+## Candidate Dashboard
+
+- Resume Management
+- Resume Analysis
+- Interview Generation
+- Interview Session Access
+
+---
+
+# Planned Modules (Future)
+
+## Recruiter Module
+
+- Job Management
+- Candidate Management
+- Resume Screening
+- Applicant Tracking
+- Interview Scheduling
+
+---
+
+## AI Interview Evaluation
+
+- Speech-to-Text
+- Candidate Answer Evaluation
+- AI Scoring
+- AI Feedback Generation
+
+---
+
+## AI Monitoring
+
+- Emotion Recognition
+- Eye Contact Tracking
+- Confidence Analysis
+- Communication Analysis
+
+---
+
+## Analytics Dashboard
+
+- Resume Analytics
+- Interview Analytics
+- Candidate Performance Reports
+- Recruiter Insights
+
+---
+
+## Notification System
+
+- Email Notifications
+- Interview Alerts
+- Application Updates
+- AI Report Notifications
+
+---
+
+# Expected Outcomes
+
+Upon completion of Milestone 2, SmartHire AI provides:
+
+- Secure authentication system.
+- Resume management platform.
+- AI-powered resume parsing.
+- AI-based skill extraction.
+- AI-generated interview questions.
+- Interview session management.
+- Responsive candidate dashboard.
+- Modular backend architecture for future expansion.
+
+---
+
+# Project Scope Status
+
+## Completed (Milestone 1)
+
+- Project Initialization
+- Database Setup
+- Authentication
+- Role-Based Access Control
+- Resume Management
+- Candidate Dashboard
+
+---
+
+## Completed (Milestone 2)
+
+- Resume Parsing
+- AI Resume Analysis
+- Skill Extraction
+- Interview Question Generation
+- Interview Session Management
+- AI Interview Workflow
+
+---
+
+## Planned (Milestone 3)
+
+- Speech-to-Text
+- Emotion Detection
+- Eye Contact Tracking
+- AI Candidate Evaluation
+- Scoring Engine
+
+---
+
+## Planned (Milestone 4)
+
+- Recruiter Dashboard
+- Analytics Dashboard
+- Reports
+- Notifications
+- Cloud Deployment
+- Production Release
+
+---
+
+# Expected Final Outcome
+
+SmartHire AI will evolve into a comprehensive AI-powered recruitment platform capable of assisting candidates throughout interview preparation while providing recruiters with intelligent resume screening, interview evaluation, analytics, and hiring support through advanced Artificial Intelligence technologies.

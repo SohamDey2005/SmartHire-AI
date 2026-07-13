@@ -1,7 +1,13 @@
+# =========================
 # Python
+# =========================
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
 
 # Virtual Environments
 venv/
@@ -9,45 +15,47 @@ venv/
 
 # Environment Variables
 .env
+.env.*
 
-# VS Code
-.vscode/
-
-# PyCharm
-.idea/
-
-# OS Files
-.DS_Store
-Thumbs.db
-
-# Database
-*.db
-*.sqlite3
-
-# Logs
-*.log
-
-# Build files
+# =========================
+# Node / React
+# =========================
+frontend/node_modules/
+frontend/dist/
 dist/
 build/
 
-# Pytest
-.pytest_cache/
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
 
-# Coverage
-.coverage
-htmlcov/
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
 
-# Python
-venv/
-__pycache__/
-*.pyc
+# =========================
+# Database
+# =========================
+*.db
+*.sqlite3
 
-# Environment
-.env
+# =========================
+# Logs
+# =========================
+*.log
 
-# Uploaded files
+# =========================
+# Uploaded Resume Files
+# =========================
 backend/uploads/resumes/*
-
-# Keep folder structure
 !backend/uploads/resumes/.gitkeep
+
+# =========================
+# Python Cache
+# =========================
+*.egg-info/
+.mypy_cache/
