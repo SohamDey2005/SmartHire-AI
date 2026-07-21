@@ -75,7 +75,7 @@ Extract Resume Text
 Generate AI Prompt
       │
       ▼
-Gemini AI Processing
+Groq LLM Processing
       │
       ▼
 Extract

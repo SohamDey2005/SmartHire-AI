@@ -1,13 +1,14 @@
 import json
 
-from app.ai.gemini_client import GeminiClient
+from app.ai.groq_client import GroqClient
 from app.ai.interview_prompt import interview_prompt
 
 
 class InterviewGenerator:
 
     def __init__(self):
-        self.client = GeminiClient()
+
+        self.client = GroqClient()
 
     def generate(
         self,

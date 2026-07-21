@@ -4,7 +4,7 @@
 
 ## Project Overview
 
-SmartHire AI is an AI-powered recruitment and interview preparation platform developed using **FastAPI**, **React**, **PostgreSQL**, and **Google Gemini AI**.
+SmartHire AI is an AI-powered recruitment and interview preparation platform developed using **FastAPI**, **React**, **PostgreSQL**, and **Groq LLM API**.
 
 The platform enables candidates to securely manage resumes, perform AI-powered resume analysis, generate personalized interview questions, and participate in AI-driven mock interview sessions. The architecture is designed to be scalable, allowing future integration of recruiter workflows, speech analysis, candidate evaluation, and analytics.
 
@@ -115,7 +115,8 @@ Administrators will be able to:
 
 ## Artificial Intelligence
 
-- Google Gemini API
+- Groq API
+- Llama 3.3 70B Versatile
 - Large Language Models (LLMs)
 - Prompt Engineering
 - JSON-based AI Extraction

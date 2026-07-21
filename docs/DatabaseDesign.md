@@ -81,7 +81,7 @@ Stores uploaded resumes for candidates.
 
 ### Purpose
 
-Stores AI-generated resume analysis using Google Gemini.
+Stores AI-generated resume analysis using the Groq API (Llama 3.3 70B Versatile).
 
 ### Attributes
 

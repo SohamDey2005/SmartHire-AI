@@ -2,12 +2,12 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
 ![React](https://img.shields.io/badge/React-19-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![Google Gemini](https://img.shields.io/badge/Google-Gemini-orange)
+![Groq](https://img.shields.io/badge/Groq-LLM-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 # SmartHire AI
 
-An AI-powered Resume Management and Recruitment Platform built using **FastAPI**, **React**, **TypeScript**, **PostgreSQL**, and **Google Gemini AI**.
+An AI-powered Resume Management and Recruitment Platform built using **FastAPI**, **React**, **TypeScript**, **PostgreSQL**, and **Groq LLM API**.
 
 SmartHire AI streamlines the recruitment process by enabling candidates to securely manage resumes, receive AI-powered resume analysis, generate personalized interview questions, participate in AI-driven mock interviews, and receive detailed interview evaluation reports.
 
@@ -59,7 +59,7 @@ Future milestones will introduce speech analysis, emotion recognition, eye-conta
 
 ## 🤖 AI Resume Analysis
 
-Powered by **Google Gemini AI**
+Powered by **Groq LLM (Llama 3.3 70B Versatile)**
 
 Automatically extracts:
 
@@ -140,12 +140,15 @@ Automatically extracts:
 
 ## Artificial Intelligence
 
-- Google Gemini API
+- Groq API
+- Llama 3.3 70B Versatile
 - Prompt Engineering
-- AI Resume Parsing
-- AI Skill Extraction
-- AI Interview Generation
-- AI Answer Evaluation
+- Resume Parsing
+- Skill Extraction
+- Resume Analysis
+- Interview Question Generation
+- Interview Answer Evaluation
+- Structured JSON Output
 
 ---
 
@@ -275,7 +278,7 @@ ALGORITHM=HS256
 
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 
-GEMINI_API_KEY=your_gemini_api_key
+GROQ_API_KEY=your_groq_api_key
 ```
 
 Run backend
