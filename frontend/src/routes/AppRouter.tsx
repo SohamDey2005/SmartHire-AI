@@ -14,6 +14,11 @@ import ProtectedRoute from "../components/common/ProtectedRoute";
 import LoginPage from "../pages/auth/LoginPage";
 import InterviewPage from "../pages/candidate/InterviewPage";
 import InterviewReportPage from "../pages/candidate/InterviewReportPage";
+import InterviewAnalytics from "../pages/candidate/InterviewAnalytics";
+import InterviewHistory from "../pages/candidate/InterviewHistory";
+import ProgressDashboard from "../pages/candidate/ProgressDashboard";
+import FeedbackDashboard from "../pages/candidate/FeedbackDashboard";
+import RecruiterPlayback from "../pages/recruiter/RecruiterPlayback";
 
 
 export default function AppRouter() {
@@ -64,6 +69,43 @@ export default function AppRouter() {
                 />
 
                 <Route
+                    path="/interview-analytics/:sessionId"
+                    element={
+                        <InterviewAnalytics
+                        />
+                    }
+                />
+
+                <Route
+                    path="/interview-history"
+                    element={
+                        <InterviewHistory
+                        />
+                    }
+                />
+
+                <Route
+                    path="/progress"
+                    element={
+                        <ProgressDashboard
+                        />
+                    }
+                />
+
+                <Route
+                    path="/feedback/:sessionId"
+                    element={
+                        <FeedbackDashboard
+                        />
+                    }
+                />
+
+                <Route
+                    path="/progress/:sessionId"
+                    element={<ProgressDashboard />}
+                />
+
+                <Route
                     path="/admin"
                     element={<AdminDashboard />}
                 />
@@ -71,6 +113,11 @@ export default function AppRouter() {
                 <Route
                     path="/recruiter"
                     element={<RecruiterDashboard />}
+                />
+
+                <Route
+                    path="/recruiter-playback/:sessionId"
+                    element={<RecruiterPlayback />}
                 />
 
                 <Route

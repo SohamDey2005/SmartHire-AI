@@ -1,20 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import { useAuth } from "../../contexts/AuthContext";
-
-import {
-    startInterview,
-    generateQuestions,
-    saveAnswer,
-    finishInterview,
-    type InterviewQuestion,
-    type InterviewSession,
-} from "../../services/interviewService";
+import InterviewMonitor from "../../components/interview/InterviewMonitor";
+import type { InterviewMonitorHandle } from "../../components/interview/InterviewMonitor";
+import QuestionPanel from "../../components/interview/QuestionPanel";
+import AnswerPanel from "../../components/interview/AnswerPanel";
+import EvaluationPanel from "../../components/interview/EvaluationPanel";
 
 export default function InterviewPage() {
-
-    const { token } = useAuth();
 
     const location = useLocation();
 
@@ -22,258 +16,407 @@ export default function InterviewPage() {
 
     const resumeId = location.state?.resumeId;
 
-    const [session, setSession] =
-        useState<InterviewSession | null>(null);
+    const token = localStorage.getItem("token");
+
+    //------------------------------------
+    // Interview Monitor Ref
+    //------------------------------------
+
+    const monitorRef =
+        useRef<InterviewMonitorHandle>(null);
+
+    //------------------------------------
+    // Interview States
+    //------------------------------------
 
     const [questions, setQuestions] =
-        useState<InterviewQuestion[]>([]);
+        useState<any[]>([]);
 
-    const [index, setIndex] =
+    const [currentQuestion, setCurrentQuestion] =
         useState(0);
+
+    const [sessionId, setSessionId] =
+        useState<number | null>(null);
 
     const [answer, setAnswer] =
         useState("");
 
-    const [loading, setLoading] =
-        useState(true);
+    const [answers, setAnswers] =
+        useState<any[]>([]);
 
-    const [saving, setSaving] =
+    const [evaluation, setEvaluation] =
+        useState<any>(null);
+
+    const [loading, setLoading] =
         useState(false);
+
+    //------------------------------------
+    // Start Interview
+    //------------------------------------
 
     useEffect(() => {
 
-        async function initialize() {
+        if (!resumeId) {
 
-            if (!token || !resumeId)
-                return;
-
-            try {
-
-                const interviewSession =
-                    await startInterview(
-                        resumeId,
-                        token,
-                    );
-
-                setSession(
-                    interviewSession
-                );
-
-                const generatedQuestions =
-                    await generateQuestions(
-                        resumeId,
-                        token,
-                    );
-
-                setQuestions(
-                    generatedQuestions
-                );
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert(
-                    "Unable to start interview."
-                );
-
-            } finally {
-
-                setLoading(false);
-
-            }
+            return;
 
         }
 
-        initialize();
+        startInterview();
 
     }, []);
 
-    async function nextQuestion() {
+    //------------------------------------
+    // Start Interview API
+    //------------------------------------
+
+    const startInterview = async () => {
+
+        try {
+
+            const session =
+                await axios.post(
+
+                    `http://127.0.0.1:8000/api/v1/interview/start/${resumeId}`,
+
+                    {},
+
+                    {
+
+                        headers: {
+
+                            Authorization:
+                                `Bearer ${token}`,
+
+                        },
+
+                    }
+
+                );
+
+            console.log(session.data);
+
+            setSessionId(
+                session.data.id
+            );
+
+            const response =
+                await axios.get(
+
+                    `http://127.0.0.1:8000/api/v1/interview/generate/${resumeId}`,
+
+                    {
+
+                        headers: {
+
+                            Authorization:
+                                `Bearer ${token}`,
+
+                        },
+
+                    }
+
+                );
+
+            setQuestions(
+                response.data
+            );
+
+            // Start monitoring after first question loads
+
+            setTimeout(() => {
+
+                monitorRef.current?.startRecording();
+
+            }, 500);
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
+
+    };
+
+    //------------------------------------
+    // Submit Answer
+    //------------------------------------
+
+    const submitAnswer = async () => {
+
+        if (!answer.trim()) {
+
+            alert(
+                "Please write an answer."
+            );
+
+            return;
+
+        }
+
+        // Stop recording and analyze this answer
+
+        if (monitorRef.current) {
+
+            monitorRef.current.startAnalyzing();
+
+            await monitorRef.current.stopRecording();
+
+        }
+
+        setLoading(true);
+
+        try {
+
+            const response =
+                await axios.post(
+
+                    "http://127.0.0.1:8000/api/v1/interview/evaluate",
+
+                    {
+
+                        question:
+
+                            questions[currentQuestion]
+                                .question,
+
+                        answer,
+
+                    },
+
+                    {
+
+                        headers: {
+
+                            Authorization:
+                                `Bearer ${token}`,
+
+                        },
+
+                    }
+
+                );
+
+            const result =
+                response.data;
+
+            setEvaluation(
+                result
+            );
+
+            setAnswers([
+
+                ...answers,
+
+                {
+
+                    question:
+
+                        questions[currentQuestion]
+                            .question,
+
+                    answer,
+
+                    evaluation: result,
+
+                },
+
+            ]);
+
+            setAnswer("");
+
+        }
+
+        catch (err) {
+
+            console.log(err);
+
+        }
+
+        setLoading(false);
 
         if (
-            !session ||
-            !questions[index] ||
-            !token
+
+            currentQuestion <
+
+            questions.length - 1
+
         ) {
+
+            setTimeout(async () => {
+
+                monitorRef.current?.resetMonitoring();
+
+                setCurrentQuestion(
+
+                    prev => prev + 1
+
+                );
+
+                setEvaluation(null);
+
+                setAnswer("");
+
+                await monitorRef.current?.startRecording();
+
+            }, 2000);
+
+        }
+
+    };
+
+    //------------------------------------
+    // Finish Interview
+    //------------------------------------
+
+    const finishInterview = async () => {
+
+        if (monitorRef.current) {
+
+            await monitorRef.current.stopRecording();
+
+        }
+
+        if (!sessionId) {
+
             return;
+
         }
 
         try {
 
-            setSaving(true);
+            await axios.post(
 
-            await saveAnswer(
+                `http://127.0.0.1:8000/api/v1/interview/finish/${sessionId}`,
+
+                {},
+
                 {
-                    session_id: session.id,
-                    question_id: questions[index].id,
-                    candidate_answer: answer,
-                },
-                token,
+
+                    headers: {
+
+                        Authorization:
+                            `Bearer ${token}`,
+
+                    },
+
+                }
+
             );
-
-            setAnswer("");
-
-            if (
-                index ===
-                questions.length - 1
-            ) {
-
-                await finishInterview(
-                    session.id,
-                    token,
-                );
-
-                navigate(
-                    "/interview/report",
-                    {
-                        state: {
-                            sessionId:
-                                session.id,
-                        },
-                    }
-                );
-
-            } else {
-
-                setIndex(
-                    (prev) => prev + 1
-                );
-
-            }
-
-        } catch (error) {
-
-            console.error(error);
 
             alert(
-                "Failed to save answer."
+                "Interview Completed Successfully."
             );
 
-        } finally {
-
-            setSaving(false);
+            navigate(
+                `/interview-analytics/${sessionId}`
+            );
 
         }
 
-    }
+        catch (err) {
 
-    if (loading) {
+            console.log(err);
 
-        return (
+        }
 
-            <div className="p-10 text-center text-xl">
-
-                Loading interview...
-
-            </div>
-
-        );
-
-    }
-
-    if (questions.length === 0) {
-
-        return (
-
-            <div className="p-10 text-center">
-
-                No interview questions found.
-
-            </div>
-
-        );
-
-    }
-
-    const question =
-        questions[index];
+    };
 
     return (
 
-        <div className="max-w-5xl mx-auto py-10 px-4">
+        <div className="min-h-screen bg-gray-100 p-8">
 
             <h1 className="text-3xl font-bold mb-8">
-
-                AI Interview
-
+                SmartHire AI Mock Interview
             </h1>
 
-            <div className="bg-white rounded-xl shadow-lg p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                <div className="flex justify-between items-center mb-6">
+                {/* Left Side */}
 
-                    <h2 className="text-xl font-semibold">
+                <div className="lg:col-span-2 space-y-6">
 
-                        Question {index + 1}
+                    {/* Session */}
 
-                    </h2>
+                    <div className="bg-white rounded-xl shadow p-6">
 
-                    <span className="text-gray-500">
+                        <h2 className="text-xl font-semibold">
+                            Resume ID : {resumeId}
+                        </h2>
 
-                        {index + 1} / {questions.length}
+                        <p className="text-gray-500 mt-2">
+                            Session ID : {sessionId ?? "Starting..."}
+                        </p>
 
-                    </span>
+                    </div>
+
+                    {/* Question */}
+
+                    <QuestionPanel
+
+                        question={
+                            questions.length > 0
+                                ? questions[currentQuestion].question
+                                : "Loading Interview Questions..."
+                        }
+
+                        currentQuestion={currentQuestion}
+
+                        totalQuestions={questions.length}
+
+                    />
+
+                    {/* Answer */}
+
+                    <AnswerPanel
+
+                        answer={answer}
+
+                        loading={loading}
+
+                        onChange={setAnswer}
+
+                        onSubmit={submitAnswer}
+
+                        onFinish={finishInterview}
+
+                    />
 
                 </div>
 
-                <p className="text-blue-600 font-semibold mb-2">
+                {/* Right Side */}
 
-                    {question.category}
+                <div className="space-y-6">
 
-                </p>
+                    {sessionId ? (
 
-                <p className="text-lg mb-8">
+                        <InterviewMonitor
 
-                    {question.question}
+                            ref={monitorRef}
 
-                </p>
+                            sessionId={sessionId}
 
-                <textarea
+                        />
 
-                    value={answer}
+                    ) : (
 
-                    onChange={(e) =>
-                        setAnswer(
-                            e.target.value
-                        )
-                    }
+                        <div className="bg-white rounded-xl shadow p-6 text-center">
 
-                    rows={8}
+                            <p className="text-gray-500">
+                                Initializing AI Monitoring...
+                            </p>
 
-                    className="w-full border rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        </div>
 
-                    placeholder="Type your answer here..."
+                    )}
 
-                />
+                    <EvaluationPanel
 
-                <div className="mt-8 flex justify-end">
+                        evaluation={evaluation}
 
-                    <button
-
-                        onClick={nextQuestion}
-
-                        disabled={saving}
-
-                        className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white px-6 py-3 rounded-lg"
-
-                    >
-
-                        {
-
-                            saving
-
-                                ? "Saving..."
-
-                                : index === questions.length - 1
-
-                                    ? "Finish Interview"
-
-                                    : "Next Question"
-
-                        }
-
-                    </button>
+                    />
 
                 </div>
 

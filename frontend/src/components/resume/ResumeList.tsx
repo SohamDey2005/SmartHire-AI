@@ -190,7 +190,7 @@ export default function ResumeList() {
                 
             </h2>
 
-            <div className="space-y-4">
+            <div className="space-y-5">
 
                 {resumes.map((resume) => (
 

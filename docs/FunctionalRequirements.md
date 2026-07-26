@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This document defines the functional requirements of the SmartHire AI platform.
+This document defines the functional requirements of the **SmartHire AI** platform.
 
-SmartHire AI is an AI-powered recruitment platform that assists candidates in resume management, AI-based resume analysis, and mock interview preparation while providing a scalable architecture for future recruiter and administrator workflows.
+SmartHire AI is an AI-powered recruitment platform that assists candidates throughout the hiring preparation process by combining resume analysis, AI-powered mock interviews, speech analysis, facial emotion recognition, eye-contact monitoring, and intelligent interview evaluation.
 
-This document reflects the functionality implemented up to **Milestone 2**.
+This document reflects the functionality implemented up to **Milestone 3**.
 
 ---
 
@@ -21,7 +21,8 @@ The system shall allow users to:
 - Authenticate using JWT tokens.
 - Logout securely.
 - Access protected pages only after authentication.
-- Access features based on assigned role (Candidate, Recruiter, Administrator).
+- Access features according to assigned role (Candidate, Recruiter, Administrator).
+- Maintain secure user sessions.
 
 ---
 
@@ -30,12 +31,14 @@ The system shall allow users to:
 The system shall allow candidates to:
 
 - Upload PDF resumes.
+- Validate uploaded files.
 - Store uploaded resumes securely.
 - Extract resume text automatically.
 - View uploaded resumes.
-- Download uploaded resumes.
-- Delete uploaded resumes.
+- Download resumes.
+- Delete resumes.
 - Manage multiple resumes.
+- Prevent unauthorized resume access.
 
 ---
 
@@ -46,16 +49,17 @@ The system shall:
 - Parse uploaded resumes.
 - Extract resume text.
 - Identify technical skills.
-- Identify soft skills.
-- Extract frameworks and libraries.
-- Extract developer tools.
-- Extract databases.
-- Extract cloud platforms.
-- Extract certifications.
+- Identify programming languages.
+- Identify frameworks.
+- Identify developer tools.
+- Identify databases.
+- Identify cloud platforms.
+- Identify certifications.
 - Extract education details.
 - Extract work experience.
 - Extract projects.
-- Store AI-generated analysis in the database.
+- Generate structured AI analysis.
+- Store AI-generated analysis.
 - Display analysis on the dashboard.
 
 ---
@@ -64,11 +68,13 @@ The system shall:
 
 The system shall:
 
-- Generate interview questions from resume content.
-- Categorize interview questions.
-- Support different difficulty levels.
+- Generate interview questions using resume content.
+- Generate technical questions.
+- Generate behavioral questions.
+- Categorize questions.
+- Assign difficulty levels.
 - Store generated questions.
-- Regenerate questions when required.
+- Regenerate interview questions when requested.
 
 ---
 
@@ -77,27 +83,116 @@ The system shall:
 The system shall:
 
 - Start a new interview session.
-- Associate the session with a selected resume.
+- Associate sessions with uploaded resumes.
+- Maintain interview status.
 - Record interview start time.
 - Record interview completion time.
-- Maintain interview session status.
-- Display interview session history.
+- Display interview history.
+- Support multiple interview attempts.
 
 ---
 
-## 6. Candidate Dashboard
+## 6. AI Mock Interview
 
 The system shall allow candidates to:
 
-- View personal information.
-- View uploaded resumes.
-- Upload new resumes.
+- Attend AI-generated mock interviews.
+- View one question at a time.
+- Submit answers.
+- Automatically progress through questions.
+- Complete the interview.
+- Generate interview reports.
+
+---
+
+## 7. AI Answer Evaluation
+
+The system shall:
+
+- Evaluate candidate answers.
+- Generate AI scores.
+- Generate AI feedback.
+- Store evaluations.
+- Display evaluation after every answer.
+- Calculate overall interview performance.
+
+---
+
+## 8. Real-Time Interview Monitoring
+
+The system shall:
+
+- Activate webcam monitoring.
+- Capture interview snapshots.
+- Record candidate audio.
+- Process interview media after each answer.
+- Display real-time monitoring information.
+- Update monitoring results after every question.
+
+---
+
+## 9. Speech Analysis
+
+The system shall:
+
+- Convert speech into text.
+- Display transcription.
+- Detect filler words.
+- Calculate fluency score.
+- Measure speaking quality.
+- Store speech analysis results.
+
+---
+
+## 10. Emotion Recognition
+
+The system shall:
+
+- Detect facial emotions.
+- Identify dominant emotion.
+- Analyze candidate expressions.
+- Display emotion results.
+- Store detected emotions.
+
+---
+
+## 11. Eye Contact Detection
+
+The system shall:
+
+- Detect eye contact using webcam images.
+- Determine whether the candidate is looking at the camera.
+- Monitor attention.
+- Store eye-contact results.
+
+---
+
+## 12. Overall AI Interview Evaluation
+
+The system shall:
+
+- Combine speech analysis.
+- Combine emotion recognition.
+- Combine eye-contact detection.
+- Generate overall AI interview score.
+- Generate interview recommendation.
+- Display interview analytics.
+
+---
+
+## 13. Candidate Dashboard
+
+The system shall allow candidates to:
+
+- View profile information.
+- Upload resumes.
 - Download resumes.
 - Delete resumes.
-- Analyze resumes using AI.
-- Start mock interviews.
-- View generated interview questions.
-- View interview sessions.
+- Analyze resumes.
+- Start interviews.
+- View interview history.
+- View AI reports.
+- View interview analytics.
 
 ---
 
@@ -108,12 +203,14 @@ The system will allow recruiters to:
 - Register recruiter accounts.
 - Login securely.
 - Create job postings.
-- Edit jobs.
-- Delete jobs.
+- Edit job postings.
+- Delete job postings.
 - View applicants.
-- Review candidate resumes.
-- View AI-generated resume analysis.
-- Track interview performance.
+- Review resumes.
+- Review AI resume analysis.
+- Review interview reports.
+- Compare candidate performance.
+- Rank applicants.
 
 ---
 
@@ -121,31 +218,30 @@ The system will allow recruiters to:
 
 The administrator shall be able to:
 
-- Manage user accounts.
-- Manage recruiter accounts.
+- Manage users.
+- Manage recruiters.
+- Manage job postings.
 - View platform statistics.
 - Monitor AI usage.
-- View audit logs.
+- Monitor interview activities.
+- Manage audit logs.
 - Manage reported users.
 
 ---
 
-# AI Module
+# Artificial Intelligence Module
 
-The AI engine shall support:
+## Resume Analysis Engine
 
-## Resume Analysis
+The AI engine shall:
 
-- Resume parsing.
-- Skill extraction.
-- Framework detection.
-- Tool identification.
-- Database detection.
-- Cloud technology detection.
-- Certification extraction.
-- Education extraction.
-- Experience extraction.
-- Project extraction.
+- Parse resumes.
+- Extract skills.
+- Extract education.
+- Extract certifications.
+- Extract projects.
+- Extract experience.
+- Generate structured JSON output.
 
 ---
 
@@ -153,11 +249,57 @@ The AI engine shall support:
 
 The AI engine shall:
 
-- Generate interview questions.
-- Create technical interview questions.
-- Create behavioral interview questions.
+- Generate personalized interview questions.
+- Generate technical questions.
+- Generate HR questions.
 - Categorize questions.
-- Generate questions dynamically from resume data.
+- Evaluate answers.
+- Generate AI feedback.
+- Calculate interview scores.
+
+---
+
+## Speech Analysis Engine
+
+The AI engine shall:
+
+- Convert speech to text.
+- Detect filler words.
+- Calculate fluency.
+- Estimate communication quality.
+
+---
+
+## Emotion Recognition Engine
+
+The AI engine shall:
+
+- Detect facial emotions.
+- Identify dominant emotion.
+- Measure candidate confidence.
+
+---
+
+## Eye Contact Detection Engine
+
+The AI engine shall:
+
+- Detect eye gaze.
+- Estimate attention level.
+- Determine eye contact.
+
+---
+
+## Interview Scoring Engine
+
+The AI engine shall:
+
+- Combine answer quality.
+- Combine communication score.
+- Combine emotion score.
+- Combine eye-contact score.
+- Generate final interview score.
+- Generate interview recommendation.
 
 ---
 
@@ -170,9 +312,11 @@ The system shall:
 - Encrypt passwords using BCrypt.
 - Protect private API endpoints.
 - Validate uploaded files.
-- Allow only authenticated users to manage their own resumes.
-- Prevent unauthorized access to interview sessions.
-- Prevent unauthorized access to AI analysis.
+- Restrict resume access to owners.
+- Restrict interview access to authenticated users.
+- Restrict AI analysis access.
+- Protect interview reports.
+- Prevent unauthorized media uploads.
 
 ---
 
@@ -180,12 +324,15 @@ The system shall:
 
 The system shall store:
 
-- User accounts.
-- Uploaded resumes.
-- Resume extracted text.
-- AI resume analysis.
-- Generated interview questions.
-- Interview sessions.
+- Users
+- Resumes
+- Resume Analysis
+- Interview Questions
+- Interview Sessions
+- Interview Answers
+- Interview Evaluations
+- Interview Monitor Reports
+- Interview Monitor Snapshots
 
 ---
 
@@ -193,7 +340,7 @@ The system shall store:
 
 The backend shall expose REST APIs for:
 
-## Authentication
+## Authentication APIs
 
 - User Registration
 - User Login
@@ -204,7 +351,7 @@ The backend shall expose REST APIs for:
 ## Resume APIs
 
 - Upload Resume
-- Get User Resumes
+- View Resumes
 - Download Resume
 - Delete Resume
 - Analyze Resume
@@ -214,97 +361,136 @@ The backend shall expose REST APIs for:
 ## Interview APIs
 
 - Generate Interview Questions
-- Start Interview Session
-- Finish Interview Session
+- Start Interview
+- Evaluate Answer
+- Finish Interview
 - View Interview Sessions
 
 ---
 
-# Planned Functionalities (Milestone 3 & 4)
+## Interview Monitoring APIs
+
+- Analyze Interview Recording
+- Process Audio
+- Process Webcam Image
+- Generate Interview Monitoring Report
+
+---
+
+# Non-Functional Requirements
+
+The system shall:
+
+- Support responsive web interfaces.
+- Process interview analysis efficiently.
+- Maintain secure authentication.
+- Support scalable architecture.
+- Maintain modular backend services.
+- Follow REST API standards.
+- Use PostgreSQL for persistent storage.
+- Support future cloud deployment.
+
+---
+
+# Planned Functionalities (Milestone 4)
 
 The following features are planned for future implementation:
 
-## Speech Analysis
+## Recruiter Dashboard
 
-- Speech-to-text conversion.
-- Filler-word detection.
-- Speaking pace analysis.
-
----
-
-## Emotion Recognition
-
-- Facial emotion detection.
-- Confidence estimation.
-- Stress analysis.
-
----
-
-## Eye Contact Detection
-
-- Eye gaze tracking.
-- Eye contact percentage.
-- Attention monitoring.
-
----
-
-## AI Evaluation
-
-- Candidate scoring.
-- Communication scoring.
-- Technical scoring.
-- Overall interview score.
-- Personalized AI feedback.
-
----
-
-## Recruiter Features
-
-- Job management.
-- Candidate applications.
-- Resume filtering.
-- Candidate ranking.
-- Hiring analytics.
+- Job posting management
+- Candidate management
+- Resume filtering
+- Candidate ranking
+- Hiring analytics
 
 ---
 
 ## Analytics Dashboard
 
-- Resume analytics.
-- Interview analytics.
-- Performance charts.
-- Historical interview reports.
+- Performance charts
+- Interview history
+- Candidate improvement tracking
+- Recruiter insights
+
+---
+
+## Cloud Deployment
+
+- Docker
+- CI/CD Pipeline
+- Cloud Database
+- AWS / Azure Deployment
+
+---
+
+## Notifications
+
+- Email notifications
+- Interview reminders
+- Recruiter alerts
+
+---
+
+## Admin Features
+
+- User management
+- Recruiter management
+- System monitoring
+- Audit logs
 
 ---
 
 # Functional Status
 
-## Implemented (Milestone 2)
+## ✅ Implemented (Milestone 3)
 
-- ✅ User Authentication
-- ✅ JWT Authorization
-- ✅ Role-Based Access Control
-- ✅ Resume Upload
-- ✅ Resume Download
-- ✅ Resume Delete
-- ✅ Resume Parsing
-- ✅ AI Resume Analysis
-- ✅ Skill Extraction
-- ✅ Resume Dashboard
-- ✅ AI Interview Question Generation
-- ✅ Interview Session Management
+- User Authentication
+- JWT Authorization
+- Role-Based Access Control
+- Resume Upload
+- Resume Download
+- Resume Delete
+- Resume Parsing
+- AI Resume Analysis
+- Skill Extraction
+- Candidate Dashboard
+- AI Interview Question Generation
+- Interview Session Management
+- AI Answer Evaluation
+- Speech-to-Text
+- Filler Word Detection
+- Fluency Analysis
+- Emotion Recognition
+- Eye Contact Detection
+- Overall AI Interview Scoring
+- AI Interview Recommendations
+- Interview Monitoring
+- Interview Analytics
+- Interview Reports
 
 ---
 
-## Planned
+## 🚧 Planned (Milestone 4)
 
-- Speech Analysis
-- Emotion Detection
-- Eye Contact Tracking
-- AI Scoring
 - Recruiter Dashboard
+- Admin Dashboard
 - Job Management
 - Applications
-- Notifications
+- Candidate Ranking
 - Analytics Dashboard
-- Performance Reports
+- Performance Charts
+- Email Notifications
+- Cloud Deployment
+- Docker Support
+- CI/CD Pipeline
+- End-to-End Testing
+- Production Deployment
+
+---
+
+# Summary
+
+The current implementation delivers a complete AI-powered interview preparation platform that integrates resume analysis, intelligent interview generation, AI answer evaluation, speech analysis, emotion recognition, eye-contact monitoring, and interview analytics.
+
+The architecture has been designed to support future recruiter workflows, analytics dashboards, cloud deployment, and enterprise-scale recruitment features in upcoming milestones.

@@ -16,5 +16,6 @@ class User(Base):
     resumes = relationship(
         "Resume",
         back_populates="owner",
-        cascade="all, delete",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
     )

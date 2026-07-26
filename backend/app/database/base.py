@@ -5,7 +5,11 @@ class Base(DeclarativeBase):
     pass
 
 
-# Import models here
 import app.models.user
 import app.models.resume
-from app.models.resume_analysis import ResumeAnalysis
+import app.models.interview_session
+import app.models.interview_answer
+import app.models.interview_question
+import app.models.interview_monitor
+import app.models.interview_monitor_snapshot
+import app.models.resume_analysis

@@ -1,88 +1,52 @@
 import api from "../api/axios";
 
-export interface InterviewQuestion {
-
-    id: number;
-
+export interface InterviewQuestionReport {
     question: string;
-
-    category: string;
-
-    difficulty: string;
-}
-
-export interface InterviewSession {
-
-    id: number;
-
-    resume_id: number;
-
-    user_id: number;
-
-    status: string;
-
-    started_at: string;
-
-    completed_at: string | null;
-}
-
-export interface InterviewAnswer {
-
-    session_id: number;
-
-    question_id: number;
-
     candidate_answer: string;
+    score: number;
+    strengths: string[];
+    weaknesses: string[];
+    ideal_answer: string;
+    feedback: string;
 }
 
-export async function startInterview(
-    resumeId: number,
-    token: string,
-): Promise<InterviewSession> {
-
-    const response = await api.post(
-        `/interview/start/${resumeId}`,
-        {},
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        },
-    );
-
-    return response.data;
+export interface InterviewReport {
+    overall_score: number;
+    questions: InterviewQuestionReport[];
 }
 
 export async function generateQuestions(
     resumeId: number,
-    token: string,
-): Promise<InterviewQuestion[]> {
-
+    token?: string,
+) {
     const response = await api.get(
         `/interview/generate/${resumeId}`,
         {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        },
+            headers: token
+                ? {
+                      Authorization: `Bearer ${token}`,
+                  }
+                : {},
+        }
     );
 
     return response.data;
 }
 
-export async function saveAnswer(
-    answer: InterviewAnswer,
-    token: string,
+export async function startInterview(
+    resumeId: number,
+    token?: string,
 ) {
-
     const response = await api.post(
-        "/interview/answer",
-        answer,
+        `/interview/start/${resumeId}`,
+        {},
         {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        },
+            headers: token
+                ? {
+                      Authorization: `Bearer ${token}`,
+                  }
+                : {},
+        }
     );
 
     return response.data;
@@ -90,58 +54,37 @@ export async function saveAnswer(
 
 export async function finishInterview(
     sessionId: number,
-    token: string,
-): Promise<InterviewSession> {
-
+    token?: string,
+) {
     const response = await api.post(
         `/interview/finish/${sessionId}`,
         {},
         {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        },
+            headers: token
+                ? {
+                      Authorization: `Bearer ${token}`,
+                  }
+                : {},
+        }
     );
 
     return response.data;
 }
 
-export interface QuestionReport {
-
-    question: string;
-
-    candidate_answer: string;
-
-    score: number;
-
-    strengths: string[];
-
-    weaknesses: string[];
-
-    ideal_answer: string;
-
-    feedback: string;
-}
-
-export interface InterviewReport {
-
-    overall_score: number;
-
-    questions: QuestionReport[];
-}
-
 export async function getInterviewReport(
     sessionId: number,
-    token: string,
+    token?: string,
 ): Promise<InterviewReport> {
 
     const response = await api.get(
         `/interview/report/${sessionId}`,
         {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        },
+            headers: token
+                ? {
+                      Authorization: `Bearer ${token}`,
+                  }
+                : {},
+        }
     );
 
     return response.data;

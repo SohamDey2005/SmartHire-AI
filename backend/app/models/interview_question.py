@@ -15,6 +15,7 @@ from app.database.base import Base
 
 
 class InterviewQuestion(Base):
+
     __tablename__ = "interview_questions"
 
     id = Column(
@@ -25,7 +26,10 @@ class InterviewQuestion(Base):
 
     resume_id = Column(
         Integer,
-        ForeignKey("resumes.id"),
+        ForeignKey(
+            "resumes.id",
+            ondelete="CASCADE",
+        ),
         nullable=False,
     )
 
@@ -57,4 +61,11 @@ class InterviewQuestion(Base):
     resume = relationship(
         "Resume",
         back_populates="questions",
+    )
+
+    answers = relationship(
+        "InterviewAnswer",
+        back_populates="question",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
     )

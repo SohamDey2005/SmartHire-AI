@@ -6,7 +6,7 @@
 
 This document presents the user interface wireframes for the SmartHire AI platform.
 
-The wireframes represent the application screens implemented up to **Milestone 2 (Resume Parsing & AI Interview Engine)** while also illustrating planned interfaces for future milestones.
+The wireframes represent the application screens implemented up to **Milestone 3 (AI Interview Monitoring & Evaluation)** while also illustrating planned interfaces for future milestones.
 
 ---
 
@@ -15,15 +15,18 @@ The wireframes represent the application screens implemented up to **Milestone 2
 ## 1. Home Page
 
 ```
-+--------------------------------------------------------+
-|                    SmartHire AI                        |
-|--------------------------------------------------------|
-|                                                        |
-|        AI-Powered Recruitment Platform                 |
-|                                                        |
-|         [ Login ]      [ Register ]                    |
-|                                                        |
-+--------------------------------------------------------+
++------------------------------------------------------------+
+|                       SmartHire AI                         |
+|------------------------------------------------------------|
+|                                                            |
+|        AI-Powered Recruitment Platform                     |
+|                                                            |
+|       Resume Analysis • Mock Interviews                    |
+|       AI Monitoring • Interview Reports                    |
+|                                                            |
+|         [ Login ]      [ Register ]                        |
+|                                                            |
++------------------------------------------------------------+
 ```
 
 ---
@@ -63,7 +66,7 @@ The wireframes represent the application screens implemented up to **Milestone 2
 | Password                                       |
 | [______________________________]               |
 |                                                |
-| Role                                            |
+| Role                                           |
 | [ Candidate ▼ ]                                |
 |                                                |
 |         [ Register ]                           |
@@ -75,29 +78,28 @@ The wireframes represent the application screens implemented up to **Milestone 2
 ## 4. Candidate Dashboard
 
 ```
-+--------------------------------------------------------------------+
-| SmartHire AI                                      Logout           |
-|--------------------------------------------------------------------|
-| Welcome, Candidate                                              |
-| Role Badge                                                      |
-| Current Date & Time                                             |
-|------------------------------------------------------------------|
-|                                                            |
-| Resume Upload Card                                          |
-|------------------------------------------------------------|
-| Choose Resume (PDF)                                        |
-| [ Choose File ]                                            |
-| [ Upload Resume ]                                          |
-|                                                            |
-|------------------------------------------------------------|
-| My Resumes                                                 |
-|------------------------------------------------------------|
-| Resume.pdf                                                 |
-| Uploaded On:                                               |
-|                                                            |
-| [Download] [Analyze] [Interview] [Delete]                  |
-|                                                            |
-+--------------------------------------------------------------------+
++--------------------------------------------------------------------------+
+| SmartHire AI                                            Logout           |
+|--------------------------------------------------------------------------|
+| Welcome, Candidate                                                  |
+| Role Badge                                                          |
+| Current Date & Time                                                 |
+|----------------------------------------------------------------------|
+| Resume Upload Card                                                  |
+|----------------------------------------------------------------------|
+| Choose Resume (PDF)                                                 |
+| [ Choose File ]                                                     |
+| [ Upload Resume ]                                                   |
+|                                                                      |
+|----------------------------------------------------------------------|
+| My Resumes                                                          |
+|----------------------------------------------------------------------|
+| Resume.pdf                                                          |
+| Uploaded On:                                                        |
+|                                                                      |
+| [Download] [Analyze] [Interview] [Delete]                           |
+|                                                                      |
++--------------------------------------------------------------------------+
 ```
 
 ---
@@ -121,39 +123,39 @@ The wireframes represent the application screens implemented up to **Milestone 2
 ## 6. AI Resume Analysis
 
 ```
-+---------------------------------------------------------------+
-| AI Resume Analysis                                            |
-|---------------------------------------------------------------|
-| Technical Skills                                              |
-| Python  FastAPI  SQL  React                                  |
-|                                                               |
-| Soft Skills                                                   |
-| Leadership  Communication                                    |
-|                                                               |
-| Frameworks                                                    |
-| FastAPI  React                                                |
-|                                                               |
-| Tools                                                         |
-| Git  Docker                                                   |
-|                                                               |
-| Databases                                                     |
-| PostgreSQL                                                    |
-|                                                               |
-| Cloud                                                         |
-| Google Cloud                                                  |
-|                                                               |
-| Certifications                                                |
-| Azure AI Fundamentals                                         |
-|                                                               |
-| Education                                                     |
-| Bachelor of Engineering                                       |
-|                                                               |
-| Experience                                                    |
-| AI Intern                                                     |
-|                                                               |
-| Projects                                                      |
-| DocuMind AI                                                   |
-+---------------------------------------------------------------+
++----------------------------------------------------------------+
+| AI Resume Analysis                                             |
+|----------------------------------------------------------------|
+| Technical Skills                                               |
+| Python • FastAPI • React • SQL • PostgreSQL                    |
+|                                                                |
+| Soft Skills                                                    |
+| Leadership • Communication • Teamwork                          |
+|                                                                |
+| Frameworks                                                     |
+| FastAPI • React                                                |
+|                                                                |
+| Tools                                                          |
+| Git • Docker                                                   |
+|                                                                |
+| Databases                                                      |
+| PostgreSQL                                                     |
+|                                                                |
+| Cloud                                                          |
+| Google Cloud                                                   |
+|                                                                |
+| Certifications                                                 |
+| Azure AI Fundamentals                                          |
+|                                                                |
+| Education                                                      |
+| Bachelor of Engineering                                        |
+|                                                                |
+| Experience                                                     |
+| AI Intern                                                      |
+|                                                                |
+| Projects                                                       |
+| SmartHire AI • DocuMind AI                                     |
++----------------------------------------------------------------+
 ```
 
 ---
@@ -161,43 +163,106 @@ The wireframes represent the application screens implemented up to **Milestone 2
 ## 7. AI Interview Page
 
 ```
++------------------------------------------------------------------------------------+
+| SmartHire AI Mock Interview                                                        |
+|------------------------------------------------------------------------------------|
+| Resume ID : 5                                                                      |
+| Session ID : 14                                                                    |
+|------------------------------------------------------------------------------------|
+| Question 3 / 10                                                                    |
+|------------------------------------------------------------------------------------|
+| Explain the difference between REST and GraphQL.                                   |
+|                                                                                    |
+| Your Answer                                                                        |
+| ┌────────────────────────────────────────────────────────────┐                     |
+| │                                                            │                     |
+| │                                                            │                     |
+| └────────────────────────────────────────────────────────────┘                     |
+|                                                                                    |
+|                  [ Submit Answer ]   [ Finish Interview ]                          |
+|------------------------------------------------------------------------------------|
+| Live Webcam                                                                        |
+|                                                                                    |
+|      📷 Camera Preview                                                             |
++------------------------------------------------------------------------------------+
+```
+
+---
+
+## 8. AI Interview Monitoring Dashboard
+
+```
++-------------------------------------------------------------------------------+
+| AI Interview Monitoring                                                       |
+|-------------------------------------------------------------------------------|
+| Overall Score      Emotion        Eye Contact                                 |
+|     86.5            Happy          Looking at Camera                          |
+|-------------------------------------------------------------------------------|
+| Transcript                                                                  |
+|-------------------------------------------------------------------------------|
+| "I would implement JWT authentication..."                                   |
+|                                                                             |
+|-------------------------------------------------------------------------------|
+| Communication                                                               |
+|-------------------------------------------------------------------------------|
+| Filler Words : 2                                                            |
+| Fluency Score : 91                                                          |
+|                                                                             |
+| Recommendation                                                              |
+| "Excellent communication. Maintain eye contact consistently."               |
++-------------------------------------------------------------------------------+
+```
+
+---
+
+## 9. AI Evaluation Panel
+
+```
 +--------------------------------------------------------------+
-| AI Interview                                                  |
+| AI Answer Evaluation                                         |
 |--------------------------------------------------------------|
-| Resume Selected                                              |
-| Resume ID: XX                                                |
-|--------------------------------------------------------------|
-|        [ Start Interview ]                                  |
-|--------------------------------------------------------------|
-| Question 1                                                   |
-|                                                             |
-| Your Answer                                                 |
-| [__________________________________________]               |
-|                                                             |
-| [ Next Question ]                                           |
+| Technical Score : 88                                         |
+| Communication Score : 91                                     |
+| Overall Score : 89.5                                         |
+|                                                              |
+| Strengths                                                    |
+| ✔ Good explanation                                           |
+| ✔ Correct terminology                                        |
+|                                                              |
+| Improvements                                                 |
+| • Provide more examples                                      |
+|                                                              |
+| AI Feedback                                                  |
+| "Strong answer with good technical depth."                   |
 +--------------------------------------------------------------+
 ```
 
 ---
 
-## 8. Interview Session
+## 10. Interview Analytics Report
 
 ```
-+--------------------------------------------------------------+
-| Interview Session                                            |
-|--------------------------------------------------------------|
-| Status : Active                                              |
-| Started At : 10:30 AM                                        |
-| Resume : Resume.pdf                                          |
-|--------------------------------------------------------------|
-| Question List                                                |
-|                                                             |
-| Question 1                                                  |
-| Question 2                                                  |
-| Question 3                                                  |
-|                                                             |
-| [ Finish Interview ]                                        |
-+--------------------------------------------------------------+
++------------------------------------------------------------------+
+| Interview Analytics                                              |
+|------------------------------------------------------------------|
+| Candidate Score                                                  |
+| ██████████████████████ 88%                                       |
+|                                                                  |
+| Emotion Summary                                                  |
+| Happy : 78%                                                      |
+| Neutral : 18%                                                    |
+| Sad : 4%                                                         |
+|                                                                  |
+| Eye Contact                                                      |
+| 92%                                                              |
+|                                                                  |
+| Communication                                                    |
+| Fluency : 90                                                     |
+| Filler Words : 4                                                 |
+|                                                                  |
+| Recommendation                                                   |
+| Excellent interview performance.                                 |
++------------------------------------------------------------------+
 ```
 
 ---
@@ -207,17 +272,18 @@ The wireframes represent the application screens implemented up to **Milestone 2
 ## Recruiter Dashboard
 
 ```
-+----------------------------------------------------------------+
-| SmartHire AI                                                   |
-|----------------------------------------------------------------|
-| Sidebar                  | Dashboard                           |
-|---------------------------------------------------------------|
-| Dashboard                | Active Jobs                         |
-| Jobs                     | Applicants                          |
-| Candidates               | AI Resume Scores                    |
-| Interviews               | Hiring Statistics                   |
-| Logout                   | Notifications                       |
-+----------------------------------------------------------------+
++------------------------------------------------------------------+
+| SmartHire AI                                                     |
+|------------------------------------------------------------------|
+| Sidebar               | Dashboard                               |
+|---------------------------------------------------------------   |
+| Dashboard             | Active Jobs                             |
+| Jobs                  | Applicants                              |
+| Candidates            | Resume Scores                           |
+| Interviews            | Interview Reports                       |
+| Analytics             | Hiring Statistics                       |
+| Logout                | Notifications                           |
++------------------------------------------------------------------+
 ```
 
 ---
@@ -225,18 +291,18 @@ The wireframes represent the application screens implemented up to **Milestone 2
 ## Job Management
 
 ```
-+------------------------------------------------+
-| Create Job                                     |
-|------------------------------------------------|
-| Job Title                                      |
-| Company                                        |
-| Location                                       |
-| Employment Type                                |
-| Salary                                         |
-| Description                                    |
-|                                                |
-|        [ Create Job ]                          |
-+------------------------------------------------+
++--------------------------------------------------+
+| Create Job                                       |
+|--------------------------------------------------|
+| Job Title                                        |
+| Company                                          |
+| Location                                         |
+| Employment Type                                  |
+| Salary                                           |
+| Description                                      |
+|                                                  |
+|         [ Create Job ]                           |
++--------------------------------------------------+
 ```
 
 ---
@@ -246,17 +312,18 @@ The wireframes represent the application screens implemented up to **Milestone 2
 ## Admin Dashboard
 
 ```
-+----------------------------------------------------------------+
-| SmartHire AI                                                   |
-|----------------------------------------------------------------|
-| Sidebar                  | Dashboard                           |
-|---------------------------------------------------------------|
-| Users                    | Total Users                         |
-| Recruiters               | AI Usage                            |
-| Reports                  | System Statistics                   |
-| Logs                     | Platform Health                     |
-| Logout                   | Notifications                       |
-+----------------------------------------------------------------+
++------------------------------------------------------------------+
+| SmartHire AI                                                     |
+|------------------------------------------------------------------|
+| Sidebar              | Dashboard                                |
+|---------------------------------------------------------------   |
+| Users                | Total Users                              |
+| Recruiters           | AI Usage                                 |
+| Reports              | Platform Statistics                      |
+| Logs                 | System Health                            |
+| Analytics            | Performance                              |
+| Logout               | Notifications                            |
++------------------------------------------------------------------+
 ```
 
 ---
@@ -267,38 +334,51 @@ The wireframes represent the application screens implemented up to **Milestone 2
 
 ```
 Home
-
-↓
-
+      │
+      ▼
 Login / Register
-
-↓
-
+      │
+      ▼
 Candidate Dashboard
-
-↓
-
+      │
+      ▼
 Upload Resume
-
-↓
-
+      │
+      ▼
 Resume List
-
-↓
-
+      │
+      ▼
 AI Resume Analysis
-
-↓
-
+      │
+      ▼
 Generate Interview Questions
-
-↓
-
-Start Interview Session
-
-↓
-
-Finish Interview
+      │
+      ▼
+Start Interview
+      │
+      ▼
+Answer Questions
+      │
+      ▼
+AI Answer Evaluation
+      │
+      ▼
+Speech Analysis
+      │
+      ▼
+Emotion Detection
+      │
+      ▼
+Eye Contact Detection
+      │
+      ▼
+Communication Analysis
+      │
+      ▼
+Interview Monitoring Report
+      │
+      ▼
+Interview Analytics
 ```
 
 ---
@@ -307,26 +387,24 @@ Finish Interview
 
 ```
 Login
-
-↓
-
+      │
+      ▼
 Recruiter Dashboard
-
-↓
-
+      │
+      ▼
 Create Job
-
-↓
-
+      │
+      ▼
 View Applicants
-
-↓
-
-Review AI Analysis
-
-↓
-
-Schedule Interview
+      │
+      ▼
+Review Resume Analysis
+      │
+      ▼
+Review Interview Reports
+      │
+      ▼
+Shortlist Candidates
 ```
 
 ---
@@ -335,21 +413,20 @@ Schedule Interview
 
 ```
 Login
-
-↓
-
+      │
+      ▼
 Admin Dashboard
-
-↓
-
+      │
+      ▼
 Manage Users
-
-↓
-
-View Reports
-
-↓
-
+      │
+      ▼
+Monitor AI Usage
+      │
+      ▼
+System Analytics
+      │
+      ▼
 Platform Monitoring
 ```
 
@@ -357,33 +434,42 @@ Platform Monitoring
 
 # UI Status
 
-## Implemented (Milestone 2)
+## ✅ Implemented (Milestone 3)
 
-- ✅ Home Page
-- ✅ Login Page
-- ✅ Registration Page
-- ✅ Candidate Dashboard
-- ✅ Resume Upload
-- ✅ Resume Management
-- ✅ AI Resume Analysis
-- ✅ Interview Page
-- ✅ Interview Session Workflow
+- Home Page
+- Login Page
+- Registration Page
+- Candidate Dashboard
+- Resume Upload
+- Resume Management
+- AI Resume Analysis
+- AI Interview Page
+- AI Question Generation
+- Interview Session Workflow
+- AI Answer Evaluation
+- Live Webcam Monitoring
+- Speech-to-Text Transcript
+- Emotion Detection Panel
+- Eye Contact Monitoring
+- Communication Analysis
+- AI Recommendation Panel
+- Interview Monitoring Dashboard
+- Interview Analytics Report
+- Loading Skeleton UI
+- Responsive Design
 
 ---
 
-## Planned (Milestone 3)
-
-- Speech Analysis Screen
-- Live Camera Monitoring
-- Emotion Detection Dashboard
-- AI Evaluation Report
-
----
-
-## Planned (Milestone 4)
+## 🚀 Planned (Milestone 4)
 
 - Recruiter Dashboard
+- Admin Dashboard
 - Job Management
 - Candidate Ranking
 - Analytics Dashboard
-- Admin Dashboard
+- Performance Charts
+- Email Notifications
+- Cloud Deployment
+- Mobile Responsive Optimization
+- Dark Mode
+```

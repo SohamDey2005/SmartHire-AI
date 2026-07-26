@@ -26,13 +26,19 @@ class InterviewAnswer(Base):
 
     session_id = Column(
         Integer,
-        ForeignKey("interview_sessions.id"),
+        ForeignKey(
+            "interview_sessions.id",
+            ondelete="CASCADE",
+        ),
         nullable=False,
     )
 
     question_id = Column(
         Integer,
-        ForeignKey("interview_questions.id"),
+        ForeignKey(
+            "interview_questions.id",
+            ondelete="CASCADE",
+        ),
         nullable=False,
     )
 
@@ -63,8 +69,9 @@ class InterviewAnswer(Base):
 
     question = relationship(
         "InterviewQuestion",
+        back_populates="answers",
     )
-    
+
     evaluation = relationship(
         "InterviewEvaluation",
         back_populates="answer",

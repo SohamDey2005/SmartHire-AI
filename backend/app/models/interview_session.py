@@ -55,6 +55,18 @@ class InterviewSession(Base):
         cascade="all, delete-orphan",
     )
 
+    monitor_reports = relationship(
+        "InterviewMonitor",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
+
+    monitor_snapshots = relationship(
+        "InterviewMonitorSnapshot",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
+
     resume = relationship(
         "Resume"
     )

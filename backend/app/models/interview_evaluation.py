@@ -23,7 +23,10 @@ class InterviewEvaluation(Base):
     )
 
     answer_id: Mapped[int] = mapped_column(
-        ForeignKey("interview_answers.id"),
+        ForeignKey(
+            "interview_answers.id",
+            ondelete="CASCADE",
+        ),
         unique=True,
     )
 

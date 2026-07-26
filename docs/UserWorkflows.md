@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This document describes the interaction flows for different users of the SmartHire AI platform. It outlines how users navigate through the system and how AI-powered services process resume and interview data.
+This document describes the interaction flows for different users of the SmartHire AI platform. It outlines how users navigate through the system and how AI-powered services process resumes, conduct mock interviews, evaluate candidate responses, and generate real-time interview monitoring reports.
 
-Current workflows represent the implementation completed up to **Milestone 2**, including authentication, resume management, AI resume analysis, interview question generation, and interview session management.
+Current workflows represent the implementation completed up to **Milestone 3 (AI Interview Monitoring & Evaluation)**.
 
 ---
 
@@ -22,20 +22,20 @@ Candidate Dashboard
         ├──────────────► Upload Resume (PDF)
         │                      │
         │                      ▼
-        │             Resume Stored
+        │              Resume Stored
         │                      │
         │                      ▼
-        │             Resume Text Extraction
+        │          Resume Text Extraction
         │                      │
         │                      ▼
-        │          AI Resume Analysis
+        │           AI Resume Analysis
         │                      │
         │                      ▼
-        │     Skills, Education, Experience,
-        │     Projects & Certifications Extracted
+        │  Skills, Education, Experience,
+        │  Projects & Certifications Extracted
         │                      │
         │                      ▼
-        │          View Analysis Results
+        │         View Analysis Results
         │
         ├──────────────► Download Resume
         │
@@ -47,10 +47,19 @@ Candidate Dashboard
         │          Create Interview Session
         │                      │
         │                      ▼
-        │     Generate AI Interview Questions
+        │      Generate AI Interview Questions
         │                      │
         │                      ▼
-        │         View Interview Questions
+        │       Answer Interview Questions
+        │                      │
+        │                      ▼
+        │       AI Answer Evaluation
+        │                      │
+        │                      ▼
+        │     Speech & Camera Monitoring
+        │                      │
+        │                      ▼
+        │     Interview Analytics Report
         │
         └──────────────► Logout
 ```
@@ -96,7 +105,7 @@ Extract
 Store Resume Analysis
       │
       ▼
-Display Analysis Dashboard
+Display Resume Analysis Dashboard
 ```
 
 ---
@@ -114,10 +123,7 @@ Validate Resume
 Load Resume Analysis
         │
         ▼
-Generate AI Interview Questions
-        │
-        ▼
-Save Questions
+Generate Interview Questions
         │
         ▼
 Create Interview Session
@@ -126,7 +132,44 @@ Create Interview Session
 Display Interview Page
         │
         ▼
-Interview Session Active
+Start AI Monitoring
+(Camera + Microphone)
+        │
+        ▼
+Candidate Answers Question
+        │
+        ▼
+Stop Recording
+        │
+        ▼
+Speech Processing
+        │
+        ▼
+Emotion Detection
+        │
+        ▼
+Eye Contact Detection
+        │
+        ▼
+Filler Word Detection
+        │
+        ▼
+Communication Analysis
+        │
+        ▼
+AI Answer Evaluation
+        │
+        ▼
+Display AI Feedback
+        │
+        ▼
+Next Question
+        │
+        ▼
+Finish Interview
+        │
+        ▼
+Generate Interview Report
 ```
 
 ---
@@ -191,6 +234,91 @@ Logout
 
 ---
 
+# AI Monitoring Workflow
+
+```text
+Interview Starts
+       │
+       ▼
+Open Webcam
+       │
+       ▼
+Enable Microphone
+       │
+       ▼
+Record Candidate Response
+       │
+       ▼
+Capture Webcam Frame
+       │
+       ▼
+Speech-to-Text
+       │
+       ▼
+Emotion Detection
+       │
+       ▼
+Eye Contact Detection
+       │
+       ▼
+Filler Word Detection
+       │
+       ▼
+Fluency Analysis
+       │
+       ▼
+Generate Overall Score
+       │
+       ▼
+Generate AI Recommendation
+       │
+       ▼
+Save Monitoring Report
+       │
+       ▼
+Display Monitoring Dashboard
+```
+
+---
+
+# Interview Evaluation Workflow
+
+```text
+Candidate Submits Answer
+        │
+        ▼
+Validate Input
+        │
+        ▼
+Generate AI Prompt
+        │
+        ▼
+Groq LLM Evaluation
+        │
+        ▼
+Evaluate
+
+• Technical Accuracy
+• Completeness
+• Clarity
+• Communication
+
+        │
+        ▼
+Generate Score
+        │
+        ▼
+Generate Feedback
+        │
+        ▼
+Store Evaluation
+        │
+        ▼
+Display Evaluation Panel
+```
+
+---
+
 # Interview Session Workflow
 
 ```text
@@ -204,19 +332,31 @@ Create Session
 Generate Questions
         │
         ▼
-Candidate Views Questions
+Start Monitoring
+        │
+        ▼
+Answer Questions
+        │
+        ▼
+Evaluate Each Answer
+        │
+        ▼
+Generate Monitoring Report
         │
         ▼
 Finish Interview
         │
         ▼
-Session Status Updated
+Update Session
 (Status = Completed)
+        │
+        ▼
+View Interview Analytics
 ```
 
 ---
 
-# Recruiter Workflow (Planned)
+# Recruiter Workflow (Future)
 
 ```text
 Recruiter Login
@@ -230,16 +370,18 @@ Recruiter Dashboard
         │
         ├────────► View Applicants
         │
-        ├────────► View Candidate Resume
+        ├────────► Review Resume Analysis
         │
-        ├────────► AI Candidate Ranking
+        ├────────► Review Interview Reports
         │
-        └────────► Schedule Interview
+        ├────────► Candidate Ranking
+        │
+        └────────► Schedule Interviews
 ```
 
 ---
 
-# Administrator Workflow (Planned)
+# Administrator Workflow (Future)
 
 ```text
 Administrator Login
@@ -253,16 +395,18 @@ Admin Dashboard
         │
         ├────────► Platform Analytics
         │
+        ├────────► AI Usage Monitoring
+        │
         ├────────► System Logs
         │
-        └────────► Monitor AI Usage
+        └────────► Platform Configuration
 ```
 
 ---
 
 # Current Workflow Status
 
-## ✅ Implemented (Milestone 2)
+## ✅ Implemented (Milestone 3)
 
 - User Registration
 - User Login
@@ -279,34 +423,37 @@ Admin Dashboard
 - Experience Extraction
 - Project Extraction
 - Certification Extraction
-- Interview Question Generation
+- AI Interview Question Generation
 - Interview Session Creation
 - Interview Session Completion
-- Interview Page
+- AI Answer Evaluation
+- Speech-to-Text
+- Live Voice Recording
+- Transcript Generation
+- Emotion Recognition
+- Eye Contact Detection
+- Filler Word Detection
+- Communication Analysis
+- Overall AI Scoring
+- AI Recommendation Generation
+- Interview Monitoring Dashboard
+- Interview Analytics Report
 - Protected Routes
 
 ---
 
-## 🚧 Planned (Milestone 3)
+## 🚀 Planned (Milestone 4)
 
-- Speech-to-Text
-- Voice Recording
-- Filler Word Detection
-- Emotion Recognition
-- Eye Contact Tracking
-- AI Interview Evaluation
-- Communication Scoring
-- Confidence Analysis
-
----
-
-## 📅 Planned (Milestone 4)
-
-- Analytics Dashboard
-- Performance Reports
 - Recruiter Dashboard
 - Job Management
-- Notifications
+- Candidate Applications
+- Resume Ranking
+- Candidate Comparison
+- Analytics Dashboard
+- Performance Charts
+- Email Notifications
 - Cloud Deployment
-- AI Feedback Reports
-- End-to-End Interview Assessment
+- CI/CD Pipeline
+- AI Hiring Assistant
+- End-to-End Recruitment Workflow
+```

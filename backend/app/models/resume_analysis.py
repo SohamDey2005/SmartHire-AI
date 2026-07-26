@@ -24,7 +24,10 @@ class ResumeAnalysis(Base):
 
     resume_id = Column(
         Integer,
-        ForeignKey("resumes.id"),
+        ForeignKey(
+            "resumes.id",
+            ondelete="CASCADE",
+        ),
         unique=True,
         nullable=False,
     )
