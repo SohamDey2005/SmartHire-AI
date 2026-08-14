@@ -855,7 +855,7 @@ Follow the following sequence to test the complete platform:
 ### Interview Type Selection
 ![Interview Type](screenshots/interview-type.png)
 
-### AI Interview Room
+### Interview Room
 ![Interview Room](screenshots/interview-room.png)
 
 ### Interview Analytics
