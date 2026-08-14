@@ -835,76 +835,40 @@ Follow the following sequence to test the complete platform:
 # 📸 Screenshots
 
 ### Home Page
-
-```text
-screenshots/home.png
-```
+![Home Page](screenshots/home.png)
 
 ### Login Page
-
-```text
-screenshots/login.png
-```
+![Login Page](screenshots/login.png)
 
 ### Registration Page
-
-```text
-screenshots/register.png
-```
+![Registration Page](screenshots/register.png)
 
 ### Candidate Dashboard
-
-```text
-screenshots/candidate-dashboard.png
-```
+![Candidate Dashboard](screenshots/candidate-dashboard.png)
 
 ### Resume Analysis
-
-```text
-screenshots/resume-analysis.png
-```
+![Resume Analysis](screenshots/resume-analysis.png)
 
 ### Job Description + Match
-
-```text
-screenshots/jd-match.png
-```
+![JD Match](screenshots/jd-match.png)
 
 ### Interview Type Selection
-
-```text
-screenshots/interview-type.png
-```
+![Interview Type](screenshots/interview-type.png)
 
 ### AI Interview Room
-
-```text
-screenshots/interview-room.png
-```
+![Interview Room](screenshots/interview-room.png)
 
 ### Interview Analytics
-
-```text
-screenshots/interview-analytics.png
-```
+![Interview Analytics](screenshots/interview-analytics.png)
 
 ### AI Feedback
-
-```text
-screenshots/ai-feedback.png
-```
+![AI Feedback](screenshots/ai-feedback.png)
 
 ### Recruiter Dashboard
-
-```text
-screenshots/recruiter-dashboard.png
-```
+![Recruiter Dashboard](screenshots/recruiter-dashboard.png)
 
 ### Admin Dashboard
-
-```text
-screenshots/admin-dashboard.png
-```
+![Admin Dashboard](screenshots/admin-dashboard.png)
 
 ---
 
