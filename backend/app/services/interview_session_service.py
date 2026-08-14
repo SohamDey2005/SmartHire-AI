@@ -20,20 +20,15 @@ class InterviewSessionService:
         self,
         resume_id: int,
         user_id: int,
+        interview_type: str = "technical",
     ):
-
         session = InterviewSession(
-
             resume_id=resume_id,
-
             user_id=user_id,
-
             status="IN_PROGRESS",
+            interview_type=interview_type,
         )
-
-        return self.repository.create(
-            session
-        )
+        return self.repository.create(session)
 
     def finish_session(
         self,

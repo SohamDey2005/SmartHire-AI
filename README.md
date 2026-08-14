@@ -1,470 +1,464 @@
 # 🤖 SmartHire AI
 
-### AI-Powered Recruitment Platform with Resume Analysis, Mock Interviews, Real-Time Interview Monitoring & AI Analytics
+### AI-Powered Recruitment Platform with Resume Analysis, JD Matching, Mock Interviews, Real-Time Monitoring & Analytics
 
-![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.138-green?style=for-the-badge&logo=fastapi)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql)
-![Groq](https://img.shields.io/badge/Groq-LLM-orange?style=for-the-badge)
-
-**An intelligent recruitment platform that leverages Artificial Intelligence to automate resume analysis, conduct AI-powered mock interviews, monitor candidate performance in real time, and generate comprehensive interview analytics.**
+**An intelligent recruitment and interview-preparation platform that uses Artificial Intelligence to automate resume analysis, match resumes with Job Descriptions, conduct type-specific AI mock interviews (HR / Technical / Managerial), monitor candidate performance in real time, and generate comprehensive interview analytics.**
 
 ---
 
 # 📑 Table of Contents
 
-- Project Overview
-- Key Features
-- System Architecture
-- Tech Stack
-- Project Structure
-- REST API Endpoints
-- Installation
-- Environment Variables
-- Database
-- AI Models Used
-- Screenshots
-- Milestone Progress
-- Roadmap
-- Author
+* [Project Overview](#-project-overview)
+* [Objectives](#-objectives)
+* [Key Features](#-key-features)
+* [System Architecture](#-system-architecture)
+* [Technology Stack](#-technology-stack)
+* [Artificial Intelligence Stack](#-artificial-intelligence-stack)
+* [AI Workflow](#-ai-workflow)
+* [Database Design](#-database-design)
+* [Security Features](#-security-features)
+* [Project Structure](#-project-structure)
+* [REST API Documentation](#-rest-api-documentation)
+* [Installation Guide](#-installation-guide)
+* [Environment Variables](#-environment-variables)
+* [Recommended Test Flow](#-recommended-test-flow)
+* [Screenshots](#-screenshots)
+* [Milestone Progress](#-milestone-progress)
+* [Troubleshooting](#-troubleshooting)
+* [Deployment](#-deployment)
+* [Project Status](#-project-status)
+* [Author](#-author)
 
 ---
 
 # 📌 Project Overview
 
-SmartHire AI is a full-stack AI-powered recruitment platform designed to simplify and modernize the hiring process.
+SmartHire AI is a full-stack AI-powered recruitment and interview-preparation platform.
 
-The platform enables candidates to upload resumes, receive detailed AI-powered resume analysis, generate personalized interview questions, participate in AI-driven mock interviews, receive intelligent answer evaluation, and monitor communication skills using speech and computer vision.
+It enables:
 
-The project combines modern web development with Generative AI, Speech Processing, Computer Vision, and Natural Language Processing to create a realistic interview experience.
+* **Candidates** to upload resumes, perform AI analysis, match resumes with Job Descriptions, take type-specific AI mock interviews, and view analytics and feedback reports.
+* **Recruiters** to review completed interviews, view analytics, download PDF reports, and shortlist candidates.
+* **Administrators** to view platform users and role-based statistics.
+
+The platform combines modern web development with Generative AI, Speech Processing, Computer Vision, and Natural Language Processing to deliver a realistic and intelligent interview experience.
+
+This project currently represents the **complete implemented platform (pre-deployment)**.
 
 ---
 
 # 🎯 Objectives
 
-- Simplify recruitment workflows
-- Analyze resumes using Large Language Models
-- Generate personalized interview questions
-- Evaluate interview answers using AI
-- Monitor candidate behavior during interviews
-- Analyze communication skills
-- Generate interview analytics and reports
-- Improve candidate preparation through AI feedback
+The primary objectives of SmartHire AI are:
+
+* Build a secure multi-role AI-powered recruitment platform.
+* Analyze resumes using Large Language Models.
+* Support Job Description storage and Resume ↔ JD matching.
+* Conduct HR, Technical, and Managerial AI mock interviews.
+* Evaluate candidate responses automatically.
+* Evaluate communication and interview performance.
+* Monitor speech, emotion, eye contact, and fluency.
+* Provide analytics, feedback, and PDF reports.
+* Support recruiter shortlisting workflows.
+* Provide administrators with platform user visibility.
+* Build a modular and scalable architecture ready for cloud deployment.
 
 ---
 
 # ✨ Key Features
 
-## 🔐 Authentication
+## 🔐 Authentication & Roles
 
-- User Registration
-- Secure Login
-- JWT Authentication
-- Password Hashing (BCrypt)
-- Protected APIs
-- Role-Based Access Control
-- Logout
+* User Registration with role selection:
+
+  * Candidate
+  * Recruiter
+  * Admin
+* Secure Login with role verification.
+* JWT Authentication.
+* BCrypt Password Hashing.
+* Protected Routes.
+* Role-Based Access Control (RBAC).
+* Current user profile access.
+* Secure account deletion.
+* Logout functionality.
 
 ---
 
 ## 📄 Resume Management
 
-- Upload PDF Resume
-- Resume Storage
-- Resume Download
-- Resume Deletion
-- Resume Parsing
-- Resume Dashboard
+* Upload PDF resumes.
+* Secure resume storage.
+* Resume text extraction.
+* Resume listing.
+* Resume download.
+* Resume deletion.
+* Cascade-safe related data cleanup.
+* Multiple resume support.
+* Owner-restricted resume access.
 
 ---
 
 ## 🤖 AI Resume Analysis
 
-Powered by **Groq Llama 3.3 70B Versatile**
+Powered by **Groq LLM**.
 
-Automatically extracts:
+The system automatically extracts and analyzes:
 
-- Technical Skills
-- Soft Skills
-- Frameworks
-- Libraries
-- Programming Languages
-- Databases
-- Cloud Technologies
-- Certifications
-- Education
-- Work Experience
-- Projects
-- Resume Summary
+* Technical Skills
+* Soft Skills
+* Programming Languages
+* Frameworks
+* Tools
+* Databases
+* Cloud Technologies
+* Certifications
+* Education
+* Work Experience
+* Projects
 
----
-
-## 🎤 AI Interview Question Generation
-
-Generate personalized interview questions directly from the uploaded resume.
-
-Features include:
-
-- Technical Questions
-- HR Questions
-- Project-based Questions
-- Resume-based Questions
-- Difficulty Levels
-- Expected Answer Points
+The generated analysis is stored in structured form and displayed to the candidate.
 
 ---
 
-## 💬 AI Mock Interview
+## 🧾 Job Description & Resume Matching
 
-Candidates can participate in AI-driven mock interviews.
+The platform supports:
 
-Features:
+* Saving a Job Description.
+* Updating an existing Job Description.
+* Loading the saved Job Description.
+* Resume ↔ JD comparison using an LLM.
+* Match score generation.
+* Matching skill identification.
+* Missing skill identification.
+* Fit summary generation.
 
-- Interview Sessions
-- Question-wise Answer Submission
-- AI Answer Evaluation
-- Strength Analysis
-- Weakness Analysis
-- Ideal Answer Generation
-- AI Feedback
-- Interview Score
+---
+
+## 🎤 AI Mock Interviews
+
+Candidates can select from:
+
+* HR Interview
+* Technical Interview
+* Managerial Interview
+
+The interview engine supports:
+
+* Conversational AI interviews.
+* Resume-based questioning.
+* Interview-type-specific questioning.
+* Adaptive follow-up questions.
+* Text-based answers.
+* Voice-based answers.
+* Interview session tracking.
+* Multiple interview attempts.
+* AI answer evaluation.
+
+Interview sessions maintain:
+
+* `IN_PROGRESS`
+* `COMPLETED`
+
+status tracking.
 
 ---
 
 ## 🎥 AI Interview Monitoring
 
-During every interview answer, SmartHire AI continuously monitors candidate performance.
+The interview monitoring system supports:
 
-Features:
-
-- Voice Recording
-- Speech-to-Text
-- Emotion Detection
-- Eye Contact Detection
-- Filler Word Detection
-- Fluency Analysis
-- Communication Score
-- Overall Monitoring Score
-- AI Recommendation
-- Real-Time Monitoring Dashboard
-
----
-
-## 📊 Interview Analytics
-
-After interview completion, candidates receive:
-
-- Overall Interview Score
-- Communication Analysis
-- Speech Analysis
-- Emotion Summary
-- Eye Contact Statistics
-- Filler Word Statistics
-- AI Feedback
-- Performance Report
-- Interview History
+* Webcam monitoring.
+* Microphone input.
+* Speech-to-Text.
+* Transcript generation.
+* Emotion Detection.
+* Eye Contact Detection.
+* Filler Word Detection.
+* Fluency Analysis.
+* Communication Analysis.
+* Overall Monitoring Score.
+* AI Recommendation.
+* Monitoring Reports.
+* Timeline Monitoring Snapshots.
 
 ---
 
-## 💻 Candidate Dashboard
+## 📊 Analytics & Feedback
 
-The candidate dashboard provides:
+The platform provides:
 
-- Resume Management
-- Resume Analysis
-- Interview Sessions
-- Interview Monitoring
-- Interview Reports
-- Analytics Dashboard
-- Secure Profile Management
+* Overall Interview Score.
+* Fluency Score.
+* Eye Contact Score.
+* Filler Word Analysis.
+* Emotion Analysis.
+* Score Timeline.
+* Transcript History.
+* AI Feedback.
+* Strengths.
+* Weaknesses.
+* Suggestions.
+* Interview History.
+* Progress Tracking.
+* PDF Interview Reports.
 
 ---
 
-# 🏗 System Architecture
+## 🧑‍💼 Recruiter Dashboard
 
-The SmartHire AI platform follows a modern three-tier architecture.
+Recruiters can:
 
+* View completed interview sessions.
+* Search interview sessions.
+* Filter sessions by score.
+* Open candidate analytics.
+* View interview reports.
+* Download PDF reports.
+* Mark candidates as:
+
+  * Pending
+  * Shortlisted
+  * Rejected
+* Persist shortlist decisions in the database.
+* Delete their account securely.
+
+---
+
+## 🛡️ Admin Dashboard
+
+Administrators can:
+
+* View total platform users.
+* View candidate count.
+* View recruiter count.
+* View admin count.
+* List users.
+* Search users by name or email.
+* Filter users by role.
+* Delete their account securely.
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                 +---------------------------+
+                 |       React Frontend      |
+                 |  TypeScript + TailwindCSS |
+                 +------------+--------------+
+                              |
+                       REST API (Axios)
+                              |
+                 +------------v--------------+
+                 |      FastAPI Backend      |
+                 | Auth • Resume • JD        |
+                 | Interview • Monitoring    |
+                 | Analytics • Shortlist     |
+                 +------------+--------------+
+                              |
+         ----------------------------------------
+         |                  |                   |
++--------v------+   +-------v-------+   +-------v--------+
+| PostgreSQL DB |   |   Groq API    |   |   AI Models    |
+| Users         |   | Resume AI     |   | Whisper        |
+| Resumes       |   | JD Match      |   | DeepFace       |
+| Interviews    |   | Interview AI  |   | MediaPipe      |
+| Shortlists    |   | Feedback      |   | OpenCV         |
++---------------+   +---------------+   +----------------+
 ```
-                    +---------------------------+
-                    |       React Frontend      |
-                    |  TypeScript + TailwindCSS |
-                    +------------+--------------+
-                                 |
-                                 |
-                        REST API (Axios)
-                                 |
-                                 |
-                    +------------v--------------+
-                    |      FastAPI Backend      |
-                    | Authentication            |
-                    | Resume Management         |
-                    | Interview Engine          |
-                    | AI Monitoring             |
-                    | Analytics                 |
-                    +------------+--------------+
-                                 |
-                ----------------------------------------
-                |                  |                   |
-                |                  |                   |
-      +---------v------+   +-------v-------+   +-------v--------+
-      | PostgreSQL DB  |   |   Groq API    |   | AI Models      |
-      |                |   | Llama 3.3 70B |   | Whisper         |
-      | Users          |   |               |   | DeepFace        |
-      | Resumes        |   | Resume AI     |   | MediaPipe       |
-      | Interviews     |   | Evaluation    |   | OpenCV          |
-      +----------------+   +---------------+   +----------------+
-```
 
 ---
 
-# ⚙ Technology Stack
+# ⚙️ Technology Stack
 
-## 🎨 Frontend
+## Frontend
 
-The frontend is built using modern React technologies.
-
-| Technology | Purpose |
-|------------|---------|
-| React 19 | User Interface |
-| TypeScript | Type Safety |
-| Vite | Build Tool |
-| Tailwind CSS | Styling |
-| React Router DOM | Routing |
-| Axios | API Communication |
-| React Webcam | Camera Integration |
+| Technology       | Purpose            |
+| ---------------- | ------------------ |
+| React            | User Interface     |
+| TypeScript       | Type Safety        |
+| Vite             | Build Tool         |
+| Tailwind CSS     | Styling            |
+| React Router DOM | Routing            |
+| Axios            | API Communication  |
+| React Webcam     | Camera Integration |
+| Lucide React     | Icons              |
+| Recharts         | Data Visualization |
 
 ---
 
-## 🚀 Backend
+## Backend
 
-The backend provides REST APIs and business logic.
-
-| Technology | Purpose |
-|------------|---------|
-| FastAPI | REST APIs |
-| SQLAlchemy | ORM |
-| Alembic | Database Migration |
-| PostgreSQL | Database |
-| Pydantic | Validation |
-| JWT | Authentication |
-| Passlib (BCrypt) | Password Hashing |
-| Uvicorn | ASGI Server |
+| Technology       | Purpose                      |
+| ---------------- | ---------------------------- |
+| FastAPI          | REST API Framework           |
+| Python           | Backend Programming Language |
+| SQLAlchemy       | ORM                          |
+| Alembic          | Database Migration           |
+| PostgreSQL       | Database                     |
+| Pydantic         | Data Validation              |
+| JWT              | Authentication               |
+| Passlib / BCrypt | Password Hashing             |
+| Uvicorn          | ASGI Server                  |
 
 ---
 
 # 🤖 Artificial Intelligence Stack
 
-SmartHire AI integrates multiple AI technologies.
+## Large Language Model
 
-## 🧠 Large Language Model
-
-- Groq API
-- Llama 3.3 70B Versatile
-- Prompt Engineering
-- Structured JSON Output
+The platform uses the **Groq API** for LLM-powered functionality.
 
 Used for:
 
-- Resume Analysis
-- Skill Extraction
-- Resume Summarization
-- Interview Question Generation
-- Interview Answer Evaluation
-- AI Feedback Generation
+* Resume Analysis.
+* Resume ↔ JD Matching.
+* Interview Conversation Generation.
+* Adaptive Interview Questions.
+* Answer Evaluation.
+* AI Feedback.
+* Interview Recommendations.
+
+Additional techniques include:
+
+* Prompt Engineering.
+* Structured JSON Output.
 
 ---
 
-## 🎙 Speech Processing
+## 🎙️ Speech Processing
 
-### OpenAI Whisper
-
-Speech recordings are automatically converted into text.
-
-Features:
-
-- Automatic Speech Recognition
-- High Accuracy
-- Noise Robustness
-- English Speech Recognition
+The platform uses **OpenAI Whisper** for speech processing.
 
 Used for:
 
-- Interview Transcript
-- Speech Analysis
-- Communication Evaluation
+* Speech-to-Text.
+* Transcript generation.
+* Filler-word detection support.
+* Fluency analysis support.
 
 ---
 
-## 😊 Emotion Recognition
+## 🙂 Emotion Recognition
 
-### DeepFace
+The platform uses **DeepFace** for facial emotion analysis.
 
-DeepFace analyzes facial expressions captured through the webcam.
+Used for:
 
-Supported emotions include:
-
-- Happy
-- Neutral
-- Sad
-- Angry
-- Fear
-- Surprise
-- Disgust
-
-The dominant emotion is displayed in real time during interviews.
+* Facial emotion detection.
+* Dominant emotion identification.
+* Interview monitoring.
 
 ---
 
-## 👀 Eye Contact Detection
+## 👁️ Eye Contact Detection
 
-Eye contact tracking is implemented using:
+The platform uses:
 
-- MediaPipe Face Mesh
-- OpenCV
+* MediaPipe Face Mesh.
+* OpenCV.
 
-Features:
+Used for:
 
-- Detects if the candidate is looking at the camera
-- Calculates eye alignment
-- Provides eye-contact confidence
-
----
-
-## 🗣 Communication Analysis
-
-Speech is analyzed to evaluate communication quality.
-
-Current metrics:
-
-- Transcript Generation
-- Filler Word Detection
-- Fluency Score
-- Communication Score
-- Overall AI Recommendation
+* Face landmark detection.
+* Eye/camera attention estimation.
+* Eye-contact scoring.
 
 ---
 
 # 🧠 AI Workflow
 
-The interview pipeline works as follows:
-
-```
+```text
 Resume Upload
-        │
-        ▼
+      │
+      ▼
 Resume Parsing
-        │
-        ▼
-Resume Analysis (Groq)
-        │
-        ▼
-Question Generation
-        │
-        ▼
-Interview Session
-        │
-        ▼
-Audio Recording
-        │
-        ▼
-Whisper Speech-to-Text
-        │
-        ▼
-DeepFace Emotion Detection
-        │
-        ▼
-MediaPipe Eye Contact Detection
-        │
-        ▼
-Filler Word Analysis
-        │
-        ▼
+      │
+      ▼
+Resume Analysis using Groq
+      │
+      ▼
+Optional Job Description Save
+      │
+      ▼
+Resume ↔ JD Matching
+      │
+      ▼
+Select Interview Type
+(HR / Technical / Managerial)
+      │
+      ▼
+Create Interview Session
+      │
+      ▼
+Conversational AI Interview
+      │
+      ▼
+Speech + Webcam Monitoring
+      │
+      ├── Speech-to-Text
+      ├── Filler Detection
+      ├── Fluency Analysis
+      ├── Emotion Detection
+      └── Eye Contact Detection
+      │
+      ▼
 AI Answer Evaluation
-        │
-        ▼
-Interview Analytics
+      │
+      ▼
+Overall Interview Analysis
+      │
+      ▼
+Analytics / Feedback / PDF Report
 ```
 
 ---
 
-# 🗄 Database Design
+# 🗄️ Database Design
 
-Current database tables include:
+The SmartHire AI database is implemented using PostgreSQL.
 
-| Table | Description |
-|--------|-------------|
-| users | Candidate information |
-| resumes | Uploaded resumes |
-| resume_analysis | AI resume analysis |
-| interview_questions | AI generated questions |
-| interview_sessions | Interview sessions |
-| interview_answers | Candidate answers |
-| interview_evaluations | AI evaluation reports |
-| interview_monitor_snapshots | Real-time monitoring snapshots |
-| interview_monitor_reports | Final interview monitoring reports |
+| Table                         | Description                                       |
+| ----------------------------- | ------------------------------------------------- |
+| `users`                       | Platform users with roles                         |
+| `resumes`                     | Uploaded resumes                                  |
+| `resume_analysis`             | AI-generated resume insights                      |
+| `job_descriptions`            | Job Description text associated with users        |
+| `interview_questions`         | Generated interview questions                     |
+| `interview_sessions`          | Interview sessions with interview type and status |
+| `interview_conversations`     | Conversational interview history                  |
+| `interview_answers`           | Candidate answers                                 |
+| `interview_evaluations`       | AI evaluation of candidate answers                |
+| `interview_monitor_reports`   | Final interview monitoring report                 |
+| `interview_monitor_snapshots` | Timeline monitoring and analytics snapshots       |
+| `recruiter_shortlists`        | Recruiter shortlist decisions                     |
 
----
-
-# 🔒 Security Features
-
-SmartHire AI follows security best practices.
-
-Authentication:
-
-- JWT Authentication
-- Secure Password Hashing
-- Token-based Authorization
-
-Database:
-
-- SQLAlchemy ORM
-- Parameterized Queries
-- Foreign Key Constraints
-- Cascading Deletes
-
-Backend:
-
-- Input Validation
-- Pydantic Schemas
-- Exception Handling
-- Protected Routes
-
-Frontend:
-
-- Route Guards
-- Secure API Calls
-- Token Storage
-- Responsive Design
+The database architecture maintains referential integrity through foreign-key relationships and supports cascade-safe data cleanup.
 
 ---
 
-# 📈 Current Project Statistics
+# 🔒️ Security Features
 
-### Backend
+SmartHire AI implements multiple security mechanisms:
 
-- 40+ REST APIs
-- SQLAlchemy ORM
-- Repository Pattern
-- Service Layer Architecture
+* JWT Authentication.
+* BCrypt Password Hashing.
+* Role-Based Access Control.
+* Protected API endpoints.
+* Protected frontend routes.
+* Owner-restricted resume access.
+* Authenticated interview access.
+* Role-restricted recruiter features.
+* Role-restricted administrator features.
+* Pydantic input validation.
+* SQLAlchemy ORM.
+* Environment-based secret configuration.
+* Secure account deletion.
+* Related data cleanup using database relationships.
 
-### Frontend
-
-- React Components
-- Responsive Pages
-- Tailwind CSS UI
-- AI Monitoring Dashboard
-
-### Artificial Intelligence
-
-- Resume Analysis
-- Interview Question Generation
-- Answer Evaluation
-- Speech Recognition
-- Emotion Detection
-- Eye Contact Detection
-- Communication Analysis
+Sensitive credentials such as database passwords, JWT secrets, and API keys are stored using environment variables rather than hard-coded values.
 
 ---
 
@@ -475,7 +469,6 @@ SmartHire-AI
 │
 ├── backend
 │   ├── alembic
-│   │
 │   ├── app
 │   │   ├── ai
 │   │   ├── api
@@ -494,22 +487,19 @@ SmartHire-AI
 │   │   ├── audio
 │   │   └── images
 │   │
+│   ├── reports
 │   ├── requirements.txt
 │   └── .env
 │
 ├── frontend
 │   ├── public
-|   |
 │   ├── src
 │   │   ├── assets
 │   │   ├── components
 │   │   ├── contexts
-│   │   ├── hooks
-│   │   ├── layouts
 │   │   ├── pages
 │   │   ├── routes
 │   │   ├── services
-│   │   ├── styles
 │   │   └── App.tsx
 │   │
 │   ├── package.json
@@ -532,237 +522,96 @@ SmartHire-AI
 
 # 🌐 REST API Documentation
 
-The backend exposes RESTful APIs built with **FastAPI**.
+## Base URL
 
-Base URL
-
-```
+```text
 http://127.0.0.1:8000/api/v1
 ```
 
----
-
-# 🔐 Authentication APIs
-
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| POST | `/auth/register` | Register a new user |
-| POST | `/auth/login` | Login user |
-| GET | `/users/me` | Get logged-in user |
+> Exact endpoint paths may vary slightly depending on router prefixes. Use the Swagger documentation available at `/docs` for live API confirmation.
 
 ---
 
-# 📄 Resume APIs
+## Authentication & User APIs
 
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| POST | `/resume/upload` | Upload Resume |
-| GET | `/resume/me` | Get All User Resumes |
-| GET | `/resume/{id}` | Resume Details |
-| GET | `/resume/download/{id}` | Download Resume |
-| GET | `/resume/analyze/{id}` | AI Resume Analysis |
-| DELETE | `/resume/{id}` | Delete Resume |
-
----
-
-# 🤖 AI Interview APIs
-
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | `/interview/generate/{resume_id}` | Generate Interview Questions |
-| POST | `/interview/start/{resume_id}` | Start Interview |
-| POST | `/interview/evaluate` | Evaluate Answer |
-| POST | `/interview/finish/{session_id}` | Finish Interview |
-| GET | `/interview/sessions` | Interview History |
-| GET | `/interview/report/{session_id}` | Interview Report |
+| Method | Endpoint         | Description               |
+| ------ | ---------------- | ------------------------- |
+| POST   | `/auth/register` | Register a user with role |
+| POST   | `/auth/login`    | Login                     |
+| GET    | `/users/me`      | Get current user          |
+| DELETE | `/users/me`      | Delete own account        |
+| GET    | `/users`         | List users (Admin)        |
 
 ---
 
-# 🎥 Interview Monitoring APIs
+## Resume APIs
 
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| POST | `/interview-monitor/analyze` | Analyze Audio + Webcam |
-| GET | `/interview-monitor/report/{session_id}` | Monitoring Report |
-| GET | `/interview-monitor/history` | Monitoring History |
-
----
-
-# 📊 Analytics APIs
-
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | `/analytics/interview/{session_id}` | Interview Analytics |
-| GET | `/analytics/dashboard` | Candidate Dashboard Analytics |
+| Method | Endpoint                | Description                 |
+| ------ | ----------------------- | --------------------------- |
+| POST   | `/resume/upload`        | Upload resume               |
+| GET    | `/resume/me`            | List current user's resumes |
+| GET    | `/resume/{id}`          | Get resume details          |
+| GET    | `/resume/download/{id}` | Download resume             |
+| GET    | `/resume/analyze/{id}`  | Analyze resume              |
+| DELETE | `/resume/{id}`          | Delete resume               |
 
 ---
 
-# 🔄 Resume Analysis Workflow
+## Job Description APIs
 
-```text
-Candidate Uploads Resume
-          │
-          ▼
-PDF Parsing
-          │
-          ▼
-Groq LLM Analysis
-          │
-          ▼
-Skill Extraction
-          │
-          ▼
-Database Storage
-          │
-          ▼
-Candidate Dashboard
-```
+| Method | Endpoint                             | Description                       |
+| ------ | ------------------------------------ | --------------------------------- |
+| POST   | `/job-description`                   | Save Job Description              |
+| GET    | `/job-description`                   | Get saved Job Description         |
+| POST   | `/job-description/match/{resume_id}` | Match resume with Job Description |
 
 ---
 
-# 🎤 Interview Workflow
+## Interview APIs
 
-```text
-Resume Selected
-       │
-       ▼
-Generate Questions
-       │
-       ▼
-Start Interview Session
-       │
-       ▼
-Answer Questions
-       │
-       ▼
-AI Evaluation
-       │
-       ▼
-Interview Monitoring
-       │
-       ▼
-Analytics Dashboard
-```
+| Method | Endpoint                         | Description                        |
+| ------ | -------------------------------- | ---------------------------------- |
+| POST   | `/interview/start/{resume_id}`   | Start interview with selected type |
+| POST   | `/interview/chat/{session_id}`   | Continue conversational interview  |
+| POST   | `/interview/finish/{session_id}` | Finish interview                   |
+| GET    | `/interview/sessions`            | Get interview sessions             |
+| GET    | `/interview/report/{session_id}` | Get interview report               |
 
 ---
 
-# 🎥 Interview Monitoring Workflow
+## Monitoring & Analytics APIs
 
-```text
-Candidate Speaks
-       │
-       ▼
-Audio Recording
-       │
-       ▼
-Speech-to-Text
-       │
-       ▼
-Transcript
-       │
-       ▼
-Filler Word Detection
-
-----------------------------
-
-Webcam Image
-       │
-       ▼
-DeepFace
-       │
-       ▼
-Emotion Detection
-
-----------------------------
-
-Webcam Image
-       │
-       ▼
-MediaPipe
-       │
-       ▼
-Eye Contact Detection
-
-----------------------------
-
-All Results
-       │
-       ▼
-Overall AI Score
-       │
-       ▼
-Recommendation
-```
+| Method | Endpoint                                    | Description                  |
+| ------ | ------------------------------------------- | ---------------------------- |
+| POST   | `/interview-monitor/analyze`                | Analyze interview media      |
+| GET    | `/interview-monitor/history`                | Get monitoring history       |
+| GET    | `/interview-monitor/analytics/{session_id}` | Get interview analytics      |
+| GET    | `/feedback/{session_id}`                    | Get AI feedback              |
+| GET    | `/report/{session_id}`                      | Generate/download PDF report |
 
 ---
 
-# 📊 Database Relationships
+## Recruiter Shortlist APIs
 
-```text
-User
- │
- └────────── Resume
-                  │
-                  ├──────── Resume Analysis
-                  │
-                  ├──────── Interview Questions
-                  │
-                  └──────── Interview Sessions
-                                  │
-                                  ├──────── Interview Answers
-                                  │                │
-                                  │                └──── Interview Evaluation
-                                  │
-                                  ├──────── Monitor Snapshots
-                                  │
-                                  └──────── Monitor Reports
-```
+| Method | Endpoint               | Description                    |
+| ------ | ---------------------- | ------------------------------ |
+| GET    | `/recruiter/shortlist` | List shortlist statuses        |
+| POST   | `/recruiter/shortlist` | Create/update shortlist status |
 
 ---
 
-# 📌 Backend Design Pattern
-
-The backend follows a clean layered architecture.
-
-```
-API Layer
-      │
-      ▼
-Service Layer
-      │
-      ▼
-Repository Layer
-      │
-      ▼
-SQLAlchemy Models
-      │
-      ▼
-PostgreSQL
-```
-
-Benefits:
-
-- Separation of concerns
-- Scalable architecture
-- Easy testing
-- Clean codebase
-- Reusable services
-- Maintainable project structure
-
----
-
-# ⚙ Installation Guide
+# ⚙️ Installation Guide
 
 ## Prerequisites
 
-Before running SmartHire AI, ensure the following software is installed:
+Install the following:
 
-- Python 3.10+
-- Node.js 20+
-- PostgreSQL 15+
-- Git
+* Python 3.10+
+* Node.js 20+
+* PostgreSQL 15+
+* Git
 
-Verify installation:
+Verify the installations:
 
 ```bash
 python --version
@@ -778,7 +627,6 @@ git --version
 
 ```bash
 git clone https://github.com/SohamDey2005/SmartHire-AI.git
-
 cd SmartHire-AI
 ```
 
@@ -786,19 +634,17 @@ cd SmartHire-AI
 
 # 🐍 Backend Setup
 
-Navigate to the backend directory.
+Navigate to the backend directory:
 
 ```bash
 cd backend
 ```
 
-Create a virtual environment.
+Create a virtual environment:
 
 ```bash
 python -m venv .venv
 ```
-
-Activate the virtual environment.
 
 ### Windows
 
@@ -812,51 +658,73 @@ Activate the virtual environment.
 source .venv/bin/activate
 ```
 
-Upgrade pip.
+Upgrade pip:
 
 ```bash
 python -m pip install --upgrade pip
 ```
 
-Install project dependencies.
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
+Install the required spaCy model:
 
-# ⚙ Environment Variables
-
-Create a `.env` file inside the **backend** directory.
-
-```env
-DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/smarthire_ai
-
-SECRET_KEY=your_secret_key
-
-ALGORITHM=HS256
-
-ACCESS_TOKEN_EXPIRE_MINUTES=60
-
-GROQ_API_KEY=your_groq_api_key
+```bash
+python -m spacy download en_core_web_sm
 ```
 
 ---
 
-# 🗄 PostgreSQL Database
+# 🔐 Environment Variables
 
-Create a PostgreSQL database.
+Create a file named:
+
+```text
+backend/.env
+```
+
+Add the following configuration:
+
+```env
+APP_NAME=SmartHire AI
+APP_VERSION=1.0.0
+DEBUG=True
+HOST=127.0.0.1
+PORT=8000
+
+SECRET_KEY=your_long_random_secret_key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/smarthire_ai
+
+FRONTEND_URL=http://localhost:5173
+
+GROQ_API_KEY=your_groq_api_key
+```
+
+Replace:
+
+* `YOUR_PASSWORD` with the PostgreSQL password.
+* `your_long_random_secret_key` with a secure secret key.
+* `your_groq_api_key` with the Groq API key.
+
+**Do not commit `.env` to GitHub.**
+
+---
+
+# 🐘 PostgreSQL Setup
+
+Create the database:
 
 ```sql
 CREATE DATABASE smarthire_ai;
 ```
 
----
-
-# 🧱 Run Database Migrations
-
-Apply Alembic migrations.
+Run database migrations from the `backend` directory:
 
 ```bash
 alembic upgrade head
@@ -864,192 +732,285 @@ alembic upgrade head
 
 ---
 
-# ▶ Start Backend Server
+# 🚀 Start Backend
+
+From the `backend` directory:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-The backend will be available at:
+Backend:
 
-```
+```text
 http://127.0.0.1:8000
 ```
 
----
+Swagger API documentation:
 
-# 📖 Swagger API Documentation
-
-FastAPI automatically generates interactive API documentation.
-
-Swagger UI
-
-```
+```text
 http://127.0.0.1:8000/docs
 ```
 
-ReDoc
+ReDoc:
 
-```
+```text
 http://127.0.0.1:8000/redoc
 ```
 
 ---
 
-# ⚛ Frontend Setup
+# ⚛️ Frontend Setup
 
-Open a new terminal.
-
-Navigate to the frontend folder.
+Open a new terminal and navigate to the frontend:
 
 ```bash
 cd frontend
 ```
 
-Install dependencies.
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Run the React application.
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Frontend URL
+Frontend:
 
-```
+```text
 http://localhost:5173
 ```
 
 ---
 
-# 📂 Upload Directories
+# 📂 Upload & Report Directories
 
-Ensure the following directories exist before running the application.
+Ensure the following directories exist:
 
-```
-backend/uploads/
-
+```text
 backend/uploads/resumes/
-
 backend/uploads/audio/
-
 backend/uploads/images/
+backend/reports/
 ```
 
-If they do not exist, create them manually.
+These directories are used for storing uploaded resumes, audio/image processing data, and generated reports.
 
 ---
 
-# 🧪 Running the Complete Application
+# 🧪 Recommended Test Flow
 
-Start the services in the following order:
+Follow the following sequence to test the complete platform:
 
-### Terminal 1
-
-```bash
-postgresql
-```
-
-### Terminal 2
-
-```bash
-cd backend
-
-.venv\Scripts\activate
-
-uvicorn app.main:app --reload
-```
-
-### Terminal 3
-
-```bash
-cd frontend
-
-npm run dev
-```
-
-Now open:
-
-```
-http://localhost:5173
-```
-
----
-
-# 🧪 Testing the Application
-
-Recommended workflow:
-
-1. Register a new account.
-2. Log in.
+1. Register as a Candidate.
+2. Login as Candidate.
 3. Upload a PDF resume.
 4. Analyze the resume using AI.
-5. Generate interview questions.
-6. Start an interview session.
-7. Answer interview questions.
-8. Allow microphone and webcam access.
-9. View AI evaluation.
-10. Review interview analytics.
+5. Save a Job Description.
+6. Run Resume ↔ JD Match.
+7. Select an interview type:
+   * HR
+   * Technical
+   * Managerial
+8. Start the AI interview.
+9. Allow microphone and webcam permissions.
+10. Answer interview questions.
+11. Complete the interview.
+12. Review interview analytics.
+13. Review AI feedback.
+14. Download the PDF report.
+15. Register/Login as Recruiter.
+16. View completed interview sessions.
+17. Shortlist, reject, or mark a session as pending.
+18. Register/Login as Admin.
+19. View platform users and role statistics.
 
 ---
 
-# 📊 Current Database Schema
+# 📸 Screenshots
 
-The application currently contains the following tables:
+### Home Page
 
-| Table | Purpose |
-|--------|----------|
-| users | User accounts |
-| resumes | Resume storage |
-| resume_analysis | AI-generated resume insights |
-| interview_questions | Generated interview questions |
-| interview_sessions | Interview session tracking |
-| interview_answers | Candidate responses |
-| interview_evaluations | AI answer evaluation |
-| interview_monitor_snapshots | Webcam monitoring snapshots |
-| interview_monitor_reports | Interview monitoring reports |
+```text
+screenshots/home.png
+```
+
+### Login Page
+
+```text
+screenshots/login.png
+```
+
+### Registration Page
+
+```text
+screenshots/register.png
+```
+
+### Candidate Dashboard
+
+```text
+screenshots/candidate-dashboard.png
+```
+
+### Resume Analysis
+
+```text
+screenshots/resume-analysis.png
+```
+
+### Job Description + Match
+
+```text
+screenshots/jd-match.png
+```
+
+### Interview Type Selection
+
+```text
+screenshots/interview-type.png
+```
+
+### AI Interview Room
+
+```text
+screenshots/interview-room.png
+```
+
+### Interview Analytics
+
+```text
+screenshots/interview-analytics.png
+```
+
+### AI Feedback
+
+```text
+screenshots/ai-feedback.png
+```
+
+### Recruiter Dashboard
+
+```text
+screenshots/recruiter-dashboard.png
+```
+
+### Admin Dashboard
+
+```text
+screenshots/admin-dashboard.png
+```
 
 ---
 
-# 📂 Important Project Files
+# 📈 Milestone Progress
 
-| File | Description |
-|------|-------------|
-| requirements.txt | Python dependencies |
-| package.json | Frontend dependencies |
-| alembic.ini | Alembic configuration |
-| .env | Environment variables |
-| README.md | Project documentation |
-| .gitignore | Git ignore rules |
+## ✅ Milestone 1 — Foundation
+
+Completed:
+
+* Requirements and architecture.
+* Database design.
+* PostgreSQL integration.
+* Authentication.
+* JWT Authorization.
+* Role-Based Access Control.
+* Resume management.
+* Candidate dashboard foundation.
 
 ---
 
-# 🛠 Troubleshooting
+## ✅ Milestone 2 — AI Recruitment Engine
 
-### PostgreSQL Connection Error
+Completed:
+
+* Resume parsing.
+* AI resume analysis.
+* Skill extraction.
+* Interview question generation.
+* Conversational interview generation.
+* Interview session management.
+* AI interview workflow.
+* Candidate answer evaluation.
+
+---
+
+## ✅ Milestone 3 — AI Monitoring
+
+Completed:
+
+* Speech-to-Text.
+* Emotion Recognition.
+* Eye Contact Detection.
+* Filler Word Detection.
+* Fluency Analysis.
+* Communication Analysis.
+* Interview Monitoring.
+* Monitoring Reports.
+* Monitoring Snapshots.
+* Analytics support.
+
+---
+
+## ✅ Milestone 4 — Platform Completion
+
+Completed:
+
+* Job Description Management.
+* Resume ↔ JD Match.
+* Interview Type Selection.
+* HR / Technical / Managerial interviews.
+* Recruiter Dashboard.
+* Recruiter Shortlisting.
+* Admin Dashboard.
+* Admin User Visibility.
+* Account Deletion.
+* Full role-based frontend protection.
+* Documentation.
+
+---
+
+## ⏳ Remaining
+
+* Cloud Deployment.
+
+---
+
+# 🛠️ Troubleshooting
+
+## PostgreSQL Connection Error
 
 Check that:
 
-- PostgreSQL service is running.
-- `DATABASE_URL` is correct.
-- Database exists.
-- Username and password are valid.
+* PostgreSQL is running.
+* The database `smarthire_ai` exists.
+* `DATABASE_URL` is correct.
+* PostgreSQL username and password are correct.
+
+Example:
+
+```env
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/smarthire_ai
+```
 
 ---
 
-### Module Not Found
+## Python Module Not Found
 
-Activate the virtual environment before running the backend.
+Activate the virtual environment:
+
+### Windows
 
 ```bash
 .venv\Scripts\activate
 ```
 
-Then reinstall dependencies.
+Then reinstall dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -1057,230 +1018,131 @@ pip install -r requirements.txt
 
 ---
 
-### Frontend Build Errors
+## Frontend Installation Issues
 
-Delete `node_modules` and reinstall.
+If dependency installation causes problems, remove `node_modules` and reinstall.
 
-```bash
-rm -rf node_modules
-
-npm install
-```
-
-or on Windows:
+### Windows Command Prompt
 
 ```cmd
 rmdir /s /q node_modules
+npm install
+```
 
+### PowerShell
+
+```powershell
+Remove-Item -Recurse -Force node_modules
 npm install
 ```
 
 ---
 
-### Alembic Migration Issues
+## Camera / Microphone Not Working
 
-Check the current migration version.
+Check the following:
 
-```bash
-alembic current
+* Allow browser camera permissions.
+* Allow browser microphone permissions.
+* Prefer Google Chrome or Microsoft Edge.
+* Ensure another application is not using the camera or microphone.
+* Restart the browser after changing permissions.
+
+---
+
+## AI Features Not Working
+
+Check:
+
+* `GROQ_API_KEY` is correctly configured.
+* The `.env` file is inside the `backend` directory.
+* The backend server is running.
+* Internet connectivity is available.
+* Required AI dependencies are installed.
+
+---
+
+# 🚀 Deployment
+
+The current implementation is complete for local development and testing.
+
+**Cloud deployment remains the major production step.**
+
+Potential deployment architecture:
+
+```text
+                   ┌─────────────────────┐
+                   │   Frontend Hosting  │
+                   │  Vercel / Netlify   │
+                   └──────────┬──────────┘
+                              │
+                         HTTPS / API
+                              │
+                   ┌──────────▼──────────┐
+                   │   Backend Hosting   │
+                   │ Render / Railway /  │
+                   │        AWS          │
+                   └──────────┬──────────┘
+                              │
+                   ┌──────────▼──────────┐
+                   │ Managed PostgreSQL   │
+                   │      Database       │
+                   └─────────────────────┘
 ```
 
-Upgrade to the latest migration.
+Potential deployment targets include:
 
-```bash
-alembic upgrade head
-```
+* **Frontend:** Vercel / Netlify.
+* **Backend:** Render / Railway / AWS.
+* **Database:** Managed PostgreSQL.
+* **Containerization:** Docker.
+* **CI/CD:** GitHub Actions or equivalent.
 
----
-
-### Camera or Microphone Not Working
-
-- Allow browser permissions.
-- Use a supported browser (Chrome or Edge).
-- Ensure no other application is using the webcam or microphone.
+Production deployment should also include appropriate environment configuration, HTTPS, secret management, logging, monitoring, and infrastructure hardening.
 
 ---
 
-# 🚀 Deployment (Planned)
+# 📊 Project Status
 
-The following deployment targets are planned for future releases:
-
-- Docker
-- Render
-- Railway
-- AWS
-- Azure
-- Google Cloud Platform
-
-Deployment guides will be added in future milestones.
-
----
-
-# 📈 Milestone Progress
-
-## ✅ Milestone 1 — Project Foundation
-
-Completed Features:
-
-- Project Planning
-- Functional & Non-Functional Requirements
-- Database Design
-- ER Diagram
-- UI Wireframes
-- FastAPI Backend Setup
-- React + TypeScript Frontend Setup
-- PostgreSQL Integration
-- SQLAlchemy ORM
-- Alembic Migrations
-- JWT Authentication
-- Role-Based Access Control
-- Candidate Dashboard
-- Resume Upload
-- Resume Download
-- Resume Deletion
-- Protected Routes
+| Category                   | Status      |
+| -------------------------- | ----------- |
+| Frontend                   | ✅ Completed |
+| Backend                    | ✅ Completed |
+| Database                   | ✅ Completed |
+| Authentication + Roles     | ✅ Completed |
+| Resume Management          | ✅ Completed |
+| Resume Analysis            | ✅ Completed |
+| Job Description + Match    | ✅ Completed |
+| Interview Types            | ✅ Completed |
+| Conversational Interviews  | ✅ Completed |
+| Interview Monitoring       | ✅ Completed |
+| Speech Analysis            | ✅ Completed |
+| Emotion Recognition        | ✅ Completed |
+| Eye Contact Detection      | ✅ Completed |
+| Filler / Fluency Analysis  | ✅ Completed |
+| AI Answer Evaluation       | ✅ Completed |
+| Analytics / Feedback / PDF | ✅ Completed |
+| Recruiter Shortlisting     | ✅ Completed |
+| Admin User View            | ✅ Completed |
+| Account Deletion           | ✅ Completed |
+| Documentation              | ✅ Completed |
+| Cloud Deployment           | ⏳ Pending   |
 
 ---
 
-## ✅ Milestone 2 — AI Recruitment Engine
+# 📚 Documentation
 
-Completed Features:
+Detailed project documentation is available inside the `docs` directory:
 
-- AI Resume Parsing
-- AI Resume Analysis
-- Technical Skill Extraction
-- Soft Skill Extraction
-- Education Extraction
-- Experience Extraction
-- Project Extraction
-- Certification Extraction
-- AI Interview Question Generation
-- Interview Session Management
-- AI Answer Evaluation
-- AI Feedback Generation
-- Interview Reports
-
----
-
-## ✅ Milestone 3 — AI Interview Monitoring
-
-Completed Features:
-
-- Speech-to-Text Transcription
-- Emotion Recognition
-- Eye Contact Detection
-- Filler Word Detection
-- Fluency Analysis
-- Overall AI Monitoring Score
-- AI Recommendation Engine
-- Real-Time Monitoring Dashboard
-- Monitoring Reports
-- Interview Analytics
-- Improved Loading UI with Skeleton Animations
-
----
-
-# 🚀 Upcoming Milestones
-
-## 🔹 Milestone 4
-
-Planned Features:
-
-- Recruiter Dashboard
-- Candidate Ranking
-- Resume Shortlisting
-- Job Posting Management
-- Application Tracking System
-- Recruiter Analytics
-- Admin Dashboard
-- Email Notifications
-- Advanced Charts & Graphs
-- PDF Report Export
-
----
-
-## 🔹 Milestone 5
-
-Future Enhancements:
-
-- Live AI Interview
-- Voice-Based Interview
-- AI Avatar Interviewer
-- Behavioral Question Generation
-- Coding Interview Module
-- Video Recording
-- Cloud Deployment
-- Docker Support
-- CI/CD Pipeline
-- Multi-Language Support
-- Mobile Responsive Improvements
-
----
-
-# 📸 Screenshots
-
-Screenshots will be added after the completion of the remaining milestones.
-
-Planned screenshots include:
-
-- Landing Page
-- Login
-- Register
-- Dashboard
-- Resume Upload
-- Resume Analysis
-- Resume Details
-- Interview Questions
-- AI Interview
-- Interview Monitoring
-- Analytics Dashboard
-- Interview Report
-
----
-
-# 📊 Project Statistics
-
-| Category | Status |
-|----------|--------|
-| Frontend | ✅ Completed |
-| Backend | ✅ Completed |
-| Database | ✅ Completed |
-| Authentication | ✅ Completed |
-| Resume Management | ✅ Completed |
-| Resume Analysis | ✅ Completed |
-| Interview Generation | ✅ Completed |
-| Interview Evaluation | ✅ Completed |
-| Speech Analysis | ✅ Completed |
-| Emotion Detection | ✅ Completed |
-| Eye Contact Detection | ✅ Completed |
-| Filler Word Detection | ✅ Completed |
-| Interview Analytics | ✅ Completed |
-
----
-
-# 🔒 Security Features
-
-- JWT Authentication
-- Password Hashing using BCrypt
-- Protected API Endpoints
-- Role-Based Access Control
-- Secure File Uploads
-- Input Validation using Pydantic
-- SQLAlchemy ORM Protection
-- Environment Variable Configuration
-
----
-
-# ⚡ Performance Highlights
-
-- FastAPI asynchronous APIs
-- PostgreSQL relational database
-- Optimized SQLAlchemy ORM queries
-- React 19 + Vite frontend
-- AI-powered resume analysis
-- Real-time interview monitoring
-- Skeleton loading animations
-- Responsive user interface
+| Document                       | Description                                                             |
+| ------------------------------ | ----------------------------------------------------------------------- |
+| `ProjectScope.md`              | Project scope, objectives, users, modules, and milestones               |
+| `FunctionalRequirements.md`    | Functional requirements of the platform                                 |
+| `NonFunctionalRequirements.md` | Performance, security, scalability, usability, and quality requirements |
+| `DatabaseDesign.md`            | Database schema and design                                              |
+| `ERDiagram.md`                 | Entity Relationship Diagram                                             |
+| `UIWireframes.md`              | Application interface wireframes                                        |
+| `UserWorkflows.md`             | Candidate, Recruiter, Admin, and AI workflows                           |
 
 ---
 
@@ -1289,47 +1151,37 @@ Planned screenshots include:
 **Soham Dey**
 
 B.E. Computer Science & Engineering
-
 University Institute of Technology, The University of Burdwan
 
 Machine Learning • Artificial Intelligence • Full-Stack Development
 
-### GitHub
-
-https://github.com/SohamDey2005
-
-### LinkedIn
-
-https://www.linkedin.com/in/sohamdeydurgapur
+* GitHub: https://github.com/SohamDey2005
+* LinkedIn: https://www.linkedin.com/in/sohamdeydurgapur
 
 ---
 
-# ⭐ Project Status
+# ⭐ Summary
 
-## SmartHire AI — Version 3.0
+SmartHire AI is a complete AI-powered interview and recruitment support platform that integrates:
 
-### Current Status
+* Multi-role authentication.
+* Resume management.
+* AI-powered resume analysis.
+* Job Description matching.
+* HR / Technical / Managerial AI interviews.
+* Conversational interview workflows.
+* AI answer evaluation.
+* Speech-to-Text.
+* Emotion recognition.
+* Eye-contact detection.
+* Filler-word and fluency analysis.
+* Real-time interview monitoring.
+* Analytics and AI feedback.
+* PDF interview reports.
+* Recruiter shortlisting.
+* Admin user visibility.
+* Role-based dashboards.
 
-✅ Milestone 1 Completed
+The platform provides an end-to-end workflow for candidates, recruiters, and administrators while maintaining a modular architecture suitable for future production deployment.
 
-✅ Milestone 2 Completed
-
-✅ Milestone 3 Completed
-
-### Highlights
-
-- AI-powered Resume Parsing
-- AI Resume Analysis
-- Interview Question Generation
-- AI Answer Evaluation
-- Speech-to-Text Analysis
-- Emotion Recognition
-- Eye Contact Detection
-- Filler Word Detection
-- Fluency Scoring
-- Real-Time Interview Monitoring
-- Interview Analytics Dashboard
-
-The project is actively evolving into a complete AI-powered recruitment platform with upcoming recruiter tools, live AI interviews, cloud deployment, and advanced analytics.
-
----
+**The only major remaining production step is cloud deployment.**

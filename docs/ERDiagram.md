@@ -1,8 +1,8 @@
 # SmartHire AI – Entity Relationship Diagram
 
-The following Entity Relationship Diagram (ERD) represents the database schema implemented up to **Milestone 3 (AI Interview Monitoring & Analytics)**.
+The following Entity Relationship Diagram (ERD) represents the complete database schema implemented in SmartHire AI.
 
-The schema includes user management, resume management, AI resume analysis, interview generation, answer evaluation, and real-time interview monitoring.
+The schema includes user management, resume management, AI resume analysis, Job Description management, interview question generation, conversational interviews, candidate answer evaluation, real-time interview monitoring, analytics snapshots, and recruiter shortlisting.
 
 ---
 
@@ -12,58 +12,44 @@ The schema includes user management, resume management, AI resume analysis, inte
 erDiagram
 
     USERS ||--o{ RESUMES : uploads
-
+    USERS ||--o| JOB_DESCRIPTIONS : has
     USERS ||--o{ INTERVIEW_SESSIONS : starts
+    USERS ||--o{ RECRUITER_SHORTLISTS : decides
 
     RESUMES ||--|| RESUME_ANALYSIS : analyzed_into
-
     RESUMES ||--o{ INTERVIEW_QUESTIONS : generates
-
     RESUMES ||--o{ INTERVIEW_SESSIONS : used_in
 
+    INTERVIEW_SESSIONS ||--o{ INTERVIEW_CONVERSATIONS : contains
     INTERVIEW_SESSIONS ||--o{ INTERVIEW_ANSWERS : contains
+    INTERVIEW_SESSIONS ||--o| INTERVIEW_MONITOR_REPORTS : generates
+    INTERVIEW_SESSIONS ||--o{ INTERVIEW_MONITOR_SNAPSHOTS : records
+    INTERVIEW_SESSIONS ||--o{ RECRUITER_SHORTLISTS : reviewed_in
 
     INTERVIEW_QUESTIONS ||--o{ INTERVIEW_ANSWERS : answered_by
-
-    INTERVIEW_ANSWERS ||--|| INTERVIEW_EVALUATIONS : evaluated_into
-
-    INTERVIEW_SESSIONS ||--|| INTERVIEW_MONITOR_REPORTS : generates
-
-    INTERVIEW_SESSIONS ||--o{ INTERVIEW_MONITOR_SNAPSHOTS : records
-
-
+    INTERVIEW_ANSWERS ||--o| INTERVIEW_EVALUATIONS : evaluated_into
 
     USERS {
-
         int id PK
         string full_name
         string email
         string hashed_password
         string role
         datetime created_at
-
     }
 
-
-
     RESUMES {
-
         int id PK
         int owner_id FK
         string filename
         string file_path
         text extracted_text
         datetime uploaded_at
-
     }
 
-
-
     RESUME_ANALYSIS {
-
         int id PK
         int resume_id FK
-
         json technical_skills
         json soft_skills
         json frameworks
@@ -71,127 +57,106 @@ erDiagram
         json databases
         json cloud
         json certifications
-
         json education
         json experience
         json projects
-
         datetime created_at
-
     }
 
-
+    JOB_DESCRIPTIONS {
+        int id PK
+        int user_id FK
+        text jd_text
+        datetime created_at
+        datetime updated_at
+    }
 
     INTERVIEW_QUESTIONS {
-
         int id PK
         int resume_id FK
-
         text question
         string category
         string difficulty
-
         json expected_points
-
         datetime created_at
-
     }
-
-
 
     INTERVIEW_SESSIONS {
-
         int id PK
-
         int resume_id FK
         int user_id FK
-
         string status
-
+        string interview_type
         datetime started_at
         datetime completed_at
-
     }
 
-
+    INTERVIEW_CONVERSATIONS {
+        int id PK
+        int session_id FK
+        string role
+        text message
+        datetime created_at
+    }
 
     INTERVIEW_ANSWERS {
-
         int id PK
-
         int session_id FK
         int question_id FK
-
         text candidate_answer
-
         float ai_score
-
         text ai_feedback
-
         datetime created_at
-
     }
-
-
 
     INTERVIEW_EVALUATIONS {
-
         int id PK
-
         int answer_id FK
-
-        int score
-
+        float score
         json strengths
         json weaknesses
-
         text ideal_answer
         text feedback
-
     }
-
-
 
     INTERVIEW_MONITOR_REPORTS {
-
         int id PK
-
         int session_id FK
-
         float overall_score
-
-        float average_fluency
-
-        float average_eye_contact
-
+        float fluency_score
+        float eye_contact_score
+        int filler_count
         string dominant_emotion
-
-        text recommendation
-
+        string recommendation
+        text transcript
+        int word_count
+        text summary
+        json strengths
+        json weaknesses
+        json suggestions
         datetime created_at
-
     }
 
-
-
     INTERVIEW_MONITOR_SNAPSHOTS {
-
         int id PK
-
         int session_id FK
-
+        int second
         text transcript
-
         string emotion
-
-        boolean eye_contact
-
-        int filler_words
-
+        float eye_contact_score
+        int filler_count
         float fluency_score
-
+        float overall_score
         datetime created_at
+    }
 
+    RECRUITER_SHORTLISTS {
+        int id PK
+        int recruiter_id FK
+        int session_id FK
+        string status
+        datetime created_at
+        datetime updated_at
     }
 ```
 
@@ -199,99 +164,80 @@ erDiagram
 
 # Relationship Summary
 
-## Users → Resumes
+## Users to Resumes
 
-**Relationship:** One-to-Many
+**One-to-Many.** A registered user can upload multiple resumes. Each resume belongs to one user.
 
-A registered user can upload multiple resumes.
+## Users to Job Descriptions
 
----
+**One-to-One / Optional.** A user can store at most one Job Description for Resume-JD matching and interview personalization.
 
-## Users → Interview Sessions
+## Users to Interview Sessions
 
-**Relationship:** One-to-Many
+**One-to-Many.** A candidate can participate in multiple interview sessions.
 
-A candidate can participate in multiple interview sessions.
+## Users to Recruiter Shortlists
 
----
+**One-to-Many.** A recruiter can create multiple shortlist records for different interview sessions.
 
-## Resumes → Resume Analysis
+## Resumes to Resume Analysis
 
-**Relationship:** One-to-One
+**One-to-One.** Each resume has at most one AI-generated resume analysis.
 
-Each uploaded resume has exactly one AI-generated resume analysis.
+## Resumes to Interview Questions
 
----
+**One-to-Many.** Multiple interview questions can be generated from a single resume.
 
-## Resumes → Interview Questions
+## Resumes to Interview Sessions
 
-**Relationship:** One-to-Many
+**One-to-Many.** A resume can be used in multiple interview sessions.
 
-Multiple interview questions are generated from a single resume.
+## Interview Sessions to Interview Conversations
 
----
+**One-to-Many.** Each interview session can contain multiple conversational messages.
 
-## Resumes → Interview Sessions
+## Interview Sessions to Interview Answers
 
-**Relationship:** One-to-Many
+**One-to-Many.** Each interview session can contain multiple candidate answers.
 
-A resume can be used to create multiple interview sessions.
+## Interview Questions to Interview Answers
 
----
+**One-to-Many.** An interview question can be referenced by multiple answers across interview sessions.
 
-## Interview Sessions → Interview Answers
+## Interview Answers to Interview Evaluations
 
-**Relationship:** One-to-Many
+**One-to-One / Optional.** Each interview answer can have at most one detailed AI evaluation.
 
-Each interview session contains multiple candidate answers.
+## Interview Sessions to Interview Monitor Reports
 
----
+**One-to-One / Optional.** Each completed interview session can have at most one final monitoring report.
 
-## Interview Questions → Interview Answers
+## Interview Sessions to Interview Monitor Snapshots
 
-**Relationship:** One-to-Many
+**One-to-Many.** Multiple monitoring snapshots can be recorded during an interview session for timeline-based analytics.
 
-The same interview question may appear across different interview sessions and therefore have multiple answers.
+## Interview Sessions to Recruiter Shortlists
 
----
-
-## Interview Answers → Interview Evaluations
-
-**Relationship:** One-to-One
-
-Every submitted answer has one detailed AI evaluation containing score, strengths, weaknesses, feedback, and an ideal answer.
-
----
-
-## Interview Sessions → Interview Monitor Reports
-
-**Relationship:** One-to-One
-
-Each completed interview session generates one final AI monitoring report summarizing the candidate's performance.
-
----
-
-## Interview Sessions → Interview Monitor Snapshots
-
-**Relationship:** One-to-Many
-
-During the interview, multiple monitoring snapshots are recorded for speech analysis, emotion detection, eye contact, and fluency.
+**One-to-Many.** An interview session can be referenced by multiple recruiter shortlist records, allowing different recruiters to make independent decisions.
 
 ---
 
 # Current Database Tables
 
 | Table | Status |
-|---------|--------|
-| Users | ✅ Implemented |
-| Resumes | ✅ Implemented |
-| Resume Analysis | ✅ Implemented |
-| Interview Questions | ✅ Implemented |
-| Interview Sessions | ✅ Implemented |
-| Interview Answers | ✅ Implemented |
-| Interview Evaluations | ✅ Implemented |
-| Interview Monitor Reports | ✅ Implemented |
-| Interview Monitor Snapshots | ✅ Implemented |
+|---|---|
+| Users | Implemented |
+| Resumes | Implemented |
+| Resume Analysis | Implemented |
+| Job Descriptions | Implemented |
+| Interview Questions | Implemented |
+| Interview Sessions | Implemented |
+| Interview Conversations | Implemented |
+| Interview Answers | Implemented |
+| Interview Evaluations | Implemented |
+| Interview Monitor Reports | Implemented |
+| Interview Monitor Snapshots | Implemented |
+| Recruiter Shortlists | Implemented |
 
 ---
 
@@ -299,62 +245,87 @@ During the interview, multiple monitoring snapshots are recorded for speech anal
 
 The current database supports:
 
-- Secure User Authentication
-- Resume Management
-- AI Resume Analysis
-- Resume Skill Extraction
-- Interview Question Generation
-- Interview Session Management
-- Candidate Answer Storage
-- AI Answer Evaluation
-- Speech-to-Text Storage
-- Emotion Detection
-- Eye Contact Tracking
-- Filler Word Detection
-- Fluency Analysis
-- AI Monitoring Reports
-- Interview Analytics
-
----
-
-# Planned Future Extensions
-
-The following entities are planned for future milestones:
-
-- Recruiters
-- Companies
-- Jobs
-- Applications
-- Coding Assessments
-- Notifications
-- Candidate Ranking
-- Recruiter Analytics
-- Interview Recordings
-- AI Recommendation Engine
-- Cloud Analytics
+- Secure user authentication
+- Role-Based Access Control
+- Candidate, recruiter, and admin roles
+- Resume management
+- AI-powered resume analysis
+- Job Description storage
+- Resume-JD matching support
+- Interview type selection (`hr`, `technical`, `managerial`)
+- Conversational interview history
+- Interview session management
+- Candidate answer storage
+- AI answer evaluation
+- Speech-to-text transcript storage
+- Emotion detection
+- Eye-contact analysis
+- Filler-word detection
+- Fluency analysis
+- AI-generated monitoring reports
+- Timeline-based analytics snapshots
+- Recruiter shortlisting
+- Referential integrity
+- Cascade-aware data deletion
 
 ---
 
 # Database Status
 
-**Current Version:** Milestone 3
+**Current Version:** Complete Platform (Pre-Deployment)
 
-### Completed
+## Completed Components
 
-- ✅ Authentication System
-- ✅ Resume Management
-- ✅ AI Resume Analysis
-- ✅ Interview Question Generation
-- ✅ Interview Session Tracking
-- ✅ Candidate Answer Storage
-- ✅ AI Answer Evaluation
-- ✅ Speech-to-Text Analysis
-- ✅ Emotion Recognition
-- ✅ Eye Contact Detection
-- ✅ Filler Word Analysis
-- ✅ Fluency Scoring
-- ✅ Interview Monitoring
-- ✅ Interview Analytics
+- Authentication system
+- Role-Based Access Control
+- Resume management
+- AI resume analysis
+- Job Description management
+- Resume-JD matching support
+- Interview type support
+- Conversational interview tracking
+- Interview session tracking
+- Candidate answer storage
+- AI answer evaluation
+- Speech-to-text analysis
+- Emotion recognition
+- Eye-contact detection
+- Filler-word analysis
+- Fluency scoring
+- Interview monitoring
+- Interview analytics
+- Recruiter shortlist workflow
 
-The database architecture is fully normalized, scalable, and designed to support future AI-powered recruitment workflows while maintaining high data integrity and extensibility.
-```
+---
+
+# Database Architecture
+
+The SmartHire AI database architecture is designed to provide a normalized, scalable, and referentially consistent foundation for AI-powered recruitment workflows.
+
+The ERD separates major system entities into independent tables while maintaining relationships through primary and foreign keys. One-to-one, one-to-many, and optional relationships are represented according to the implemented database structure.
+
+The architecture supports the complete workflow from user registration and resume processing to AI-powered interviews, performance evaluation, real-time monitoring, analytics, and recruiter decision-making.
+
+---
+
+# Design Principles
+
+The SmartHire AI database follows these core design principles:
+
+- **Normalized:** The schema follows Third Normal Form (3NF) principles.
+- **Modular:** Each major business entity is represented by a dedicated table.
+- **Scalable:** The structure supports future recruitment and AI features.
+- **Referentially Consistent:** Foreign keys maintain valid relationships between entities.
+- **Maintainable:** SQLAlchemy ORM and Alembic migrations support structured database management.
+- **Extensible:** Additional interview, analytics, and recruitment modules can be added without major schema redesign.
+- **Cloud-Ready:** PostgreSQL provides a robust foundation for future deployment.
+
+---
+
+# Conclusion
+
+The SmartHire AI Entity Relationship Diagram represents the complete relational database architecture of the platform.
+
+It connects user management, resume processing, AI analysis, Job Description management, interview generation, conversational interviews, answer evaluation, real-time monitoring, analytics, and recruiter shortlisting into a single coherent database structure.
+
+The architecture maintains data integrity through primary keys, foreign keys, unique constraints, and application-level validation while providing a scalable foundation for the complete AI-powered recruitment workflow.

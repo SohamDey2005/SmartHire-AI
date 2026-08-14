@@ -1,132 +1,143 @@
-import { useState } from "react";
-
+import { useState, useRef } from "react";
 import { uploadResume } from "../../services/resumeService";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
+import { Upload, CloudUpload, FileText } from "lucide-react";
 
 interface ResumeUploadProps {
     onUploadSuccess: () => void;
 }
 
-export default function ResumeUpload({
-    onUploadSuccess,
-}: ResumeUploadProps) {
-
+export default function ResumeUpload({ onUploadSuccess }: ResumeUploadProps) {
     const { token } = useAuth();
-
     const [file, setFile] = useState<File | null>(null);
-
     const [loading, setLoading] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     async function handleUpload() {
-
         if (!file || !token) {
             toast.error("Please select a PDF file.");
             return;
         }
 
         try {
-
             setLoading(true);
-
-            await uploadResume(
-                file,
-                token
-            );
-
+            await uploadResume(file, token);
             toast.success("Resume uploaded successfully!");
-
             setFile(null);
-
+            if (inputRef.current) inputRef.current.value = "";
             onUploadSuccess();
-
-        }
-
-        catch (error) {
-
+        } catch (error) {
             console.error(error);
-
             toast.error("Upload failed.");
-
-        }
-
-        finally {
-
+        } finally {
             setLoading(false);
-
         }
+    }
 
+    function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const selected = e.target.files?.[0];
+        if (!selected) return;
+
+        if (selected.type !== "application/pdf") {
+            toast.error("Only PDF files are allowed.");
+            return;
+        }
+        if (selected.size > 5 * 1024 * 1024) {
+            toast.error("Maximum file size is 5 MB.");
+            return;
+        }
+        setFile(selected);
     }
 
     return (
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
+            <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+                {/* Left content */}
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-1">
+                        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
+                            <CloudUpload size={20} className="text-blue-600" />
+                        </div>
+                        <div>
+                            <h2 className="text-lg font-semibold text-gray-900">
+                                Upload Resume
+                            </h2>
+                            <p className="text-sm text-gray-500">
+                                Upload your latest resume in PDF format.
+                            </p>
+                        </div>
+                    </div>
 
-        <div className="bg-white shadow-lg rounded-2xl p-8">
+                    {/* File picker row */}
+                    <div className="mt-6 flex items-center gap-3">
+                        <button
+                            type="button"
+                            onClick={() => inputRef.current?.click()}
+                            className="h-10 px-4 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition shrink-0"
+                        >
+                            Choose File
+                        </button>
 
-            <h2 className="text-2xl font-semibold mb-2">
-                Upload Resume
-            </h2>
+                        <div className="flex-1 h-10 rounded-xl border border-gray-200 bg-gray-50/50 px-4 flex items-center text-sm text-gray-500 truncate">
+                            {file ? file.name : "No file chosen"}
+                        </div>
 
-            <p className="text-gray-500 mb-6">
-                Upload your latest resume in PDF format.
-            </p>
+                        <input
+                            ref={inputRef}
+                            type="file"
+                            accept=".pdf"
+                            className="hidden"
+                            onChange={handleFileChange}
+                        />
+                    </div>
 
-            <input
-                type="file"
-                accept=".pdf"
-                className="block w-full text-sm text-gray-700
-                           file:mr-4 file:py-2 file:px-4
-                           file:rounded-lg file:border-0
-                           file:bg-blue-100 file:text-blue-700
-                           hover:file:bg-blue-200"
-                onChange={(e) => {
-                    const selected = e.target.files?.[0];
-                    if (!selected) return;
-                    if (selected.type !== "application/pdf") {
-                        toast.error("Only PDF files are allowed.");
-                        return;
-                    }
-                    if (selected.size > 5 * 1024 * 1024) {
-                        toast.error("Maximum file size is 5 MB.");
-                        return;
-                    }
-                    setFile(selected);
-                }}
-            />
-
-            <p className="text-sm text-gray-400 mt-2">
-                Only PDF files are allowed.
-            </p>
-
-            {
-                file && (
-
-                    <p className="mt-3 text-green-600 font-medium">
-
-                        Selected:
-                        {" "}
-                        {file.name}
-
+                    <p className="text-xs text-gray-400 mt-2">
+                        Only PDF files are allowed.
                     </p>
 
-                )
-            }
+                    <button
+                        onClick={handleUpload}
+                        disabled={loading || !file}
+                        className="mt-5 flex items-center gap-2 h-11 px-5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-sm font-medium transition shadow-sm"
+                    >
+                        <Upload size={16} />
+                        {loading ? "Uploading..." : "Upload Resume"}
+                    </button>
+                </div>
 
-            <button
-                onClick={handleUpload}
-                disabled={loading || !file}
-                className="mt-6 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 transition text-white px-6 py-3 rounded-lg"
-            >
+                {/* Right illustration – closer to target */}
+                <div className="hidden lg:flex items-center justify-center shrink-0 w-56">
+                    <div className="relative w-full h-40">
+                        {/* Soft background blob */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-50 rounded-2xl" />
 
-                {
-                    loading
-                        ? "Uploading..."
-                        : "Upload Resume"
-                }
+                        {/* Document stack */}
+                        <div className="absolute left-6 top-6 w-16 h-20 bg-white border border-blue-100 rounded-lg shadow-sm flex flex-col overflow-hidden">
+                            <div className="h-3 bg-blue-50 border-b border-blue-100" />
+                            <div className="flex-1 p-1.5 space-y-1">
+                                <div className="h-1.5 bg-blue-100 rounded w-full" />
+                                <div className="h-1.5 bg-blue-100 rounded w-4/5" />
+                                <div className="h-1.5 bg-blue-100 rounded w-3/5" />
+                            </div>
+                        </div>
 
-            </button>
+                        {/* PDF badge */}
+                        <div className="absolute left-14 top-3 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow">
+                            PDF
+                        </div>
 
+                        {/* Cloud with upload arrow */}
+                        <div className="absolute right-4 bottom-4 w-24 h-16 bg-blue-100/90 rounded-full flex items-center justify-center shadow-inner">
+                            <CloudUpload size={28} className="text-blue-500" />
+                        </div>
+
+                        {/* Small decorative plant / dots */}
+                        <div className="absolute right-2 top-8 w-2 h-2 rounded-full bg-blue-200" />
+                        <div className="absolute right-6 top-4 w-1.5 h-1.5 rounded-full bg-indigo-200" />
+                    </div>
+                </div>
+            </div>
         </div>
-
     );
-
 }

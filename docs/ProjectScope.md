@@ -6,11 +6,11 @@
 
 SmartHire AI is an AI-powered recruitment and interview preparation platform developed using **FastAPI**, **React**, **TypeScript**, **PostgreSQL**, and modern Artificial Intelligence technologies.
 
-The platform enables candidates to securely manage resumes, perform AI-powered resume analysis, generate personalized interview questions, participate in AI-driven mock interviews, receive AI evaluation, and obtain real-time interview monitoring reports including speech analysis, emotion detection, eye-contact tracking, and communication assessment.
+The platform enables candidates to securely manage resumes, perform AI-powered resume analysis, match resumes with Job Descriptions, participate in type-specific AI mock interviews (HR / Technical / Managerial), receive AI evaluation, and obtain real-time interview monitoring reports including speech analysis, emotion detection, eye-contact tracking, and communication assessment.
 
-The system follows a modular architecture that supports future expansion with recruiter workflows, analytics dashboards, cloud deployment, and intelligent hiring assistance.
+Recruiters can review interview sessions, view analytics, download reports, and shortlist candidates. Administrators can view platform users and role statistics.
 
-This document reflects the project scope up to **Milestone 3 (AI Interview Monitoring & Analytics)**.
+This document reflects the **complete implemented platform (pre-deployment)**.
 
 ---
 
@@ -18,7 +18,7 @@ This document reflects the project scope up to **Milestone 3 (AI Interview Monit
 
 Traditional recruitment processes require significant manual effort for resume screening, technical evaluation, and interview preparation. Recruiters spend considerable time reviewing resumes, while candidates often lack access to personalized interview practice and objective feedback on both technical and communication skills.
 
-SmartHire AI addresses these challenges by automating resume analysis, interview preparation, AI-based answer evaluation, and real-time interview monitoring, creating a more efficient, intelligent, and personalized recruitment experience.
+SmartHire AI addresses these challenges by automating resume analysis, Job Description matching, interview preparation, AI-based evaluation, and real-time interview monitoring, creating a more efficient, intelligent, and personalized recruitment experience.
 
 ---
 
@@ -26,17 +26,19 @@ SmartHire AI addresses these challenges by automating resume analysis, interview
 
 The primary objectives of SmartHire AI are:
 
-- Build a secure AI-powered recruitment platform.
-- Provide role-based authentication and authorization.
+- Build a secure AI-powered recruitment and interview platform.
+- Provide role-based authentication and authorization for Candidate, Recruiter, and Admin.
 - Enable secure resume management.
 - Extract structured information from resumes using AI.
-- Generate personalized interview questions from resume content.
-- Conduct AI-powered mock interviews.
+- Support Job Description storage and Resume ↔ JD matching.
+- Conduct type-specific AI mock interviews (HR / Technical / Managerial).
 - Evaluate candidate responses automatically.
 - Monitor candidate communication during interviews.
 - Analyze speech, emotion, eye contact, and fluency.
-- Generate AI-powered interview reports.
-- Build a scalable architecture for future recruiter and administrator workflows.
+- Generate AI-powered interview reports and analytics.
+- Support recruiter shortlisting workflows.
+- Support admin visibility into platform users.
+- Build a scalable architecture ready for cloud deployment.
 
 ---
 
@@ -48,49 +50,46 @@ The platform supports three categories of users.
 
 Candidates can:
 
-- Register and login securely.
-- Upload multiple resumes.
-- Download and delete resumes.
+- Register and login securely with role selection.
+- Upload, download, and delete resumes.
 - Analyze resumes using AI.
-- View extracted skills and resume details.
-- Generate personalized interview questions.
-- Start mock interview sessions.
-- Answer interview questions.
-- Receive AI-generated answer evaluation.
-- View interview scores and feedback.
-- Receive speech analysis.
-- View emotion detection results.
-- View eye-contact analysis.
-- Monitor communication quality.
-- Access interview monitoring reports.
+- Save and manage Job Descriptions.
+- Match resumes with Job Descriptions.
+- Select interview type (HR / Technical / Managerial).
+- Start conversational AI mock interviews.
+- Answer via text or voice.
+- Receive AI evaluation and feedback.
+- View speech, emotion, eye-contact, and fluency analysis.
+- Access interview analytics, history, progress, and PDF reports.
+- Delete their account securely.
 
 ---
 
-## Recruiter (Future)
+## Recruiter
 
-Recruiters will be able to:
+Recruiters can:
 
-- Create job postings.
-- Manage recruitment workflows.
-- Review candidate resumes.
-- Access AI-generated resume insights.
-- View interview reports.
-- Analyze candidate communication performance.
-- Compare applicants.
-- Track hiring progress.
+- Register and login securely.
+- View completed interview sessions.
+- Filter and search sessions by score.
+- Open interview analytics.
+- Download PDF reports.
+- Shortlist, reject, or mark sessions as pending.
+- Persist shortlist decisions in the database.
+- Delete their account securely.
 
 ---
 
-## Administrator (Future)
+## Administrator
 
-Administrators will be able to:
+Administrators can:
 
-- Manage platform users.
-- Monitor AI usage.
-- Manage recruiters.
-- Configure platform settings.
-- Monitor system performance.
-- View analytics dashboards.
+- Register and login securely.
+- View platform user statistics.
+- List and search all users.
+- Filter users by role.
+- Monitor candidate / recruiter / admin counts.
+- Delete their account securely.
 
 ---
 
@@ -98,20 +97,22 @@ Administrators will be able to:
 
 ## Frontend
 
-- React 19
+- React
 - TypeScript
 - Vite
 - Tailwind CSS
 - React Router DOM
 - Axios
 - React Hot Toast
+- Recharts / visualization libraries
+- Lucide React icons
 
 ---
 
 ## Backend
 
 - FastAPI
-- Python 3.10
+- Python
 - SQLAlchemy ORM
 - Alembic
 - Pydantic
@@ -136,7 +137,7 @@ Administrators will be able to:
 ## Artificial Intelligence
 
 - Groq API
-- Llama 3.3 70B Versatile
+- LLM-based resume analysis and interview conversation
 - Whisper Speech-to-Text
 - DeepFace Emotion Recognition
 - MediaPipe Face Mesh
@@ -150,12 +151,13 @@ Administrators will be able to:
 
 ## Authentication Module
 
-- User Registration
-- User Login
+- User Registration with role selection
+- User Login with role verification
 - JWT Authentication
 - Protected Routes
 - Role-Based Authorization
 - Current User Profile
+- Account Deletion
 
 ---
 
@@ -174,27 +176,29 @@ Administrators will be able to:
 
 - Technical Skill Extraction
 - Soft Skill Extraction
-- Framework Detection
-- Tool Detection
-- Database Detection
-- Cloud Technology Detection
+- Framework / Tool / Database / Cloud Detection
 - Certification Extraction
-- Education Extraction
-- Experience Extraction
-- Project Extraction
-- AI Summary Generation
+- Education / Experience / Project Extraction
+- Structured AI Analysis Storage and Display
+
+---
+
+## Job Description Module
+
+- Save Job Description
+- Load Job Description
+- Update Job Description
+- Resume ↔ JD Match (score, matching skills, missing skills, summary)
 
 ---
 
 ## AI Interview Engine
 
-- Personalized Interview Question Generation
-- Resume-Based Questions
-- Technical Questions
-- Behavioral Questions
-- Categorized Questions
-- Difficulty Classification
-- Dynamic Question Generation
+- Interview Type Selection (HR / Technical / Managerial)
+- Conversational AI Interview Flow
+- Resume-based and type-specific questioning
+- Adaptive follow-up questions
+- Interview Session Tracking
 
 ---
 
@@ -204,18 +208,16 @@ Administrators will be able to:
 - Finish Interview Session
 - Session Status Tracking
 - Session History
-- Answer Submission
-- Interview Progress Management
+- Multiple Interview Attempts
 
 ---
 
 ## AI Answer Evaluation Module
 
 - AI Answer Evaluation
-- Technical Scoring
 - Feedback Generation
-- Answer Storage
-- Overall Evaluation
+- Evaluation Storage
+- Overall Performance Support
 
 ---
 
@@ -230,7 +232,7 @@ Administrators will be able to:
 - Overall Communication Score
 - AI Recommendation Generation
 - Monitoring Reports
-- Interview Snapshots
+- Monitoring Snapshots for Analytics
 
 ---
 
@@ -238,84 +240,69 @@ Administrators will be able to:
 
 - Resume Management
 - Resume Analysis
-- AI Interview Access
-- Interview Monitoring
-- Interview Reports
-- AI Feedback
-- Responsive Dashboard
+- Job Description Management
+- Resume Match
+- Interview Access by Type
+- Interview History / Analytics / Feedback / Progress
+- PDF Reports
+- Account Deletion
 
 ---
 
-# Planned Modules (Future)
+## Recruiter Dashboard
 
-## Recruiter Module
-
-- Job Management
-- Candidate Management
-- Resume Screening
-- Applicant Tracking
-- Interview Scheduling
-- Candidate Ranking
+- Interview Session Overview
+- Score Filters and Search
+- Analytics Access
+- PDF Download
+- Shortlist / Reject / Pending Status
+- Account Deletion
 
 ---
 
-## Analytics Dashboard
+## Admin Dashboard
 
-- Resume Analytics
-- Interview Analytics
-- Communication Analytics
-- Candidate Performance Dashboard
-- Recruiter Insights
-- AI Usage Dashboard
+- User Statistics
+- User Listing
+- Role Filtering and Search
+- Account Deletion
 
 ---
 
-## Notification System
+# Remaining Work
 
-- Email Notifications
-- Interview Alerts
-- Resume Analysis Notifications
-- Interview Report Notifications
-- Application Updates
+## Cloud Infrastructure / Deployment
 
----
-
-## Cloud Infrastructure
-
-- Docker Deployment
-- CI/CD Pipeline
-- Cloud Storage
-- Cloud Database
-- Monitoring Services
-- Production Deployment
+- Production frontend deployment
+- Production backend deployment
+- Cloud database configuration
+- Environment-based configuration
+- Optional Docker / CI/CD enhancements
 
 ---
 
 # Expected Outcomes
 
-Upon completion of Milestone 3, SmartHire AI provides:
+SmartHire AI currently provides:
 
-- Secure authentication system.
-- Resume management platform.
-- AI-powered resume parsing.
-- AI-generated resume analysis.
-- Personalized interview question generation.
-- AI-powered interview sessions.
-- AI answer evaluation.
-- Speech-to-text transcription.
-- Emotion recognition.
-- Eye-contact detection.
-- Filler-word detection.
-- Communication fluency analysis.
-- AI interview monitoring reports.
-- Responsive candidate dashboard.
-- Modular backend architecture for future expansion.
+- Secure multi-role authentication system
+- Resume management platform
+- AI-powered resume parsing and analysis
+- Job Description management and Resume ↔ JD matching
+- Type-specific conversational AI interviews
+- AI answer evaluation
+- Speech-to-text, emotion, eye-contact, and fluency analysis
+- Interview monitoring reports and analytics
+- Recruiter shortlisting workflow
+- Admin user visibility
+- Responsive role-based dashboards
+- Modular backend architecture ready for deployment
 
 ---
 
 # Project Scope Status
 
-## ✅ Completed (Milestone 1)
+## Completed (Milestone 1)
 
 - Project Initialization
 - Database Design
@@ -323,56 +310,47 @@ Upon completion of Milestone 3, SmartHire AI provides:
 - JWT Authorization
 - Role-Based Access Control
 - Resume Management
-- Candidate Dashboard
+- Candidate Dashboard foundation
 
----
-
-## ✅ Completed (Milestone 2)
+## Completed (Milestone 2)
 
 - Resume Parsing
 - AI Resume Analysis
 - Skill Extraction
-- Interview Question Generation
+- Interview Question / Conversation Generation
 - Interview Session Management
 - AI Interview Workflow
 - AI Answer Evaluation
 
----
-
-## ✅ Completed (Milestone 3)
+## Completed (Milestone 3)
 
 - Speech-to-Text Processing
-- Transcript Generation
 - Emotion Detection
 - Eye Contact Detection
 - Filler Word Detection
 - Communication Analysis
-- AI Monitoring Dashboard
-- Interview Monitoring Reports
-- Overall AI Communication Score
-- AI Recommendations
+- Interview Monitoring
+- Monitoring Reports and Snapshots
+- Analytics Support
 
----
+## Completed (Milestone 4)
 
-## 🚀 Planned (Milestone 4)
-
-- Recruiter Dashboard
+- Job Description Module
+- Resume ↔ JD Match
+- Interview Type Selection (HR / Technical / Managerial)
+- Recruiter Dashboard and Shortlisting
 - Admin Dashboard
-- Job Management
-- Candidate Applications
-- Resume Ranking
-- Analytics Dashboard
-- Performance Charts
-- Email Notifications
-- Docker Deployment
+- Account Deletion
+- Full role-based frontend protection
+
+## Remaining
+
 - Cloud Deployment
-- CI/CD Pipeline
-- Production Release
 
 ---
 
 # Expected Final Outcome
 
-SmartHire AI will evolve into a comprehensive AI-powered recruitment platform capable of assisting candidates throughout the entire interview preparation process while providing recruiters with intelligent resume screening, automated interview evaluation, communication analysis, hiring analytics, and AI-assisted recruitment workflows.
+SmartHire AI is a complete AI-powered interview and recruitment support platform capable of assisting candidates through resume analysis, JD matching, and mock interviews, while providing recruiters with evaluation insights and shortlisting tools, and administrators with user visibility.
 
-The final platform will integrate advanced Artificial Intelligence, speech processing, computer vision, natural language processing, and scalable cloud technologies to deliver an end-to-end intelligent recruitment ecosystem.
+The implemented platform provides a complete foundation for AI-powered recruitment workflows. The only major remaining item for production readiness is **cloud deployment**.

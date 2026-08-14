@@ -27,7 +27,7 @@ interface AuthContextType {
     loading: boolean;
     isAuthenticated: boolean;
 
-    login: (data: LoginData) => Promise<void>;
+    login: (data: LoginData) => Promise<User>;
     logout: () => void;
 }
 
@@ -52,23 +52,13 @@ export function AuthProvider(
     const [loading, setLoading] = useState(true);
 
     async function login(data: LoginData) {
-
         const response = await loginService(data);
-
         const accessToken = response.access_token;
-
-        localStorage.setItem(
-            "token",
-            accessToken
-        );
-
+        localStorage.setItem("token", accessToken);
         setToken(accessToken);
-
-        const currentUser = await getCurrentUser(
-            accessToken
-        );
-
+        const currentUser = await getCurrentUser(accessToken);
         setUser(currentUser);
+        return currentUser; 
     }
 
     function logout() {

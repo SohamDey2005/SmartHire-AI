@@ -13,3 +13,4 @@ import app.models.interview_question
 import app.models.interview_monitor
 import app.models.interview_monitor_snapshot
 import app.models.resume_analysis
+import app.models.interview_conversation

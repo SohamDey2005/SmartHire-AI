@@ -6,3 +6,4 @@ from app.models.interview_answer import InterviewAnswer
 from app.models.interview_evaluation import InterviewEvaluation
 from app.models.interview_monitor import InterviewMonitor
 from app.models.interview_monitor_snapshot import InterviewMonitorSnapshot
+from app.models.interview_conversation import InterviewConversation

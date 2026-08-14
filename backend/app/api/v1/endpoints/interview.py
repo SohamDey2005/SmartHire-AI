@@ -21,6 +21,15 @@ from app.repositories.interview_question_repository import (
 from app.repositories.interview_session_repository import (
     InterviewSessionRepository,
 )
+from app.repositories.interview_answer_repository import (
+    InterviewAnswerRepository,
+)
+from app.repositories.interview_evaluation_repository import (
+    InterviewEvaluationRepository,
+)
+from app.repositories.interview_conversation_repository import (
+    InterviewConversationRepository,
+)
 
 from app.services.interview_question_service import (
     InterviewQuestionService,
@@ -28,43 +37,37 @@ from app.services.interview_question_service import (
 from app.services.interview_session_service import (
     InterviewSessionService,
 )
+from app.services.interview_answer_service import (
+    InterviewAnswerService,
+)
+from app.services.interview_evaluation_service import (
+    InterviewEvaluationService,
+)
+from app.services.interview_report_service import (
+    InterviewReportService,
+)
+from app.services.interview_conversation_service import (
+    InterviewConversationService,
+)
 
 from app.schemas.interview_question import (
     InterviewQuestionResponse,
 )
 from app.schemas.interview_session import (
     InterviewSessionResponse,
+    StartInterviewRequest,
 )
-
-from app.repositories.interview_answer_repository import (
-    InterviewAnswerRepository,
-)
-
-from app.services.interview_answer_service import (
-    InterviewAnswerService,
-)
-
 from app.schemas.interview_answer import (
     InterviewAnswerCreate,
     InterviewAnswerResponse,
 )
-
-from app.repositories.interview_evaluation_repository import (
-    InterviewEvaluationRepository,
-)
-
-from app.services.interview_evaluation_service import (
-    InterviewEvaluationService,
-)
-
-from app.services.interview_report_service import (
-    InterviewReportService,
-)
-
 from app.schemas.interview_report import (
     InterviewReportResponse,
 )
-
+from app.schemas.interview_chat import (
+    InterviewChatRequest,
+    InterviewChatResponse,
+)
 
 
 router = APIRouter(
@@ -122,37 +125,80 @@ def generate_questions(
 )
 def start_interview(
     resume_id: int,
+    payload: StartInterviewRequest = StartInterviewRequest(),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-
     resume_repository = ResumeRepository(db)
 
-    resume = resume_repository.get_by_id(
-        resume_id
-    )
+    resume = resume_repository.get_by_id(resume_id)
 
-    if (
-        not resume
-        or resume.owner_id != current_user.id
-    ):
+    if not resume or resume.owner_id != current_user.id:
         raise HTTPException(
             status_code=404,
             detail="Resume not found.",
         )
 
-    repository = InterviewSessionRepository(
-        db
-    )
+    interview_type = (payload.interview_type or "technical").lower().strip()
 
-    service = InterviewSessionService(
-        repository
-    )
+    if interview_type not in ["hr", "technical", "managerial"]:
+        raise HTTPException(
+            status_code=400,
+            detail="interview_type must be one of: hr, technical, managerial",
+        )
+
+    repository = InterviewSessionRepository(db)
+    service = InterviewSessionService(repository)
 
     return service.start_session(
         resume.id,
         current_user.id,
+        interview_type=interview_type,
     )
+
+
+@router.post(
+    "/chat/{session_id}",
+    response_model=InterviewChatResponse,
+)
+def interview_chat(
+    session_id: int,
+    payload: InterviewChatRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    session_repository = InterviewSessionRepository(
+        db
+    )
+
+    session = session_repository.get_by_id(
+        session_id
+    )
+
+    if (
+        not session
+        or session.user_id != current_user.id
+    ):
+        raise HTTPException(
+            status_code=404,
+            detail="Interview session not found.",
+        )
+
+    conversation_repository = (
+        InterviewConversationRepository(db)
+    )
+
+    service = InterviewConversationService(
+        conversation_repository,
+        session_repository,
+    )
+
+    return service.chat(
+        session_id=session_id,
+        candidate_message=payload.message,
+    )
+
 
 @router.post(
     "/answer",
@@ -195,6 +241,7 @@ def save_answer(
     db.refresh(saved_answer)
 
     return saved_answer
+
 
 @router.post(
     "/finish/{session_id}",
@@ -253,6 +300,7 @@ def get_sessions(
         current_user.id
     )
 
+
 @router.get(
     "/report/{session_id}",
     response_model=InterviewReportResponse,
@@ -263,7 +311,9 @@ def interview_report(
     current_user: User = Depends(get_current_user),
 ):
 
-    repository = InterviewAnswerRepository(db)
+    repository = InterviewAnswerRepository(
+        db
+    )
 
     service = InterviewReportService(
         repository
@@ -271,4 +321,29 @@ def interview_report(
 
     return service.get_report(
         session_id
+    )
+
+@router.get(
+    "/sessions",
+    response_model=list[
+        InterviewSessionResponse
+    ],
+)
+def get_sessions(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(
+        get_current_user
+    ),
+):
+
+    repository = InterviewSessionRepository(
+        db
+    )
+
+    service = InterviewSessionService(
+        repository
+    )
+
+    return service.get_user_sessions(
+        current_user.id
     )

@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This document defines the non-functional requirements of the SmartHire AI platform.
+This document defines the non-functional requirements of the **SmartHire AI** platform.
 
-These requirements describe the quality attributes, performance expectations, security constraints, scalability goals, maintainability standards, and AI monitoring capabilities of the platform.
+These requirements describe the quality attributes, performance expectations, security constraints, scalability goals, maintainability standards, usability expectations, compatibility requirements, and AI monitoring capabilities of the platform.
 
-This document reflects the system implementation up to **Milestone 3 (AI Interview Monitoring & Analytics)**.
+This document reflects the **complete implemented platform (pre-deployment)**.
 
 ---
 
@@ -18,15 +18,16 @@ The system shall:
 - Upload PDF resumes efficiently.
 - Extract resume text within a few seconds after upload.
 - Generate AI resume analysis within an acceptable response time.
-- Generate personalized interview questions dynamically.
-- Evaluate interview answers with minimal latency.
+- Support Job Description save and Resume ↔ JD matching within acceptable latency.
+- Conduct conversational AI interviews with minimal delay between turns.
+- Evaluate interview answers with reasonable latency.
 - Process speech transcription efficiently.
 - Perform emotion detection from webcam images in near real-time.
 - Detect eye contact from captured interview frames.
 - Analyze filler words and communication quality.
-- Generate interview monitoring reports after each response.
+- Generate interview monitoring reports and analytics efficiently.
 - Support multiple authenticated users simultaneously.
-- Perform database queries efficiently using indexed primary keys and foreign keys.
+- Perform database queries efficiently using indexed primary keys and frequently queried foreign-key columns.
 
 ---
 
@@ -34,11 +35,11 @@ The system shall:
 
 The platform shall:
 
-- Support increasing numbers of users.
+- Support increasing numbers of users across Candidate, Recruiter, and Admin roles.
 - Support multiple resumes per candidate.
-- Support multiple interview sessions.
-- Store interview analytics for future review.
-- Handle large resume datasets.
+- Support multiple interview sessions per candidate.
+- Store interview analytics and monitoring snapshots for future review.
+- Handle growing resume and interview datasets.
 - Allow deployment across multiple backend instances.
 - Support Docker-based deployment.
 - Support horizontal scaling of backend APIs.
@@ -50,19 +51,20 @@ The platform shall:
 
 The platform shall:
 
-- Encrypt passwords using BCrypt.
+- Securely hash passwords using BCrypt.
 - Authenticate users using JWT tokens.
-- Implement Role-Based Access Control (RBAC).
-- Restrict access to protected APIs.
-- Ensure users can access only their own resumes.
-- Ensure users can access only their own interview sessions.
-- Ensure interview monitoring data is visible only to authorized users.
+- Implement Role-Based Access Control (RBAC) for Candidate, Recruiter, and Admin roles.
+- Restrict access to protected APIs based on authentication and role.
+- Ensure users can access only authorized resumes and interview data.
+- Ensure recruiter and admin features are restricted according to role.
 - Validate uploaded PDF files.
-- Validate uploaded interview media.
-- Protect against SQL Injection using SQLAlchemy ORM.
-- Protect against Cross-Site Scripting (XSS).
+- Validate interview media inputs where applicable.
+- Protect against SQL Injection through SQLAlchemy ORM and parameterized database operations.
+- Protect against Cross-Site Scripting (XSS) through safe frontend practices.
 - Store sensitive configuration using environment variables.
-- Never expose passwords or authentication secrets.
+- Never expose passwords, tokens, or authentication secrets.
+- Support secure account deletion with related data cleanup.
+- Maintain database referential integrity.
 
 ---
 
@@ -72,13 +74,14 @@ The system shall:
 
 - Maintain database consistency.
 - Preserve uploaded resume files safely.
-- Store AI resume analysis without data loss.
-- Store interview answers reliably.
-- Store monitoring snapshots and reports.
+- Store AI resume analysis reliably.
+- Store interview conversations, answers, and evaluations reliably.
+- Store monitoring snapshots and reports reliably.
 - Handle invalid user requests gracefully.
 - Return meaningful API error responses.
 - Avoid crashes during unexpected input.
-- Ensure interview sessions remain recoverable.
+- Ensure interview sessions remain recoverable and consistently status-tracked.
+- Maintain consistent relationships between users, resumes, interviews, evaluations, and monitoring data.
 
 ---
 
@@ -86,10 +89,11 @@ The system shall:
 
 The platform shall:
 
-- Be available whenever users require access.
+- Be available whenever users require access during operation.
 - Recover gracefully from temporary failures.
 - Support continuous backend operation.
-- Support future deployment with high availability infrastructure.
+- Support deployment with high-availability infrastructure in production.
+- Minimize service interruption during future deployments and maintenance.
 
 ---
 
@@ -99,9 +103,9 @@ The project shall:
 
 - Follow a modular architecture.
 - Separate frontend and backend applications.
-- Follow layered architecture.
+- Follow a layered architecture.
 
-Architecture Layers:
+### Architecture Layers
 
 - API Layer
 - Service Layer
@@ -114,8 +118,11 @@ The project shall:
 - Use reusable React components.
 - Use reusable FastAPI services.
 - Follow clean coding practices.
-- Include comprehensive documentation.
+- Use SQLAlchemy ORM for database interaction.
+- Use Alembic for database migrations.
+- Include comprehensive project documentation.
 - Support future feature extensions without major refactoring.
+- Maintain clear separation between business logic, API handling, database operations, and AI services.
 
 ---
 
@@ -123,13 +130,14 @@ The project shall:
 
 The platform shall:
 
-- Provide a clean and intuitive interface.
+- Provide a clean and intuitive interface for Candidate, Recruiter, and Admin roles.
 - Support responsive layouts.
 - Display meaningful success and error messages.
 - Show loading indicators during AI processing.
-- Display interview monitoring results in real time.
+- Display interview monitoring and analytics results clearly.
 - Minimize user interactions for common tasks.
-- Allow seamless navigation between resume management and interview modules.
+- Allow seamless navigation between resume management, interviews, analytics, and recruiter workflows.
+- Provide clear feedback after important operations such as resume upload, analysis, interview completion, and shortlist updates.
 
 ---
 
@@ -146,23 +154,28 @@ Future versions should also support:
 - Mobile browsers
 - Tablet devices
 
+The platform should use standard web technologies and browser APIs to maintain cross-browser compatibility.
+
 ---
 
 # 9. Database
 
 The database shall:
 
-- Use PostgreSQL.
+- Use PostgreSQL as the primary relational database.
 - Maintain referential integrity using foreign keys.
-- Store resume analysis using JSON fields.
-- Store interview questions.
-- Store interview answers.
-- Store interview evaluations.
-- Store interview monitoring snapshots.
-- Store interview monitoring reports.
-- Store timestamps for all interview activities.
-- Support indexing for frequently queried columns.
+- Store structured resume analysis using JSON/JSONB fields where appropriate.
+- Store Job Descriptions per user.
+- Store interview questions, sessions, conversations, answers, and evaluations.
+- Store interview monitoring snapshots and reports.
+- Store recruiter shortlist decisions.
+- Store timestamps for account and interview activities.
+- Support indexes for frequently queried columns.
 - Prevent duplicate data where appropriate.
+- Enforce unique email addresses for users.
+- Enforce unique recruiter-session combinations for shortlist records.
+- Support safe deletion of related records according to application and database relationship rules.
+- Support database migrations using Alembic.
 
 ---
 
@@ -172,42 +185,46 @@ The database shall:
 
 The AI engine shall:
 
-- Extract technical skills accurately.
-- Extract soft skills accurately.
-- Detect frameworks.
-- Detect developer tools.
-- Detect databases.
-- Detect cloud technologies.
+- Extract technical and soft skills.
+- Detect programming languages.
+- Detect frameworks and tools.
+- Detect databases and cloud technologies.
 - Extract certifications.
-- Extract education details.
-- Extract work experience.
+- Extract education.
+- Extract experience.
 - Extract projects.
+- Generate structured resume analysis.
 
----
-
-## Interview Question Generation
+## Resume ↔ JD Matching
 
 The AI engine shall:
 
-- Generate personalized interview questions.
-- Generate technical questions.
-- Generate behavioral questions.
-- Categorize questions correctly.
-- Produce consistent outputs for similar resumes.
+- Compare resume content with the Job Description.
+- Produce a match score.
+- Identify matching skills.
+- Identify missing skills.
+- Generate a concise candidate-job fit summary.
 
----
+## Interview Question and Conversation Generation
+
+The AI engine shall:
+
+- Generate personalized interview conversations.
+- Support HR, Technical, and Managerial interview styles.
+- Generate questions based on resume information where applicable.
+- Adapt follow-up questions based on previous candidate answers.
+- Maintain interview context throughout a session.
 
 ## Interview Answer Evaluation
 
 The AI engine shall:
 
 - Evaluate candidate answers.
-- Assign AI scores.
+- Assign scores.
+- Identify strengths and weaknesses.
 - Generate constructive feedback.
-- Produce consistent evaluations.
-- Store evaluations in the database.
-
----
+- Provide ideal-answer guidance where applicable.
+- Store evaluations for later review.
 
 ## Interview Monitoring
 
@@ -217,10 +234,13 @@ The AI monitoring engine shall:
 - Detect filler words.
 - Measure communication fluency.
 - Detect facial emotions.
+- Identify dominant emotion where applicable.
 - Detect eye contact.
+- Calculate eye-contact scores.
 - Generate communication recommendations.
-- Calculate an overall monitoring score.
-- Generate monitoring reports after each response.
+- Calculate overall monitoring scores.
+- Generate monitoring reports.
+- Generate timeline-based analytics snapshots.
 
 ---
 
@@ -228,16 +248,14 @@ The AI monitoring engine shall:
 
 The backend shall:
 
-- Log authentication events.
-- Log database operations.
-- Log resume uploads.
-- Log interview session creation.
-- Log AI resume analysis requests.
-- Log interview question generation.
-- Log interview evaluations.
+- Log authentication events where appropriate.
+- Log database operations where useful for debugging.
+- Log resume upload and analysis requests.
+- Log interview session creation and completion.
 - Log monitoring analysis requests.
 - Capture unexpected exceptions.
 - Record validation failures.
+- Avoid logging sensitive information such as passwords, authentication secrets, or private credentials.
 
 ---
 
@@ -251,6 +269,7 @@ The platform shall support:
 - Usage statistics.
 - AI request metrics.
 - Interview monitoring analytics.
+- Database performance monitoring where required.
 - Future cloud monitoring integration.
 
 ---
@@ -262,7 +281,8 @@ The application shall:
 - Run on Windows.
 - Run on Linux.
 - Run inside Docker containers.
-- Support cloud deployment without source code modifications.
+- Support cloud deployment without major source-code modifications.
+- Keep environment-specific configuration separate from application source code.
 
 ---
 
@@ -270,18 +290,16 @@ The application shall:
 
 The architecture shall support future implementation of:
 
-- Recruiter Dashboard
-- Job Management
-- Candidate Applications
-- Resume Ranking
-- AI Candidate Matching
+- Job Management / Companies
+- Candidate Application Pipeline
+- Coding Assessments
 - Live Video Interviews
-- Real-Time Speech Analytics
-- Analytics Dashboard
-- Notifications
+- Email / Push Notifications
+- Advanced Recruiter Analytics
 - Cloud Storage Integration
 - CI/CD Deployment
 - Multi-language Resume Analysis
+- Additional AI interview evaluation metrics
 
 ---
 
@@ -295,8 +313,7 @@ The project shall include:
 - Non-Functional Requirements
 - Database Design
 - ER Diagram
-- UI Wireframes
-- User Workflows
+- UI documentation and workflows
 
 All documentation shall remain synchronized with the current implementation.
 
@@ -304,50 +321,62 @@ All documentation shall remain synchronized with the current implementation.
 
 # Non-Functional Status
 
-## ✅ Implemented (Milestone 3)
+## Implemented
 
 - Modular FastAPI Backend
 - React + TypeScript Frontend
 - PostgreSQL Integration
 - SQLAlchemy ORM
+- Alembic Database Migrations
 - JWT Authentication
 - BCrypt Password Hashing
-- Role-Based Access Control
-- Resume Upload & Management
-- AI Resume Parsing
-- AI Resume Analysis
-- AI Interview Question Generation
-- Interview Session Management
+- Role-Based Access Control (Candidate / Recruiter / Admin)
+- Resume Upload and Management
+- AI Resume Parsing and Analysis
+- Job Description Management
+- Resume ↔ JD Match
+- Interview Type Support (HR / Technical / Managerial)
+- Conversational Interview Sessions
 - AI Answer Evaluation
 - Speech-to-Text Processing
 - Emotion Recognition
 - Eye Contact Detection
 - Filler Word Detection
 - Communication Analysis
-- Interview Monitoring Reports
+- Interview Monitoring Reports and Snapshots
+- Analytics Dashboards
+- Recruiter Shortlisting
+- Admin User Visibility
+- Account Deletion with related data cleanup
 - RESTful API Architecture
 - Structured Project Documentation
 
----
+## Remaining
 
-## 🚀 Planned (Milestone 4)
-
-- Recruiter Dashboard
-- Admin Dashboard
-- Job Management
-- Candidate Applications
-- Resume Ranking
-- Analytics Dashboard
-- Performance Charts
-- Email Notifications
 - Cloud Deployment
-- Docker Deployment
-- CI/CD Pipeline
-- End-to-End Testing
-- Multi-language Resume Analysis
+- Optional production hardening, including CI/CD, a formal automated test suite, and email notifications
 
 ---
 
 # Summary
 
-The SmartHire AI platform now satisfies the non-functional requirements for an AI-powered recruitment and mock interview platform through Milestone 3. The system emphasizes performance, security, scalability, maintainability, and AI-assisted interview monitoring while remaining extensible for future recruiter, analytics, and cloud-based features.
+The SmartHire AI platform satisfies the defined non-functional requirements for an AI-powered interview and recruitment support system.
+
+The implementation emphasizes:
+
+- Performance
+- Security
+- Scalability
+- Reliability
+- Availability
+- Maintainability
+- Usability
+- Compatibility
+- Database integrity
+- AI-assisted analysis
+- Monitoring and analytics
+- Extensibility
+
+The platform provides a modular foundation for production deployment and future recruitment features.
+
+The only major remaining production item is **cloud deployment**, while additional production hardening such as CI/CD, comprehensive automated testing, and notification services may be implemented as future enhancements.

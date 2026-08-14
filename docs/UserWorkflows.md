@@ -1,20 +1,64 @@
+# SmartHire AI
+
 # User Workflows
 
 ## Introduction
 
-This document describes the interaction flows for different users of the SmartHire AI platform. It outlines how users navigate through the system and how AI-powered services process resumes, conduct mock interviews, evaluate candidate responses, and generate real-time interview monitoring reports.
+This document describes the interaction flows for different users of the **SmartHire AI** platform. It outlines how users navigate through the system and how AI-powered services process resumes, conduct mock interviews, evaluate candidate responses, and generate real-time interview monitoring reports.
 
-Current workflows represent the implementation completed up to **Milestone 3 (AI Interview Monitoring & Evaluation)**.
+These workflows represent the **complete implemented platform (pre-deployment)**.
+
+---
+
+# Authentication Workflow
+
+```text
+Register
+    │
+    ▼
+Select Role (Candidate / Recruiter / Admin)
+    │
+    ▼
+Validate User Details
+    │
+    ▼
+Hash Password
+    │
+    ▼
+Save User with Role
+    │
+    ▼
+Login
+    │
+    ▼
+Select Role
+    │
+    ▼
+Verify Password + Role Match
+    │
+    ▼
+Generate JWT Token
+    │
+    ▼
+Redirect to Role Dashboard
+    │
+    ├─ Candidate → /dashboard
+    ├─ Recruiter → /recruiter
+    └─ Admin → /admin
+    │
+    ▼
+Access Protected Routes
+    │
+    ▼
+Logout / Delete Account
+```
 
 ---
 
 # Candidate Workflow
 
 ```text
-Candidate Registration
-        │
-        ▼
-Candidate Login
+Candidate Registration / Login
         │
         ▼
 Candidate Dashboard
@@ -31,11 +75,16 @@ Candidate Dashboard
         │           AI Resume Analysis
         │                      │
         │                      ▼
-        │  Skills, Education, Experience,
-        │  Projects & Certifications Extracted
+        │         View Analysis Results
+        │
+        ├──────────────► Save Job Description
         │                      │
         │                      ▼
-        │         View Analysis Results
+        │              Resume ↔ JD Match
+        │                      │
+        │                      ▼
+        │     Match Score / Matching Skills /
+        │     Missing Skills / Summary
         │
         ├──────────────► Download Resume
         │
@@ -44,24 +93,22 @@ Candidate Dashboard
         ├──────────────► Start AI Interview
         │                      │
         │                      ▼
+        │          Select Interview Type
+        │          (HR / Technical / Managerial)
+        │                      │
+        │                      ▼
         │          Create Interview Session
         │                      │
         │                      ▼
-        │      Generate AI Interview Questions
-        │                      │
-        │                      ▼
-        │       Answer Interview Questions
-        │                      │
-        │                      ▼
-        │       AI Answer Evaluation
+        │       Conversational AI Interview
         │                      │
         │                      ▼
         │     Speech & Camera Monitoring
         │                      │
         │                      ▼
-        │     Interview Analytics Report
+        │     Analytics / Feedback / Report
         │
-        └──────────────► Logout
+        └──────────────► Logout / Delete Account
 ```
 
 ---
@@ -88,7 +135,6 @@ Groq LLM Processing
       │
       ▼
 Extract
-
 • Technical Skills
 • Soft Skills
 • Frameworks
@@ -99,13 +145,42 @@ Extract
 • Education
 • Experience
 • Projects
-
       │
       ▼
 Store Resume Analysis
       │
       ▼
-Display Resume Analysis Dashboard
+Display Resume Analysis
+```
+
+---
+
+# Job Description and Match Workflow
+
+```text
+Open Candidate Dashboard
+      │
+      ▼
+Paste Job Description
+      │
+      ▼
+Save Job Description
+      │
+      ▼
+Select Resume → Match
+      │
+      ▼
+LLM Compare Resume vs JD
+      │
+      ▼
+Return
+• Match Score
+• Matching Skills
+• Missing Skills
+• Summary
+      │
+      ▼
+Display Match Result Card
 ```
 
 ---
@@ -113,8 +188,11 @@ Display Resume Analysis Dashboard
 # AI Interview Workflow
 
 ```text
-Candidate Clicks
-"Start Interview"
+Candidate Clicks Interview
+        │
+        ▼
+Select Interview Type
+(HR / Technical / Managerial)
         │
         ▼
 Validate Resume
@@ -123,10 +201,8 @@ Validate Resume
 Load Resume Analysis
         │
         ▼
-Generate Interview Questions
-        │
-        ▼
 Create Interview Session
+(with interview_type)
         │
         ▼
 Display Interview Page
@@ -136,40 +212,23 @@ Start AI Monitoring
 (Camera + Microphone)
         │
         ▼
-Candidate Answers Question
+Conversational Interview Loop
         │
-        ▼
-Stop Recording
-        │
-        ▼
-Speech Processing
-        │
-        ▼
-Emotion Detection
-        │
-        ▼
-Eye Contact Detection
-        │
-        ▼
-Filler Word Detection
-        │
-        ▼
-Communication Analysis
-        │
-        ▼
-AI Answer Evaluation
-        │
-        ▼
-Display AI Feedback
-        │
-        ▼
-Next Question
+        ├─ Candidate answers (text / voice)
+        ├─ Speech processing
+        ├─ Emotion detection
+        ├─ Eye contact detection
+        ├─ Filler / fluency analysis
+        ├─ AI generates next question
         │
         ▼
 Finish Interview
         │
         ▼
-Generate Interview Report
+Generate Monitoring Report
+        │
+        ▼
+View Analytics / Feedback / PDF
 ```
 
 ---
@@ -195,41 +254,11 @@ Resume Appears in Dashboard
       │
       ├────────► Analyze Resume
       │
+      ├────────► Match with JD
+      │
       ├────────► Start Interview
       │
       └────────► Delete Resume
-```
-
----
-
-# Authentication Workflow
-
-```text
-Register
-    │
-    ▼
-Validate User Details
-    │
-    ▼
-Hash Password
-    │
-    ▼
-Save User
-    │
-    ▼
-Login
-    │
-    ▼
-Verify Password
-    │
-    ▼
-Generate JWT Token
-    │
-    ▼
-Access Protected Routes
-    │
-    ▼
-Logout
 ```
 
 ---
@@ -273,10 +302,10 @@ Generate Overall Score
 Generate AI Recommendation
        │
        ▼
-Save Monitoring Report
+Save Monitoring Report + Snapshots
        │
        ▼
-Display Monitoring Dashboard
+Display Monitoring / Analytics
 ```
 
 ---
@@ -297,24 +326,19 @@ Groq LLM Evaluation
         │
         ▼
 Evaluate
-
 • Technical Accuracy
 • Completeness
 • Clarity
 • Communication
-
         │
         ▼
-Generate Score
-        │
-        ▼
-Generate Feedback
+Generate Score + Feedback
         │
         ▼
 Store Evaluation
         │
         ▼
-Display Evaluation Panel
+Display Evaluation / Feedback
 ```
 
 ---
@@ -325,38 +349,35 @@ Display Evaluation Panel
 Start Interview
         │
         ▼
-Create Session
-(Status = Active)
+Select Type (HR / Technical / Managerial)
         │
         ▼
-Generate Questions
+Create Session
+(Status = IN_PROGRESS)
         │
         ▼
 Start Monitoring
         │
         ▼
-Answer Questions
+Conversational Q&A
         │
         ▼
-Evaluate Each Answer
-        │
-        ▼
-Generate Monitoring Report
+Evaluate Responses + Monitor Signals
         │
         ▼
 Finish Interview
         │
         ▼
 Update Session
-(Status = Completed)
+(Status = COMPLETED)
         │
         ▼
-View Interview Analytics
+View Analytics / Feedback / History / PDF
 ```
 
 ---
 
-# Recruiter Workflow (Future)
+# Recruiter Workflow
 
 ```text
 Recruiter Login
@@ -364,24 +385,24 @@ Recruiter Login
         ▼
 Recruiter Dashboard
         │
-        ├────────► Create Job
+        ├────────► View Interview Sessions
         │
-        ├────────► Manage Jobs
+        ├────────► Filter by Score
         │
-        ├────────► View Applicants
+        ├────────► Search Sessions
         │
-        ├────────► Review Resume Analysis
+        ├────────► Open Analytics
         │
-        ├────────► Review Interview Reports
+        ├────────► Download PDF Report
         │
-        ├────────► Candidate Ranking
+        ├────────► Shortlist / Reject / Pending
         │
-        └────────► Schedule Interviews
+        └────────► Logout / Delete Account
 ```
 
 ---
 
-# Administrator Workflow (Future)
+# Administrator Workflow
 
 ```text
 Administrator Login
@@ -389,71 +410,75 @@ Administrator Login
         ▼
 Admin Dashboard
         │
-        ├────────► Manage Users
+        ├────────► View User Statistics
         │
-        ├────────► Manage Recruiters
+        ├────────► List All Users
         │
-        ├────────► Platform Analytics
+        ├────────► Filter by Role
         │
-        ├────────► AI Usage Monitoring
+        ├────────► Search Users
         │
-        ├────────► System Logs
-        │
-        └────────► Platform Configuration
+        └────────► Logout / Delete Account
 ```
 
 ---
 
 # Current Workflow Status
 
-## ✅ Implemented (Milestone 3)
+## Implemented
 
-- User Registration
-- User Login
+- User Registration with role selection
+- User Login with role verification
 - JWT Authentication
 - Role-Based Access Control
 - Candidate Dashboard
-- Resume Upload
-- Resume Download
-- Resume Deletion
+- Resume Upload / Download / Delete
 - Resume Text Extraction
 - AI Resume Analysis
-- Skill Extraction
-- Education Extraction
-- Experience Extraction
-- Project Extraction
-- Certification Extraction
-- AI Interview Question Generation
-- Interview Session Creation
-- Interview Session Completion
-- AI Answer Evaluation
+- Job Description Save / Load
+- Resume ↔ JD Match
+- Interview Type Selection
+- Conversational AI Interview Sessions
 - Speech-to-Text
-- Live Voice Recording
-- Transcript Generation
 - Emotion Recognition
 - Eye Contact Detection
 - Filler Word Detection
 - Communication Analysis
 - Overall AI Scoring
 - AI Recommendation Generation
-- Interview Monitoring Dashboard
-- Interview Analytics Report
+- Interview Monitoring
+- Interview Analytics / Feedback / History / Progress
+- PDF Reports
+- Recruiter Dashboard and Shortlisting
+- Admin Dashboard and User Visibility
+- Account Deletion
 - Protected Routes
+
+## Remaining
+
+- Cloud Deployment
 
 ---
 
-## 🚀 Planned (Milestone 4)
+# Summary
 
-- Recruiter Dashboard
-- Job Management
-- Candidate Applications
-- Resume Ranking
-- Candidate Comparison
-- Analytics Dashboard
-- Performance Charts
-- Email Notifications
-- Cloud Deployment
-- CI/CD Pipeline
-- AI Hiring Assistant
-- End-to-End Recruitment Workflow
-```
+SmartHire AI now supports complete end-to-end workflows for Candidates, Recruiters, and Administrators.
+
+The platform covers:
+
+- Authentication and role-based access
+- Resume management and AI analysis
+- Job Description management and Resume ↔ JD matching
+- Type-specific AI mock interviews
+- Candidate answer evaluation
+- Speech-to-text processing
+- Emotion and eye-contact detection
+- Filler-word and fluency analysis
+- Real-time interview monitoring
+- Analytics and AI feedback
+- Interview history and PDF reports
+- Recruiter shortlisting
+- Admin user visibility
+- Secure account management
+
+The implemented workflows provide a complete foundation for the SmartHire AI recruitment and interview platform. The only major remaining production step is **cloud deployment**.

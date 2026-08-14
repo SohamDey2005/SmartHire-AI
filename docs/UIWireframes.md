@@ -4,9 +4,9 @@
 
 ## Introduction
 
-This document presents the user interface wireframes for the SmartHire AI platform.
+This document presents the user interface wireframes for the **SmartHire AI** platform.
 
-The wireframes represent the application screens implemented up to **Milestone 3 (AI Interview Monitoring & Evaluation)** while also illustrating planned interfaces for future milestones.
+The wireframes represent the complete application screens implemented across Candidate, Recruiter, and Admin roles, including authentication, resume management, Job Description matching, type-specific AI interviews, interview monitoring, analytics, shortlisting, and account management.
 
 ---
 
@@ -14,17 +14,16 @@ The wireframes represent the application screens implemented up to **Milestone 3
 
 ## 1. Home Page
 
-```
+```text
 +------------------------------------------------------------+
-|                       SmartHire AI                         |
-|------------------------------------------------------------|
 |                                                            |
-|        AI-Powered Recruitment Platform                     |
+|                         SmartHire AI                       |
+|                AI-Powered Interview Platform               |
 |                                                            |
-|       Resume Analysis • Mock Interviews                    |
-|       AI Monitoring • Interview Reports                    |
+|     Resume Analysis • JD Match • Mock Interviews           |
+|           AI Monitoring • Analytics • Reports              |
 |                                                            |
-|         [ Login ]      [ Register ]                        |
+|                 [ Login ]    [ Register ]                  |
 |                                                            |
 +------------------------------------------------------------+
 ```
@@ -33,88 +32,107 @@ The wireframes represent the application screens implemented up to **Milestone 3
 
 ## 2. Login Page
 
-```
-+------------------------------------------------+
-|                SmartHire AI                    |
-|------------------------------------------------|
-| Email                                          |
-| [______________________________]               |
-|                                                |
-| Password                                       |
-| [______________________________]               |
-|                                                |
-|           [ Login ]                            |
-|                                                |
-| New User? Register                             |
-+------------------------------------------------+
+```text
++--------------------------------------------------------------+
+| Left Branding Panel          | Right Form Panel              |
+|                              |                               |
+| SmartHire AI                 | Sign In                       |
+| AI Interview Platform        |                               |
+| Feature highlights           | Role: [Candidate]             |
+|                              |       [Recruiter]             |
+|                              |       [Admin]                 |
+|                              |                               |
+|                              | Email                         |
+|                              | Password                      |
+|                              |                               |
+|                              | [ Sign In ]                   |
+|                              | New user? Sign up             |
++--------------------------------------------------------------+
+| © 2026 SmartHire AI • All rights reserved                    |
++--------------------------------------------------------------+
 ```
 
 ---
 
 ## 3. Registration Page
 
-```
-+------------------------------------------------+
-|              Create Account                    |
-|------------------------------------------------|
-| Full Name                                      |
-| [______________________________]               |
-|                                                |
-| Email                                          |
-| [______________________________]               |
-|                                                |
-| Password                                       |
-| [______________________________]               |
-|                                                |
-| Role                                           |
-| [ Candidate ▼ ]                                |
-|                                                |
-|         [ Register ]                           |
-+------------------------------------------------+
+```text
++--------------------------------------------------------------+
+| Left Branding Panel          | Right Form Panel              |
+|                              |                               |
+| Create your account          | Create Account                |
+| and start your journey       |                               |
+| Feature highlights           | Register as:                  |
+|                              | [Candidate] [Recruiter]       |
+|                              | [Admin]                       |
+|                              |                               |
+|                              | Full Name                     |
+|                              | Email                         |
+|                              | Password                      |
+|                              | Confirm Password              |
+|                              | [ ] Agree Terms               |
+|                              |                               |
+|                              | [ Create Account ]            |
+|                              | Already have account? Sign in |
++--------------------------------------------------------------+
+| © 2026 SmartHire AI • All rights reserved                    |
++--------------------------------------------------------------+
 ```
 
 ---
 
 ## 4. Candidate Dashboard
 
-```
+```text
 +--------------------------------------------------------------------------+
-| SmartHire AI                                            Logout           |
-|--------------------------------------------------------------------------|
-| Welcome, Candidate                                                  |
-| Role Badge                                                          |
-| Current Date & Time                                                 |
-|----------------------------------------------------------------------|
-| Resume Upload Card                                                  |
-|----------------------------------------------------------------------|
-| Choose Resume (PDF)                                                 |
-| [ Choose File ]                                                     |
-| [ Upload Resume ]                                                   |
-|                                                                      |
-|----------------------------------------------------------------------|
-| My Resumes                                                          |
-|----------------------------------------------------------------------|
-| Resume.pdf                                                          |
-| Uploaded On:                                                        |
-|                                                                      |
-| [Download] [Analyze] [Interview] [Delete]                           |
-|                                                                      |
+| SmartHire AI                          [Delete Account] [Logout]          |
+|                                                                          |
+| Date & Time                                                              |
+| Welcome, Candidate                                                       |
+| Role Badge: CANDIDATE                                                    |
++--------------------------------------------------------------------------+
+|                                                                          |
+| Stats Cards                                                              |
+| [Total Resumes] [Analyzed] [Interviews Taken] [Avg Score]                |
+|                                                                          |
++--------------------------------------------------------------------------+
+| Job Description                                                          |
+|                                                                          |
+| [ Textarea: Paste Job Description ]                                      |
+|                                                                          |
+| [ Save Job Description ]      JD saved                                   |
++--------------------------------------------------------------------------+
+| Resume ↔ JD Match Result (when available)                                |
+|                                                                          |
+| Match Score: XX%                                                         |
++--------------------------------------------------------------------------+
+| Upload Resume                                                            |
+|                                                                          |
+| [ Choose PDF ] [ Upload ]                                                |
++--------------------------------------------------------------------------+
+| My Resumes                                                               |
+|                                                                          |
+| Resume.pdf                                                               |
+| [Download] [Analyze] [Match] [Interview] [Delete]                        |
+|                                                                          |
 +--------------------------------------------------------------------------+
 ```
 
 ---
 
-## 5. Resume Upload
+## 5. Interview Type Selection Modal
 
-```
+```text
 +----------------------------------------------+
-| Upload Resume                                |
-|----------------------------------------------|
-| Select PDF Resume                            |
 |                                              |
-| [ Choose File ]                              |
+|              Select Interview Type           |
 |                                              |
-|      [ Upload Resume ]                       |
+|              ( ) HR Interview                |
+|              ( ) Technical Interview         |
+|              ( ) Managerial Interview        |
+|                                              |
+|       [ Cancel ]       [ Start Interview ]   |
+|                                              |
 +----------------------------------------------+
 ```
 
@@ -122,39 +140,30 @@ The wireframes represent the application screens implemented up to **Milestone 3
 
 ## 6. AI Resume Analysis
 
-```
+```text
 +----------------------------------------------------------------+
-| AI Resume Analysis                                             |
-|----------------------------------------------------------------|
+|                     AI Resume Analysis                         |
++----------------------------------------------------------------+
 | Technical Skills                                               |
-| Python • FastAPI • React • SQL • PostgreSQL                    |
 |                                                                |
++----------------------------------------------------------------+
 | Soft Skills                                                    |
-| Leadership • Communication • Teamwork                          |
 |                                                                |
-| Frameworks                                                     |
-| FastAPI • React                                                |
++----------------------------------------------------------------+
+| Frameworks / Tools / Databases / Cloud                         |
 |                                                                |
-| Tools                                                          |
-| Git • Docker                                                   |
-|                                                                |
-| Databases                                                      |
-| PostgreSQL                                                     |
-|                                                                |
-| Cloud                                                          |
-| Google Cloud                                                   |
-|                                                                |
++----------------------------------------------------------------+
 | Certifications                                                 |
-| Azure AI Fundamentals                                          |
 |                                                                |
++----------------------------------------------------------------+
 | Education                                                      |
-| Bachelor of Engineering                                        |
 |                                                                |
++----------------------------------------------------------------+
 | Experience                                                     |
-| AI Intern                                                      |
 |                                                                |
++----------------------------------------------------------------+
 | Projects                                                       |
-| SmartHire AI • DocuMind AI                                     |
+|                                                                |
 +----------------------------------------------------------------+
 ```
 
@@ -162,314 +171,270 @@ The wireframes represent the application screens implemented up to **Milestone 3
 
 ## 7. AI Interview Page
 
-```
+```text
 +------------------------------------------------------------------------------------+
-| SmartHire AI Mock Interview                                                        |
-|------------------------------------------------------------------------------------|
-| Resume ID : 5                                                                      |
-| Session ID : 14                                                                    |
-|------------------------------------------------------------------------------------|
-| Question 3 / 10                                                                    |
-|------------------------------------------------------------------------------------|
-| Explain the difference between REST and GraphQL.                                   |
+|                              SmartHire AI Interview                                |
+| Session Information                                                                |
++------------------------------------------------------------------------------------+
 |                                                                                    |
-| Your Answer                                                                        |
-| ┌────────────────────────────────────────────────────────────┐                     |
-| │                                                            │                     |
-| │                                                            │                     |
-| └────────────────────────────────────────────────────────────┘                     |
+| Chat Window                                                                        |
 |                                                                                    |
-|                  [ Submit Answer ]   [ Finish Interview ]                          |
-|------------------------------------------------------------------------------------|
-| Live Webcam                                                                        |
+| AI Interviewer Messages                                                            |
 |                                                                                    |
-|      📷 Camera Preview                                                             |
+| Candidate Messages                                                                 |
+|                                                                                    |
++------------------------------------------------------------------------------------+
+| Text Input / Voice Recorder / Send                                                 |
++------------------------------------------------------------------------------------+
+| Live Webcam Monitor                                                                |
+| Emotion / Eye Contact / Monitoring Status                                          |
 +------------------------------------------------------------------------------------+
 ```
 
 ---
 
-## 8. AI Interview Monitoring Dashboard
+## 8. Interview Analytics
 
-```
+```text
 +-------------------------------------------------------------------------------+
-| AI Interview Monitoring                                                       |
-|-------------------------------------------------------------------------------|
-| Overall Score      Emotion        Eye Contact                                 |
-|     86.5            Happy          Looking at Camera                          |
-|-------------------------------------------------------------------------------|
-| Transcript                                                                  |
-|-------------------------------------------------------------------------------|
-| "I would implement JWT authentication..."                                   |
-|                                                                             |
-|-------------------------------------------------------------------------------|
-| Communication                                                               |
-|-------------------------------------------------------------------------------|
-| Filler Words : 2                                                            |
-| Fluency Score : 91                                                          |
-|                                                                             |
-| Recommendation                                                              |
-| "Excellent communication. Maintain eye contact consistently."               |
+|                            Interview Analytics                                |
++-------------------------------------------------------------------------------+
+| Cards: Overall Score | Fluency | Eye Contact | Communication                  |
++-------------------------------------------------------------------------------+
+|                                                                               |
+| Score Timeline                                                                |
+|                                                                               |
+|                 [ Analytics Chart ]                                           |
+|                                                                               |
++-------------------------------------------------------------------------------+
+| Transcript History                                                            |
+|                                                                               |
 +-------------------------------------------------------------------------------+
 ```
 
 ---
 
-## 9. AI Evaluation Panel
+## 9. AI Feedback Dashboard
 
-```
+```text
 +--------------------------------------------------------------+
-| AI Answer Evaluation                                         |
-|--------------------------------------------------------------|
-| Technical Score : 88                                         |
-| Communication Score : 91                                     |
-| Overall Score : 89.5                                         |
+|                    AI Feedback Dashboard                     |
++--------------------------------------------------------------+
+| Overall Score                                                |
 |                                                              |
++--------------------------------------------------------------+
+| Fluency                                                      |
+|                                                              |
++--------------------------------------------------------------+
 | Strengths                                                    |
-| ✔ Good explanation                                           |
-| ✔ Correct terminology                                        |
 |                                                              |
-| Improvements                                                 |
-| • Provide more examples                                      |
++--------------------------------------------------------------+
+| Weaknesses                                                   |
 |                                                              |
-| AI Feedback                                                  |
-| "Strong answer with good technical depth."                   |
++--------------------------------------------------------------+
+| Suggestions                                                  |
+|                                                              |
++--------------------------------------------------------------+
+| Full Transcript                                              |
+|                                                              |
 +--------------------------------------------------------------+
 ```
 
 ---
 
-## 10. Interview Analytics Report
+## 10. Interview History / Progress
 
-```
+```text
 +------------------------------------------------------------------+
-| Interview Analytics                                              |
-|------------------------------------------------------------------|
-| Candidate Score                                                  |
-| ██████████████████████ 88%                                       |
+|                    Interview History / Progress                  |
++------------------------------------------------------------------+
+| Session List                                                     |
 |                                                                  |
-| Emotion Summary                                                  |
-| Happy : 78%                                                      |
-| Neutral : 18%                                                    |
-| Sad : 4%                                                         |
+| Session | Interview Type | Score | Date | Actions                |
 |                                                                  |
-| Eye Contact                                                      |
-| 92%                                                              |
++------------------------------------------------------------------+
+| Progress Charts                                                  |
 |                                                                  |
-| Communication                                                    |
-| Fluency : 90                                                     |
-| Filler Words : 4                                                 |
+| [ Performance / Progress Charts ]                                |
 |                                                                  |
-| Recommendation                                                   |
-| Excellent interview performance.                                 |
++------------------------------------------------------------------+
+| Summary Metrics                                                  |
 +------------------------------------------------------------------+
 ```
 
 ---
 
-# Recruiter Interface (Future)
+# Recruiter Interface
 
-## Recruiter Dashboard
+## 1. Recruiter Dashboard
 
-```
-+------------------------------------------------------------------+
-| SmartHire AI                                                     |
-|------------------------------------------------------------------|
-| Sidebar               | Dashboard                               |
-|---------------------------------------------------------------   |
-| Dashboard             | Active Jobs                             |
-| Jobs                  | Applicants                              |
-| Candidates            | Resume Scores                           |
-| Interviews            | Interview Reports                       |
-| Analytics             | Hiring Statistics                       |
-| Logout                | Notifications                           |
-+------------------------------------------------------------------+
-```
-
----
-
-## Job Management
-
-```
-+--------------------------------------------------+
-| Create Job                                       |
-|--------------------------------------------------|
-| Job Title                                        |
-| Company                                          |
-| Location                                         |
-| Employment Type                                  |
-| Salary                                           |
-| Description                                      |
-|                                                  |
-|         [ Create Job ]                           |
-+--------------------------------------------------+
+```text
++--------------------------------------------------------------------------+
+| SmartHire AI • Recruiter Portal          [Delete Account] [Logout]       |
+|                                                                          |
+| Welcome, Recruiter                                                       |
+| Role Badge: RECRUITER                                                    |
++--------------------------------------------------------------------------+
+|                                                                          |
+| Stats                                                                    |
+| [Interviews] [Avg Score] [High Performers] [Shortlisted]                 |
+|                                                                          |
++--------------------------------------------------------------------------+
+| Candidate Interviews                                                     |
+|                                                                          |
+| Filters: All / High / Medium / Low     Search Session ID                 |
+|                                                                          |
++--------------------------------------------------------------------------+
+| Session #123                                                           |
+| Candidate | Interview Type | Score | Status | Actions                    |
+|                                                                          |
+| [View Analytics] [Download PDF] [Shortlist] [Reject] [Pending]           |
++--------------------------------------------------------------------------+
 ```
 
 ---
 
-# Administrator Interface (Future)
+# Administrator Interface
 
-## Admin Dashboard
+## 1. Admin Dashboard
 
-```
-+------------------------------------------------------------------+
-| SmartHire AI                                                     |
-|------------------------------------------------------------------|
-| Sidebar              | Dashboard                                |
-|---------------------------------------------------------------   |
-| Users                | Total Users                              |
-| Recruiters           | AI Usage                                 |
-| Reports              | Platform Statistics                      |
-| Logs                 | System Health                            |
-| Analytics            | Performance                              |
-| Logout               | Notifications                            |
-+------------------------------------------------------------------+
+```text
++--------------------------------------------------------------------------+
+| SmartHire AI • Admin Portal              [Delete Account] [Logout]       |
+|                                                                          |
+| Welcome, Admin                                                           |
+| Role Badge: ADMIN                                                        |
++--------------------------------------------------------------------------+
+|                                                                          |
+| Stats                                                                    |
+| [Total Users] [Candidates] [Recruiters] [Admins]                         |
+|                                                                          |
++--------------------------------------------------------------------------+
+| User Management                                                          |
+|                                                                          |
+| Filter by Role: [All] [Candidate] [Recruiter] [Admin]                    |
+| Search: [Name / Email]                                                   |
+|                                                                          |
++--------------------------------------------------------------------------+
+| User Table                                                               |
+|                                                                          |
+| ID | Name | Email | Role | Created At | Actions                          |
+|                                                                          |
++--------------------------------------------------------------------------+
 ```
 
 ---
 
 # Navigation Flow
 
-## Candidate Workflow (Implemented)
+## Candidate Workflow
 
-```
+```text
 Home
-      │
-      ▼
-Login / Register
-      │
-      ▼
+  ↓
+Login / Register (with role)
+  ↓
 Candidate Dashboard
-      │
-      ▼
+  ↓
 Upload Resume
-      │
-      ▼
-Resume List
-      │
-      ▼
+  ↓
 AI Resume Analysis
-      │
-      ▼
-Generate Interview Questions
-      │
-      ▼
-Start Interview
-      │
-      ▼
-Answer Questions
-      │
-      ▼
-AI Answer Evaluation
-      │
-      ▼
-Speech Analysis
-      │
-      ▼
-Emotion Detection
-      │
-      ▼
-Eye Contact Detection
-      │
-      ▼
-Communication Analysis
-      │
-      ▼
-Interview Monitoring Report
-      │
-      ▼
-Interview Analytics
+  ↓
+Save Job Description
+  ↓
+Resume ↔ JD Match
+  ↓
+Select Interview Type
+  ↓
+AI Interview Room
+  ↓
+Interview Completion
+  ↓
+Analytics / Feedback / History / Progress / PDF Report
 ```
 
 ---
 
-## Recruiter Workflow (Future)
+## Recruiter Workflow
 
-```
-Login
-      │
-      ▼
+```text
+Login (Recruiter)
+  ↓
 Recruiter Dashboard
-      │
-      ▼
-Create Job
-      │
-      ▼
-View Applicants
-      │
-      ▼
-Review Resume Analysis
-      │
-      ▼
-Review Interview Reports
-      │
-      ▼
-Shortlist Candidates
+  ↓
+Filter / Search Sessions
+  ↓
+View Analytics
+  ↓
+Download PDF
+  ↓
+Shortlist / Reject / Pending
 ```
 
 ---
 
-## Administrator Workflow (Future)
+## Administrator Workflow
 
-```
-Login
-      │
-      ▼
+```text
+Login (Admin)
+  ↓
 Admin Dashboard
-      │
-      ▼
-Manage Users
-      │
-      ▼
-Monitor AI Usage
-      │
-      ▼
-System Analytics
-      │
-      ▼
-Platform Monitoring
+  ↓
+View Users
+  ↓
+Filter by Role
+  ↓
+Search Users
 ```
 
 ---
 
 # UI Status
 
-## ✅ Implemented (Milestone 3)
+## Implemented
 
 - Home Page
-- Login Page
-- Registration Page
+- Login Page with role selection
+- Registration Page with role selection
 - Candidate Dashboard
-- Resume Upload
-- Resume Management
-- AI Resume Analysis
-- AI Interview Page
-- AI Question Generation
-- Interview Session Workflow
-- AI Answer Evaluation
-- Live Webcam Monitoring
-- Speech-to-Text Transcript
-- Emotion Detection Panel
-- Eye Contact Monitoring
-- Communication Analysis
-- AI Recommendation Panel
-- Interview Monitoring Dashboard
-- Interview Analytics Report
-- Loading Skeleton UI
-- Responsive Design
+- Resume Upload / List / Analysis
+- Job Description section
+- Resume ↔ JD Match UI
+- Interview Type Selection
+- AI Interview Room with monitoring
+- Interview Analytics
+- AI Feedback Dashboard
+- Interview History / Progress
+- Recruiter Dashboard
+- Admin Dashboard
+- Delete Account and Logout on all role dashboards
+- Responsive design
+
+## Remaining
+
+- Cloud deployment presentation / production hosting UI configuration
 
 ---
 
-## 🚀 Planned (Milestone 4)
+# Summary
 
-- Recruiter Dashboard
-- Admin Dashboard
-- Job Management
-- Candidate Ranking
-- Analytics Dashboard
-- Performance Charts
-- Email Notifications
-- Cloud Deployment
-- Mobile Responsive Optimization
-- Dark Mode
-```
+The SmartHire AI interface provides complete role-based experiences for Candidates, Recruiters, and Administrators.
+
+The UI supports the complete interview preparation and evaluation workflow, including:
+
+- Secure authentication
+- Resume management
+- AI resume analysis
+- Job Description management
+- Resume ↔ JD matching
+- Type-specific AI interviews
+- Real-time interview monitoring
+- Speech, emotion, eye-contact, and communication analysis
+- Interview analytics
+- AI feedback
+- Interview history and progress
+- Recruiter shortlisting
+- Admin user management
+- Account management
+
+The implemented UI provides a complete frontend foundation for the SmartHire AI platform. The remaining UI-related work is primarily production hosting and cloud deployment configuration.

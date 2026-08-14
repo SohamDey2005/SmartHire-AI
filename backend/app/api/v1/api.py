@@ -17,6 +17,14 @@ from app.api.v1.endpoints.progress import router as progress_router
 from app.api.v1.endpoints.feedback import router as feedback_router
 from app.api.v1.endpoints.monitor_history import router as monitor_history_router
 from app.api.v1.endpoints.recruiter_playback import router as recruiter_playback_router
+from app.api.v1.endpoints import live_interview
+from app.api.v1.endpoints import interview_conversation
+from app.api.v1.endpoints import speech_chat
+from app.api.v1.endpoints import interview_live
+from app.api.v1.endpoints import job_description
+from app.api.v1.endpoints import recruiter_shortlist
+
+
 
 
 api_router = APIRouter()
@@ -38,3 +46,18 @@ api_router.include_router(progress_router)
 api_router.include_router(feedback_router)
 api_router.include_router(monitor_history_router)
 api_router.include_router(recruiter_playback_router)
+api_router.include_router(
+    live_interview.router,
+    prefix="/live-interview",
+    tags=["Live Interview"],
+)
+api_router.include_router(
+    interview_conversation.router
+)
+api_router.include_router(speech_chat.router)
+api_router.include_router(interview_live.router)
+api_router.include_router(
+    job_description.router,
+    tags=["Job Description"],
+)
+api_router.include_router(recruiter_shortlist.router)

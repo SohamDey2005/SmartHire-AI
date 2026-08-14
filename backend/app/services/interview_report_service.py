@@ -2,6 +2,11 @@ from app.repositories.interview_answer_repository import (
     InterviewAnswerRepository,
 )
 
+from app.ai.interview_report_ai import (
+    InterviewReportAI,
+)
+
+from app.ai.interview_report_ai import InterviewReportAI
 
 class InterviewReportService:
 
@@ -11,71 +16,147 @@ class InterviewReportService:
     ):
         self.repository = repository
 
+        self.ai = InterviewReportAI()
+
     def get_report(
         self,
         session_id: int,
     ):
 
-        answers = self.repository.get_answers_with_evaluation(
-            session_id
+        answers = (
+            self.repository.get_answers_with_evaluation(
+                session_id
+            )
         )
 
         if not answers:
 
             return {
+
                 "overall_score": 0,
+
+                "recommendation": "No Result",
+
+                "summary": "No interview data available.",
+
+                "overall_strengths": [],
+
+                "overall_weaknesses": [],
+
+                "learning_plan": [],
+
+                "total_questions": 0,
+
+                "answered_questions": 0,
+
                 "questions": [],
+
             }
 
-        total = 0
-
         reports = []
+
+        total_score = 0
+
+        answered = 0
 
         for answer in answers:
 
             evaluation = answer.evaluation
 
-            if not evaluation:
+            if evaluation is None:
+
                 continue
 
-            total += evaluation.score
+            answered += 1
 
-            reports.append({
+            total_score += evaluation.score
 
-                "question":
-                    answer.question.question,
+            reports.append(
 
-                "candidate_answer":
-                    answer.candidate_answer,
+                {
 
-                "score":
-                    evaluation.score,
+                    "question":
+                        answer.question.question,
 
-                "strengths":
-                    evaluation.strengths,
+                    "candidate_answer":
+                        answer.candidate_answer,
 
-                "weaknesses":
-                    evaluation.weaknesses,
+                    "score":
+                        evaluation.score,
 
-                "ideal_answer":
-                    evaluation.ideal_answer,
+                    "strengths":
+                        evaluation.strengths,
 
-                "feedback":
-                    evaluation.feedback,
+                    "weaknesses":
+                        evaluation.weaknesses,
 
-            })
+                    "ideal_answer":
+                        evaluation.ideal_answer,
 
-        overall = (
-            total / len(reports)
-            if reports else 0
+                    "feedback":
+                        evaluation.feedback,
+
+                }
+
+            )
+
+            ai = InterviewReportAI()
+
+            ai_report = ai.generate(
+                reports,
+            )
+
+        overall_score = (
+
+            round(
+
+                total_score / answered,
+
+                2,
+
+            )
+
+            if answered
+
+            else 0
+
+        )
+
+        ai_report = self.ai.generate(
+
+            overall_score,
+
+            reports,
+
         )
 
         return {
 
-            "overall_score":
-                round(overall, 2),
+    "overall_score":
+        overall_score,
 
-            "questions":
-                reports,
+    "recommendation":
+        ai_report["recommendation"],
 
-        }
+    "summary":
+        ai_report["summary"],
+
+    "overall_strengths":
+        ai_report["overall_strengths"],
+
+    "overall_weaknesses":
+        ai_report["overall_weaknesses"],
+
+    "learning_plan":
+        ai_report["learning_plan"],
+
+    "total_questions":
+        len(answers),
+
+    "answered_questions":
+        answered,
+
+    "questions":
+        reports,
+
+}

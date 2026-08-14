@@ -4,6 +4,7 @@ from sqlalchemy import (
     ForeignKey,
     DateTime,
     String,
+    Text,
     func,
 )
 
@@ -39,6 +40,13 @@ class InterviewSession(Base):
         nullable=False,
     )
 
+    # NEW
+    interview_type = Column(
+        String(50),
+        default="technical",
+        nullable=False,
+    )
+
     started_at = Column(
         DateTime(timezone=True),
         server_default=func.now(),
@@ -48,9 +56,15 @@ class InterviewSession(Base):
         DateTime(timezone=True),
         nullable=True,
     )
-    
+
     answers = relationship(
         "InterviewAnswer",
+        back_populates="session",
+        cascade="all, delete-orphan",
+    )
+
+    conversation_messages = relationship(
+        "InterviewConversation",
         back_populates="session",
         cascade="all, delete-orphan",
     )
@@ -67,10 +81,5 @@ class InterviewSession(Base):
         passive_deletes=True,
     )
 
-    resume = relationship(
-        "Resume"
-    )
-
-    user = relationship(
-        "User"
-    )
+    resume = relationship("Resume")
+    user = relationship("User")
