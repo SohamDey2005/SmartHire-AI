@@ -87,7 +87,7 @@ Rules:
 
         try:
             response = self.client.chat.completions.create(
-                model="llama-3.3-70b-versatile",   # or "llama-3.1-8b-instant" for faster/cheaper
+                model="openai/gpt-oss-120b", 
                 messages=[
                     {
                         "role": "system",
