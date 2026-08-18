@@ -6,7 +6,7 @@ SmartHire AI uses **PostgreSQL** as its primary Relational Database Management S
 
 - User authentication and role-based access
 - Resume storage and AI-generated resume analysis
-- Job Description (JD) storage and Resume-JD matching support
+- Job Description (JD) storage and Resume–JD matching support
 - Interview sessions with HR, Technical, and Managerial interview types
 - Conversational interview history
 - Candidate answers and AI evaluations
@@ -27,7 +27,7 @@ The database is designed to:
 - Manage uploaded resumes
 - Store AI-generated resume analysis
 - Store Job Descriptions for users
-- Support Resume-JD matching
+- Support Resume–JD matching
 - Manage interview sessions with multiple interview types
 - Store conversational interview history
 - Store candidate answers and AI-generated evaluations
@@ -37,7 +37,22 @@ The database is designed to:
 - Maintain referential integrity using primary and foreign keys
 - Enforce uniqueness where required
 - Support cascade-aware deletion of users and related records
-- Provide a scalable database foundation for future recruitment features
+- Provide a scalable foundation for future recruitment features
+
+---
+
+## Deployment Context
+
+In the current release:
+
+| Component | Location |
+|-----------|----------|
+| Database | Local PostgreSQL instance |
+| Backend API | Local FastAPI process |
+| Frontend | Deployed on Vercel |
+| Public API access | ngrok tunnel to the local API |
+
+Application data therefore lives on the developer's PostgreSQL server while the UI is served publicly from Vercel. Moving PostgreSQL and the API to a managed cloud host remains an optional next step.
 
 ---
 
@@ -116,7 +131,7 @@ The database is designed to:
 
 ## 4. Job Descriptions
 
-**Purpose:** Stores the Job Description associated with a candidate and supports Resume-JD matching and interview personalization.
+**Purpose:** Stores the Job Description associated with a candidate and supports Resume–JD matching and interview personalization.
 
 | Attribute | Type | Constraints | Description |
 |---|---|---|---|
@@ -160,7 +175,7 @@ The `UNIQUE` constraint on `user_id` implements the current **create-or-update**
 
 **Purpose:** Represents a complete interview conducted by a candidate.
 
-The system currently supports the following interview types:
+Supported interview types:
 
 - `hr`
 - `technical`
@@ -260,7 +275,7 @@ The `UNIQUE` constraint on `answer_id` enforces the one-to-one relationship.
 
 ## 10. Interview Monitor Reports
 
-**Purpose:** Stores the final AI-generated monitoring summary for an interview session. The report provides consolidated feedback for the Feedback Dashboard.
+**Purpose:** Stores the final AI-generated monitoring summary for an interview session. Used by the Feedback Dashboard and related analytics.
 
 | Attribute | Type | Constraints | Description |
 |---|---|---|---|
@@ -291,7 +306,7 @@ The `UNIQUE` constraint on `session_id` enforces the one-to-one relationship.
 
 ## 11. Interview Monitor Snapshots
 
-**Purpose:** Stores AI analysis results captured during live interview monitoring. These snapshots support timeline-based Analytics and visualization.
+**Purpose:** Stores AI analysis results captured during live interview monitoring. These snapshots support timeline-based analytics and visualization.
 
 | Attribute | Type | Constraints | Description |
 |---|---|---|---|
@@ -375,19 +390,19 @@ RecruiterShortlists (N) ──── (1) InterviewSessions
 | Parent | Child | Relationship |
 |---|---|---|
 | User | Resume | One-to-Many |
-| User | JobDescription | One-to-One / Optional |
-| User | InterviewSession | One-to-Many |
-| User (Recruiter) | RecruiterShortlist | One-to-Many |
-| Resume | ResumeAnalysis | One-to-One |
-| Resume | InterviewQuestion | One-to-Many |
-| Resume | InterviewSession | One-to-Many |
-| InterviewSession | InterviewConversation | One-to-Many |
-| InterviewSession | InterviewAnswer | One-to-Many |
-| InterviewQuestion | InterviewAnswer | One-to-Many |
-| InterviewAnswer | InterviewEvaluation | One-to-One / Optional |
-| InterviewSession | InterviewMonitorReport | One-to-One / Optional |
-| InterviewSession | InterviewMonitorSnapshot | One-to-Many |
-| InterviewSession | RecruiterShortlist | One-to-Many |
+| User | Job Description | One-to-One / Optional |
+| User | Interview Session | One-to-Many |
+| User (Recruiter) | Recruiter Shortlist | One-to-Many |
+| Resume | Resume Analysis | One-to-One |
+| Resume | Interview Question | One-to-Many |
+| Resume | Interview Session | One-to-Many |
+| Interview Session | Interview Conversation | One-to-Many |
+| Interview Session | Interview Answer | One-to-Many |
+| Interview Question | Interview Answer | One-to-Many |
+| Interview Answer | Interview Evaluation | One-to-One / Optional |
+| Interview Session | Interview Monitor Report | One-to-One / Optional |
+| Interview Session | Interview Monitor Snapshot | One-to-Many |
+| Interview Session | Recruiter Shortlist | One-to-Many |
 
 ---
 
@@ -396,8 +411,6 @@ RecruiterShortlists (N) ──── (1) InterviewSessions
 The SmartHire AI database follows the principles of **Third Normal Form (3NF)**.
 
 ## First Normal Form (1NF)
-
-The database satisfies 1NF through:
 
 - Atomic values for individual attributes
 - No repeating groups within a table
@@ -408,29 +421,25 @@ JSON/JSONB fields are used only where structured AI-generated collections are in
 
 ## Second Normal Form (2NF)
 
-The database satisfies 2NF because:
-
-- Every table has a defined primary key.
-- Non-key attributes depend on the complete primary key.
-- The schema does not use unnecessary composite primary keys.
+- Every table has a defined primary key
+- Non-key attributes depend on the complete primary key
+- The schema does not rely on unnecessary composite primary keys
 
 ## Third Normal Form (3NF)
 
-The database follows 3NF because:
-
-- Non-key attributes depend directly on the primary key.
-- Transitive dependencies are minimized.
-- Related entities are separated into independent tables.
-- Foreign keys are used to represent relationships rather than duplicating entity information.
+- Non-key attributes depend directly on the primary key
+- Transitive dependencies are minimized
+- Related entities are separated into independent tables
+- Foreign keys represent relationships rather than duplicating entity information
 
 ---
 
 # Data Integrity
 
-Data integrity is maintained through the following mechanisms:
+Data integrity is maintained through:
 
-- Primary Key constraints
-- Foreign Key constraints
+- Primary key constraints
+- Foreign key constraints
 - Unique constraints
 - NOT NULL constraints
 - SQLAlchemy ORM relationships
@@ -439,7 +448,9 @@ Data integrity is maintained through the following mechanisms:
 - Cascade-aware deletion logic
 - Composite uniqueness constraints where required
 
-## Cascade-Aware Deletion
+---
+
+# Cascade-Aware Deletion
 
 User deletion is designed to safely remove or handle related records, including:
 
@@ -455,7 +466,7 @@ User deletion is designed to safely remove or handle related records, including:
 - Interview Monitor Snapshots
 - Recruiter Shortlist records
 
-The exact deletion behavior is controlled through the configured SQLAlchemy relationships, foreign-key constraints, and application service logic.
+Exact behavior is controlled by SQLAlchemy relationships, foreign-key rules, and application service logic.
 
 ---
 
@@ -476,6 +487,8 @@ The exact deletion behavior is controlled through the configured SQLAlchemy rela
 | Interview Monitor Snapshots | Implemented |
 | Recruiter Shortlists | Implemented |
 
+**Schema status:** Complete for the current product release (hybrid deployment with local PostgreSQL).
+
 ---
 
 # Database Features
@@ -483,17 +496,13 @@ The exact deletion behavior is controlled through the configured SQLAlchemy rela
 The current database supports:
 
 - Secure user authentication
-- Role-Based Access Control
-- Candidate, recruiter, and admin roles
+- Role-Based Access Control (candidate, recruiter, admin)
 - Resume upload and management
 - Resume text extraction
 - AI-powered resume analysis
 - Job Description storage
-- Resume-JD matching support
-- Dynamic interview type selection
-- HR interviews
-- Technical interviews
-- Managerial interviews
+- Resume–JD matching support
+- Dynamic interview type selection (HR / Technical / Managerial)
 - Conversational AI interviews
 - Interview session tracking
 - Interview question management
@@ -504,11 +513,9 @@ The current database supports:
 - Eye-contact analysis
 - Filler-word analysis
 - Fluency scoring
-- Overall interview monitoring
 - Interview monitoring reports
 - Timeline-based monitoring snapshots
-- Analytics data storage
-- Feedback Dashboard data
+- Analytics and feedback data
 - Recruiter shortlisting workflow
 - Admin user visibility
 - Referential integrity
@@ -519,49 +526,35 @@ The current database supports:
 
 # Database Summary
 
-The SmartHire AI database provides a **modular, normalized, and scalable foundation** for an AI-powered interview and recruitment platform.
+The SmartHire AI database provides a modular, normalized, and scalable foundation for an AI-powered interview and recruitment platform.
 
 ## Current Implementation
 
-The database currently supports:
-
 - User authentication and role management
 - Resume storage and AI analysis
-- Job Description management
-- Resume-JD matching support
-- Dynamic interview types
-- AI-powered conversational interviews
-- Interview session management
-- Candidate answer storage
-- AI answer evaluation
-- Real-time interview monitoring
-- Speech analysis
-- Emotion analysis
-- Eye-contact analysis
-- Filler-word analysis
-- Fluency analysis
-- Interview analytics
-- Feedback generation
+- Job Description management and matching support
+- Dynamic interview types and conversational interviews
+- Session management, answers, and evaluations
+- Real-time monitoring (speech, emotion, eye contact, fillers, fluency)
+- Analytics and feedback storage
 - Recruiter shortlisting
-- Admin user visibility
-- Referential integrity and controlled data deletion
+- Admin-oriented user data
+- Local PostgreSQL in the hybrid Vercel + local API deployment model
 
 ## Design Principles
 
-The database has been designed with the following principles:
-
-- **Modular** – Separate tables represent independent business entities.
-- **Normalized** – The schema follows 3NF principles to minimize unnecessary redundancy.
-- **Scalable** – The structure supports additional interview and recruitment features.
-- **Referentially Consistent** – Foreign keys and constraints maintain valid relationships.
-- **Maintainable** – SQLAlchemy ORM and Alembic migrations support structured database management.
-- **Extensible** – The schema can be extended for future recruitment workflows, analytics, and AI capabilities.
-- **Cloud-Ready** – PostgreSQL provides a robust foundation for future cloud deployment.
+- **Modular** — Separate tables for independent business entities
+- **Normalized** — 3NF to minimize redundancy
+- **Scalable** — Ready for additional recruitment features
+- **Referentially consistent** — Foreign keys and constraints
+- **Maintainable** — SQLAlchemy ORM and Alembic
+- **Extensible** — Supports future workflows and AI capabilities
+- **Cloud-ready** — Can be moved to managed PostgreSQL without redesigning the schema
 
 ---
 
 # Conclusion
 
-The SmartHire AI database is designed to support the complete workflow of an AI-powered interview and recruitment platform, from user registration and resume analysis to AI-driven interviews, real-time monitoring, performance evaluation, and recruiter shortlisting.
+The SmartHire AI database supports the full workflow of an AI-powered interview and recruitment platform: registration, resume analysis, JD matching, typed AI interviews, real-time monitoring, performance evaluation, and recruiter shortlisting.
 
-By combining PostgreSQL, normalized relational structures, JSON/JSONB fields for AI-generated structured data, foreign-key relationships, uniqueness constraints, SQLAlchemy ORM, and Alembic migrations, the database provides a reliable and extensible foundation for the SmartHire AI system.
+PostgreSQL, normalized relational design, JSON/JSONB for AI-structured data, foreign keys, uniqueness constraints, SQLAlchemy, and Alembic together provide a reliable foundation for the current hybrid deployment and for a future fully cloud-hosted backend.
