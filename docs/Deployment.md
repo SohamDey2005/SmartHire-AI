@@ -780,6 +780,7 @@ The following project documentation should be maintained alongside this file:
 * `NonFunctionalRequirements.md` — quality attributes and availability
 * `DatabaseDesign.md` — database design
 * `ERDiagram.md` — entity relationship diagram
+* `UIWireframes.md` — user interface wireframes and screen designs
 * `UserWorkflows.md` — user and operator workflows
 
 ---
