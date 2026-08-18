@@ -286,7 +286,7 @@ The frontend is deployed on **Vercel**. The live UI calls the API using `VITE_AP
 | Filters: All / High / Medium / Low     Search Session ID                 |
 |                                                                          |
 +--------------------------------------------------------------------------+
-| Session #123                                                           |
+| Session #123                                                             |
 | Candidate | Interview Type | Score | Status | Actions                    |
 |                                                                          |
 | [View Analytics] [Download PDF] [Shortlist] [Reject] [Pending]           |
