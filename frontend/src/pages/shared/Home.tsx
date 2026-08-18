@@ -5,13 +5,11 @@ import {
     BarChart3,
     FileSearch,
     ArrowRight,
-    CheckCircle2,
 } from "lucide-react";
 
 export default function Home() {
     return (
         <div className="min-h-screen bg-[#f0f4fa]">
-            {/* ================= NAVBAR ================= */}
             <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200/60 sticky top-0 z-50">
                 <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -45,7 +43,6 @@ export default function Home() {
                 </div>
             </header>
 
-            {/* ================= HERO ================= */}
             <section className="max-w-6xl mx-auto px-6 pt-16 pb-20">
                 <div className="text-center max-w-3xl mx-auto">
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-medium mb-6">
@@ -84,10 +81,8 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ================= FEATURES ================= */}
             <section className="max-w-6xl mx-auto px-6 pb-20">
                 <div className="grid md:grid-cols-3 gap-6">
-                    {/* Feature 1 */}
                     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 hover:shadow-md transition">
                         <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
                             <Bot size={24} className="text-blue-600" />
@@ -101,7 +96,6 @@ export default function Home() {
                         </p>
                     </div>
 
-                    {/* Feature 2 */}
                     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 hover:shadow-md transition">
                         <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-5">
                             <BarChart3 size={24} className="text-emerald-600" />
@@ -115,7 +109,6 @@ export default function Home() {
                         </p>
                     </div>
 
-                    {/* Feature 3 */}
                     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 hover:shadow-md transition">
                         <div className="w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center mb-5">
                             <FileSearch size={24} className="text-violet-600" />
@@ -132,7 +125,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ================= HOW IT WORKS ================= */}
             <section className="bg-white border-y border-gray-100 py-16">
                 <div className="max-w-6xl mx-auto px-6">
                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-12">
@@ -173,7 +165,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ================= CTA ================= */}
             <section className="max-w-6xl mx-auto px-6 py-20">
                 <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-10 sm:p-14 text-center text-white shadow-xl">
                     <h2 className="text-3xl sm:text-4xl font-bold mb-4">
@@ -193,7 +184,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ================= FOOTER ================= */}
             <footer className="border-t border-gray-200 bg-white">
                 <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-2">

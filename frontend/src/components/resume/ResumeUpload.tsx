@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { uploadResume } from "../../services/resumeService";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
-import { Upload, CloudUpload, FileText } from "lucide-react";
+import { Upload, CloudUpload } from "lucide-react";
 
 interface ResumeUploadProps {
     onUploadSuccess: () => void;
@@ -53,7 +53,6 @@ export default function ResumeUpload({ onUploadSuccess }: ResumeUploadProps) {
     return (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 relative overflow-hidden">
             <div className="flex flex-col lg:flex-row lg:items-start gap-8">
-                {/* Left content */}
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-1">
                         <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
@@ -69,7 +68,6 @@ export default function ResumeUpload({ onUploadSuccess }: ResumeUploadProps) {
                         </div>
                     </div>
 
-                    {/* File picker row */}
                     <div className="mt-6 flex items-center gap-3">
                         <button
                             type="button"
@@ -106,13 +104,9 @@ export default function ResumeUpload({ onUploadSuccess }: ResumeUploadProps) {
                     </button>
                 </div>
 
-                {/* Right illustration – closer to target */}
                 <div className="hidden lg:flex items-center justify-center shrink-0 w-56">
                     <div className="relative w-full h-40">
-                        {/* Soft background blob */}
                         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-50 rounded-2xl" />
-
-                        {/* Document stack */}
                         <div className="absolute left-6 top-6 w-16 h-20 bg-white border border-blue-100 rounded-lg shadow-sm flex flex-col overflow-hidden">
                             <div className="h-3 bg-blue-50 border-b border-blue-100" />
                             <div className="flex-1 p-1.5 space-y-1">
@@ -121,18 +115,12 @@ export default function ResumeUpload({ onUploadSuccess }: ResumeUploadProps) {
                                 <div className="h-1.5 bg-blue-100 rounded w-3/5" />
                             </div>
                         </div>
-
-                        {/* PDF badge */}
                         <div className="absolute left-14 top-3 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded shadow">
                             PDF
                         </div>
-
-                        {/* Cloud with upload arrow */}
                         <div className="absolute right-4 bottom-4 w-24 h-16 bg-blue-100/90 rounded-full flex items-center justify-center shadow-inner">
                             <CloudUpload size={28} className="text-blue-500" />
                         </div>
-
-                        {/* Small decorative plant / dots */}
                         <div className="absolute right-2 top-8 w-2 h-2 rounded-full bg-blue-200" />
                         <div className="absolute right-6 top-4 w-1.5 h-1.5 rounded-full bg-indigo-200" />
                     </div>

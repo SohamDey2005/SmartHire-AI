@@ -19,7 +19,6 @@ import {
     Cell,
 } from "recharts";
 import {
-    ArrowLeft,
     Award,
     Eye,
     Mic,
@@ -57,8 +56,10 @@ export default function ProgressDashboard() {
 
     const loadHistory = async () => {
         try {
+            const base =
+                import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/v1";
             const response = await axios.get(
-                `http://127.0.0.1:8000/api/v1/monitor-history/${sessionId}`,
+                `${base}/monitor-history/${sessionId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
