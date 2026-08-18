@@ -9,6 +9,7 @@ app = FastAPI(
 
 origins = [
     "http://localhost:5173",
+    "https://smart-hire-ai-two-sage.vercel.app",
 ]
 
 app.add_middleware(

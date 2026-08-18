@@ -27,14 +27,19 @@ env/
 ENV/
 
 # ==========================================================
-# Environment Variables
+# Environment Variables / Secrets
 # ==========================================================
 .env
 .env.*
 !.env.example
 
+backend/.env
+backend/.env.*
+!backend/.env.example
+
 frontend/.env
 frontend/.env.*
+!frontend/.env.example
 
 # ==========================================================
 # Node / React
@@ -110,7 +115,6 @@ backend/reports/*
 *.joblib
 *.pkl
 
-# MediaPipe model
 backend/models/face_landmarker.task
 
 # ==========================================================
@@ -130,6 +134,12 @@ backend/models/face_landmarker.task
 # Alembic
 # ==========================================================
 backend/alembic/versions/__pycache__/
+
+# ==========================================================
+# ngrok / local tooling
+# ==========================================================
+ngrok.exe
+.ngrok2/
 
 # ==========================================================
 # Miscellaneous

@@ -10,7 +10,15 @@ The platform enables candidates to securely manage resumes, perform AI-powered r
 
 Recruiters can review interview sessions, view analytics, download reports, and shortlist candidates. Administrators can view platform users and role statistics.
 
-This document reflects the **complete implemented platform (pre-deployment)**.
+This document reflects the **complete implemented platform** in its current hybrid deployment model:
+
+| Layer | Status |
+|-------|--------|
+| Application features | Complete |
+| Frontend | Deployed on Vercel |
+| Backend API | Local FastAPI |
+| Database | Local PostgreSQL |
+| Public API access | ngrok tunnel |
 
 ---
 
@@ -38,7 +46,8 @@ The primary objectives of SmartHire AI are:
 - Generate AI-powered interview reports and analytics.
 - Support recruiter shortlisting workflows.
 - Support admin visibility into platform users.
-- Build a scalable architecture ready for cloud deployment.
+- Deploy the frontend for public access and operate the API securely in a documented hybrid setup.
+- Keep the architecture ready for full cloud hosting of API and database.
 
 ---
 
@@ -107,8 +116,6 @@ Administrators can:
 - Recharts / visualization libraries
 - Lucide React icons
 
----
-
 ## Backend
 
 - FastAPI
@@ -118,13 +125,9 @@ Administrators can:
 - Pydantic
 - JWT Authentication
 
----
-
 ## Database
 
 - PostgreSQL
-
----
 
 ## Authentication
 
@@ -132,18 +135,22 @@ Administrators can:
 - BCrypt Password Hashing
 - Role-Based Access Control (RBAC)
 
----
-
 ## Artificial Intelligence
 
-- Groq API
-- LLM-based resume analysis and interview conversation
+- Groq API (LLM for analysis, matching, and interview conversation)
 - Whisper Speech-to-Text
 - DeepFace Emotion Recognition
 - MediaPipe Face Mesh
 - OpenCV
 - Prompt Engineering
 - Structured JSON Output
+
+## Deployment (current)
+
+- Frontend: Vercel
+- Backend: Local Uvicorn / FastAPI
+- Database: Local PostgreSQL
+- Tunnel: ngrok for public access to the local API
 
 ---
 
@@ -159,8 +166,6 @@ Administrators can:
 - Current User Profile
 - Account Deletion
 
----
-
 ## Resume Management Module
 
 - Resume Upload
@@ -169,8 +174,6 @@ Administrators can:
 - Resume Listing
 - Resume Text Extraction
 - Resume Storage
-
----
 
 ## AI Resume Analysis Module
 
@@ -181,16 +184,12 @@ Administrators can:
 - Education / Experience / Project Extraction
 - Structured AI Analysis Storage and Display
 
----
-
 ## Job Description Module
 
 - Save Job Description
 - Load Job Description
 - Update Job Description
 - Resume ↔ JD Match (score, matching skills, missing skills, summary)
-
----
 
 ## AI Interview Engine
 
@@ -200,8 +199,6 @@ Administrators can:
 - Adaptive follow-up questions
 - Interview Session Tracking
 
----
-
 ## Interview Session Module
 
 - Start Interview Session
@@ -210,16 +207,12 @@ Administrators can:
 - Session History
 - Multiple Interview Attempts
 
----
-
 ## AI Answer Evaluation Module
 
 - AI Answer Evaluation
 - Feedback Generation
 - Evaluation Storage
 - Overall Performance Support
-
----
 
 ## AI Interview Monitoring Module
 
@@ -234,8 +227,6 @@ Administrators can:
 - Monitoring Reports
 - Monitoring Snapshots for Analytics
 
----
-
 ## Candidate Dashboard
 
 - Resume Management
@@ -247,8 +238,6 @@ Administrators can:
 - PDF Reports
 - Account Deletion
 
----
-
 ## Recruiter Dashboard
 
 - Interview Session Overview
@@ -258,8 +247,6 @@ Administrators can:
 - Shortlist / Reject / Pending Status
 - Account Deletion
 
----
-
 ## Admin Dashboard
 
 - User Statistics
@@ -267,17 +254,27 @@ Administrators can:
 - Role Filtering and Search
 - Account Deletion
 
+## Deployment Module (Hybrid)
+
+- Production frontend on Vercel
+- Environment-based API URL (`VITE_API_URL`)
+- Local API and PostgreSQL operation
+- ngrok-based public API access for the live frontend
+- CORS configuration for local and Vercel origins
+
 ---
 
 # Remaining Work
 
-## Cloud Infrastructure / Deployment
+## Optional cloud infrastructure
 
-- Production frontend deployment
-- Production backend deployment
-- Cloud database configuration
-- Environment-based configuration
-- Optional Docker / CI/CD enhancements
+- Always-on production backend hosting
+- Managed cloud PostgreSQL
+- Removal of dependency on local PC + ngrok for live demos
+- Optional Docker Compose packaging
+- Optional CI/CD pipeline
+- Optional email / notification services
+- Optional expanded automated test suite in CI
 
 ---
 
@@ -296,7 +293,8 @@ SmartHire AI currently provides:
 - Recruiter shortlisting workflow
 - Admin user visibility
 - Responsive role-based dashboards
-- Modular backend architecture ready for deployment
+- Public frontend deployment with documented hybrid API access
+- Modular backend architecture ready for full cloud hosting
 
 ---
 
@@ -342,10 +340,12 @@ SmartHire AI currently provides:
 - Admin Dashboard
 - Account Deletion
 - Full role-based frontend protection
+- Frontend deployment on Vercel
+- Hybrid live API access (local backend + ngrok)
 
-## Remaining
+## Remaining (optional)
 
-- Cloud Deployment
+- Fully cloud-hosted backend and managed database (always-on, no local tunnel)
 
 ---
 
@@ -353,4 +353,4 @@ SmartHire AI currently provides:
 
 SmartHire AI is a complete AI-powered interview and recruitment support platform capable of assisting candidates through resume analysis, JD matching, and mock interviews, while providing recruiters with evaluation insights and shortlisting tools, and administrators with user visibility.
 
-The implemented platform provides a complete foundation for AI-powered recruitment workflows. The only major remaining item for production readiness is **cloud deployment**.
+Feature scope for the project is complete. The frontend is publicly deployed; the API and database operate in a hybrid local model suitable for evaluation and demonstration. Moving the backend and PostgreSQL to the cloud is the primary optional step for always-on production operation.

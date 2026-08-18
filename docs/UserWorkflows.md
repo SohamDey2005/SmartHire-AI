@@ -6,7 +6,7 @@
 
 This document describes the interaction flows for different users of the **SmartHire AI** platform. It outlines how users navigate through the system and how AI-powered services process resumes, conduct mock interviews, evaluate candidate responses, and generate real-time interview monitoring reports.
 
-These workflows represent the **complete implemented platform (pre-deployment)**.
+These workflows represent the **complete implemented platform** in the current hybrid deployment model (frontend on Vercel; API and database local, exposed publicly via ngrok when live access is required).
 
 ---
 
@@ -423,6 +423,54 @@ Admin Dashboard
 
 ---
 
+# Live Access Workflow (Operator)
+
+```text
+Start PostgreSQL
+        │
+        ▼
+Start FastAPI (host 0.0.0.0, port 8000)
+        │
+        ▼
+Start ngrok http 8000
+        │
+        ▼
+Copy HTTPS forwarding URL
+        │
+        ▼
+Set Vercel VITE_API_URL =
+https://<ngrok-host>/api/v1
+(Redeploy frontend if URL changed)
+        │
+        ▼
+Users open Vercel site
+        │
+        ▼
+API calls reach local backend via tunnel
+```
+
+---
+
+# Local Development Workflow
+
+```text
+Start PostgreSQL
+        │
+        ▼
+Start FastAPI on localhost:8000
+        │
+        ▼
+Start Vite frontend (npm run dev)
+        │
+        ▼
+VITE_API_URL=http://127.0.0.1:8000/api/v1
+        │
+        ▼
+Open http://localhost:5173
+```
+
+---
+
 # Current Workflow Status
 
 ## Implemented
@@ -453,16 +501,18 @@ Admin Dashboard
 - Admin Dashboard and User Visibility
 - Account Deletion
 - Protected Routes
+- Frontend deployment on Vercel
+- Hybrid live access (local API + ngrok)
 
-## Remaining
+## Optional / Future
 
-- Cloud Deployment
+- Always-on cloud-hosted backend and managed PostgreSQL (no local PC or tunnel required)
 
 ---
 
 # Summary
 
-SmartHire AI now supports complete end-to-end workflows for Candidates, Recruiters, and Administrators.
+SmartHire AI supports complete end-to-end workflows for Candidates, Recruiters, and Administrators.
 
 The platform covers:
 
@@ -480,5 +530,6 @@ The platform covers:
 - Recruiter shortlisting
 - Admin user visibility
 - Secure account management
+- Public frontend access with hybrid API operation
 
-The implemented workflows provide a complete foundation for the SmartHire AI recruitment and interview platform. The only major remaining production step is **cloud deployment**.
+Feature workflows are complete. Live product availability depends on the hybrid operator workflow until the API and database are moved to the cloud.

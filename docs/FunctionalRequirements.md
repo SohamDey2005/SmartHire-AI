@@ -6,7 +6,15 @@ This document defines the functional requirements of the **SmartHire AI** platfo
 
 SmartHire AI is an AI-powered recruitment and interview preparation platform that assists candidates and recruiters by combining resume analysis, Job Description matching, AI-powered mock interviews (HR / Technical / Managerial), speech analysis, facial emotion recognition, eye-contact monitoring, intelligent interview evaluation, analytics, and recruiter shortlisting.
 
-This document reflects the **complete implemented platform (pre-deployment)**.
+This document reflects the **complete implemented platform**, including hybrid deployment:
+
+| Layer | Status |
+|-------|--------|
+| Application features | Complete |
+| Frontend | Deployed on Vercel |
+| Backend API | Local FastAPI |
+| Database | Local PostgreSQL |
+| Public API access | ngrok tunnel |
 
 ---
 
@@ -55,7 +63,7 @@ The system shall:
 - Identify databases and cloud platforms.
 - Identify certifications.
 - Extract education, experience, and projects.
-- Generate structured AI analysis using Groq LLM.
+- Generate structured AI analysis using a Groq-hosted LLM.
 - Store and display AI-generated analysis.
 
 ---
@@ -67,7 +75,7 @@ The system shall allow candidates to:
 - Save a Job Description.
 - Update an existing Job Description.
 - Load a previously saved Job Description.
-- Use the JD for Resume-JD matching and interview personalization.
+- Use the JD for Resume–JD matching and interview personalization.
 
 ---
 
@@ -79,7 +87,7 @@ The system shall:
 - Generate a match score.
 - Identify matching skills.
 - Identify missing skills.
-- Provide a summary of candidate-job fit.
+- Provide a summary of candidate–job fit.
 
 ---
 
@@ -225,7 +233,7 @@ The system shall allow recruiters to:
 - Filter interview sessions by score range.
 - Search interview sessions.
 - Open candidate interview analytics.
-- Download PDF reports.
+- Download PDF reports where supported.
 - Shortlist candidates.
 - Reject candidates.
 - Mark candidates as pending.
@@ -266,12 +274,8 @@ The system shall allow administrators to:
 The system shall:
 
 - Parse uploaded resumes.
-- Extract skills.
-- Extract education details.
-- Extract certifications.
-- Extract projects.
-- Extract work experience.
-- Generate structured AI analysis output.
+- Extract skills, education, certifications, projects, and work experience.
+- Generate structured AI analysis output via Groq.
 
 ## 2. Interview Engine
 
@@ -283,14 +287,13 @@ The system shall:
 - Evaluate candidate answers.
 - Generate AI feedback.
 
-## 3. Resume-JD Match Engine
+## 3. Resume–JD Match Engine
 
 The system shall:
 
 - Compare resume content with the Job Description using an LLM.
 - Produce a match score.
-- Identify matching skills.
-- Identify missing skills.
+- Identify matching and missing skills.
 - Generate a fit summary.
 
 ## 4. Speech Analysis Engine
@@ -322,8 +325,7 @@ The system shall:
 The system shall:
 
 - Combine communication and behavioral signals.
-- Generate an overall interview score.
-- Generate an interview recommendation.
+- Generate an overall interview score and recommendation.
 - Provide performance feedback.
 
 ---
@@ -342,6 +344,7 @@ The system shall:
 - Restrict recruiter and administrator features according to role.
 - Support secure account deletion with related data cleanup.
 - Maintain database referential integrity.
+- Keep secrets in environment variables (not in source control).
 
 ---
 
@@ -370,16 +373,12 @@ The database shall maintain relationships using primary keys, foreign keys, uniq
 
 ## Authentication APIs
 
-The system shall provide APIs for:
-
 - User Registration with role
 - User Login
 - Get Current User
 - Delete Current User Account
 
 ## Resume APIs
-
-The system shall provide APIs for:
 
 - Upload Resume
 - View Resumes
@@ -389,16 +388,12 @@ The system shall provide APIs for:
 
 ## Job Description APIs
 
-The system shall provide APIs for:
-
 - Save Job Description
 - Get Job Description
 - Update Job Description
 - Match Resume with Job Description
 
 ## Interview APIs
-
-The system shall provide APIs for:
 
 - Start Interview with interview type
 - Conversational interview / chat
@@ -409,8 +404,6 @@ The system shall provide APIs for:
 
 ## Interview Monitoring APIs
 
-The system shall provide APIs for:
-
 - Analyze interview media
 - Store monitoring reports
 - Store monitoring snapshots
@@ -420,14 +413,10 @@ The system shall provide APIs for:
 
 ## Recruiter APIs
 
-The system shall provide APIs for:
-
 - List shortlist statuses
 - Update shortlist status
 
 ## Admin APIs
-
-The system shall provide APIs for:
 
 - List all users
 - Filter users by role
@@ -435,19 +424,32 @@ The system shall provide APIs for:
 
 ---
 
-# Non-Functional Requirements
+# Deployment Requirements
+
+The system shall support:
+
+- Frontend build and host on Vercel (Vite production build).
+- Configuration of API base URL via `VITE_API_URL`.
+- Local backend execution with FastAPI / Uvicorn.
+- Local PostgreSQL for persistence.
+- Public exposure of the local API via ngrok (or equivalent tunnel) for the live frontend.
+- CORS configuration allowing the Vercel frontend origin.
+- Documented startup sequence: database → backend → tunnel → frontend access.
+
+---
+
+# Cross-Cutting Requirements
 
 The system shall:
 
 - Support responsive web interfaces.
-- Process interview analysis efficiently.
+- Process interview analysis within practical latency on the host machine.
 - Maintain secure authentication and authorization.
 - Support modular backend services.
-- Follow REST API standards.
+- Follow REST API standards under `/api/v1`.
 - Use PostgreSQL for persistent storage.
 - Support database migrations through Alembic.
-- Support scalable deployment architecture.
-- Support future cloud deployment.
+- Remain portable to a fully cloud-hosted backend and database in the future.
 
 ---
 
@@ -455,65 +457,51 @@ The system shall:
 
 ## Implemented
 
-- User Authentication with role selection
-- JWT Authorization
+- User authentication with role selection
+- JWT authorization
 - Role-Based Access Control
 - Candidate / Recruiter / Admin dashboards
-- Resume Upload / Download / Delete
-- Resume Parsing and AI Analysis
-- Job Description Save / Load / Update
-- Resume ↔ JD Match
-- Interview Type Selection
-- HR / Technical / Managerial Interviews
-- Conversational AI Interviews
-- Interview Session Management
-- Interview History
-- Speech-to-Text
-- Filler Word Detection
-- Fluency Analysis
-- Emotion Recognition
-- Eye Contact Detection
-- Overall AI Interview Scoring
-- AI Feedback and Recommendations
-- Real-Time Interview Monitoring
-- Monitoring Reports
-- Timeline Analytics Snapshots
-- Analytics Dashboards and Charts
-- Interview History and Progress Views
-- PDF Reports
-- Recruiter Shortlisting
-- Recruiter Status Management
-- Admin User Visibility
-- Account Deletion
-- PostgreSQL Database
-- SQLAlchemy ORM
-- Alembic Database Migrations
+- Resume upload / download / delete
+- Resume parsing and AI analysis
+- Job Description save / load / update
+- Resume ↔ JD match
+- Interview type selection
+- HR / Technical / Managerial interviews
+- Conversational AI interviews
+- Interview session management and history
+- Speech-to-text, filler detection, fluency analysis
+- Emotion recognition and eye-contact detection
+- Overall AI scoring, feedback, and recommendations
+- Real-time monitoring, reports, and timeline snapshots
+- Analytics dashboards and charts
+- PDF reports
+- Recruiter shortlisting and status management
+- Admin user visibility
+- Account deletion
+- PostgreSQL, SQLAlchemy, Alembic
+- Frontend deployment on Vercel
+- Hybrid live access via local API + ngrok
 
-## Remaining
+## Optional / Future
 
-- Cloud Deployment
+- Always-on cloud-hosted backend and managed PostgreSQL (no local PC or ngrok required)
+- CI/CD pipeline and automated end-to-end test suite in cloud
+- Email notifications
 
 ---
 
 # Summary
 
-The current implementation delivers a complete AI-powered interview and recruitment support platform integrating:
+SmartHire AI delivers a complete AI-powered interview and recruitment support platform integrating:
 
 - Resume analysis
 - Job Description management and matching
 - Dynamic interview types
 - Conversational AI interviews
-- Candidate answer evaluation
-- Speech analysis
-- Facial emotion recognition
-- Eye-contact monitoring
-- Interview scoring
-- Real-time monitoring
-- Analytics and feedback
-- PDF interview reports
+- Answer evaluation
+- Speech, emotion, and eye-contact monitoring
+- Scoring, analytics, feedback, and PDF reports
 - Recruiter shortlisting
 - Admin user management
 
-The database, backend services, authentication, AI modules, interview workflows, monitoring, analytics, and recruiter workflows are implemented.
-
-The only remaining major item for production readiness is **cloud deployment**.
+Feature development for the project scope is complete. The frontend is publicly deployed; the API and database currently run in a **hybrid local + tunnel** model suitable for demos and evaluation. Full production hardening is achieved by moving the backend and PostgreSQL to the cloud.

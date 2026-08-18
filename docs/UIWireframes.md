@@ -8,6 +8,8 @@ This document presents the user interface wireframes for the **SmartHire AI** pl
 
 The wireframes represent the complete application screens implemented across Candidate, Recruiter, and Admin roles, including authentication, resume management, Job Description matching, type-specific AI interviews, interview monitoring, analytics, shortlisting, and account management.
 
+The frontend is deployed on **Vercel**. The live UI calls the API using `VITE_API_URL` (local development or ngrok URL for hybrid live access).
+
 ---
 
 # Candidate Interface
@@ -37,9 +39,8 @@ The wireframes represent the complete application screens implemented across Can
 | Left Branding Panel          | Right Form Panel              |
 |                              |                               |
 | SmartHire AI                 | Sign In                       |
-| AI Interview Platform        |                               |
-| Feature highlights           | Role: [Candidate]             |
-|                              |       [Recruiter]             |
+| AI Interview Platform        | Role: [Candidate]             |
+| Feature highlights           |       [Recruiter]             |
 |                              |       [Admin]                 |
 |                              |                               |
 |                              | Email                         |
@@ -389,6 +390,22 @@ Search Users
 
 ---
 
+## Live Access Workflow (Operator)
+
+```text
+Start PostgreSQL
+  ↓
+Start FastAPI (0.0.0.0:8000)
+  ↓
+Start ngrok → copy HTTPS URL
+  ↓
+Ensure Vercel VITE_API_URL = https://<ngrok>/api/v1
+  ↓
+Users open Vercel frontend URL
+```
+
+---
+
 # UI Status
 
 ## Implemented
@@ -409,10 +426,14 @@ Search Users
 - Admin Dashboard
 - Delete Account and Logout on all role dashboards
 - Responsive design
+- Frontend production deploy on Vercel
+- API base URL configuration via `VITE_API_URL`
 
-## Remaining
+## Optional / Future
 
-- Cloud deployment presentation / production hosting UI configuration
+- Always-on cloud API (no local backend or ngrok required for the live UI)
+- Further mobile layout refinements
+- Dark mode (if desired)
 
 ---
 
@@ -420,7 +441,7 @@ Search Users
 
 The SmartHire AI interface provides complete role-based experiences for Candidates, Recruiters, and Administrators.
 
-The UI supports the complete interview preparation and evaluation workflow, including:
+The UI supports the full interview preparation and evaluation workflow, including:
 
 - Secure authentication
 - Resume management
@@ -430,11 +451,10 @@ The UI supports the complete interview preparation and evaluation workflow, incl
 - Type-specific AI interviews
 - Real-time interview monitoring
 - Speech, emotion, eye-contact, and communication analysis
-- Interview analytics
-- AI feedback
+- Interview analytics and AI feedback
 - Interview history and progress
 - Recruiter shortlisting
 - Admin user management
 - Account management
 
-The implemented UI provides a complete frontend foundation for the SmartHire AI platform. The remaining UI-related work is primarily production hosting and cloud deployment configuration.
+The frontend UI is complete and publicly hosted on Vercel. Full product availability still depends on the hybrid backend (local API + database + tunnel) until the API is moved to the cloud.

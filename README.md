@@ -27,6 +27,7 @@
 * [Troubleshooting](#-troubleshooting)
 * [Deployment](#-deployment)
 * [Project Status](#-project-status)
+* [Documentation](#-documentation)
 * [Author](#-author)
 
 ---
@@ -43,7 +44,15 @@ It enables:
 
 The platform combines modern web development with Generative AI, Speech Processing, Computer Vision, and Natural Language Processing to deliver a realistic and intelligent interview experience.
 
-This project currently represents the **complete implemented platform (pre-deployment)**.
+**Current release status**
+
+| Layer | Status |
+|-------|--------|
+| Application features | Complete |
+| Frontend | Deployed on **Vercel** |
+| Backend API | Local FastAPI |
+| Database | Local PostgreSQL |
+| Public API access | **ngrok** tunnel to local backend |
 
 ---
 
@@ -56,12 +65,12 @@ The primary objectives of SmartHire AI are:
 * Support Job Description storage and Resume ↔ JD matching.
 * Conduct HR, Technical, and Managerial AI mock interviews.
 * Evaluate candidate responses automatically.
-* Evaluate communication and interview performance.
 * Monitor speech, emotion, eye contact, and fluency.
 * Provide analytics, feedback, and PDF reports.
 * Support recruiter shortlisting workflows.
 * Provide administrators with platform user visibility.
-* Build a modular and scalable architecture ready for cloud deployment.
+* Deploy the frontend publicly and operate the API in a documented hybrid setup.
+* Keep the architecture ready for full cloud hosting of API and database.
 
 ---
 
@@ -69,33 +78,27 @@ The primary objectives of SmartHire AI are:
 
 ## 🔐 Authentication & Roles
 
-* User Registration with role selection:
-
-  * Candidate
-  * Recruiter
-  * Admin
-* Secure Login with role verification.
-* JWT Authentication.
-* BCrypt Password Hashing.
-* Protected Routes.
-* Role-Based Access Control (RBAC).
-* Current user profile access.
-* Secure account deletion.
-* Logout functionality.
+* User Registration with role selection (Candidate / Recruiter / Admin)
+* Secure Login with role verification
+* JWT Authentication
+* BCrypt Password Hashing
+* Protected Routes
+* Role-Based Access Control (RBAC)
+* Current user profile access
+* Secure account deletion
+* Logout functionality
 
 ---
 
 ## 📄 Resume Management
 
-* Upload PDF resumes.
-* Secure resume storage.
-* Resume text extraction.
-* Resume listing.
-* Resume download.
-* Resume deletion.
-* Cascade-safe related data cleanup.
-* Multiple resume support.
-* Owner-restricted resume access.
+* Upload PDF resumes
+* Secure resume storage
+* Resume text extraction
+* Resume listing / download / deletion
+* Cascade-safe related data cleanup
+* Multiple resume support
+* Owner-restricted resume access
 
 ---
 
@@ -103,141 +106,79 @@ The primary objectives of SmartHire AI are:
 
 Powered by **Groq LLM**.
 
-The system automatically extracts and analyzes:
+Automatically extracts and analyzes:
 
-* Technical Skills
-* Soft Skills
-* Programming Languages
-* Frameworks
-* Tools
-* Databases
-* Cloud Technologies
-* Certifications
-* Education
-* Work Experience
-* Projects
-
-The generated analysis is stored in structured form and displayed to the candidate.
+* Technical Skills, Soft Skills
+* Programming Languages, Frameworks, Tools
+* Databases, Cloud Technologies
+* Certifications, Education, Work Experience, Projects
 
 ---
 
 ## 🧾 Job Description & Resume Matching
 
-The platform supports:
-
-* Saving a Job Description.
-* Updating an existing Job Description.
-* Loading the saved Job Description.
-* Resume ↔ JD comparison using an LLM.
-* Match score generation.
-* Matching skill identification.
-* Missing skill identification.
-* Fit summary generation.
+* Save / update / load Job Description
+* Resume ↔ JD comparison using an LLM
+* Match score, matching skills, missing skills, fit summary
 
 ---
 
 ## 🎤 AI Mock Interviews
 
-Candidates can select from:
+Interview types:
 
 * HR Interview
 * Technical Interview
 * Managerial Interview
 
-The interview engine supports:
+Supports:
 
-* Conversational AI interviews.
-* Resume-based questioning.
-* Interview-type-specific questioning.
-* Adaptive follow-up questions.
-* Text-based answers.
-* Voice-based answers.
-* Interview session tracking.
-* Multiple interview attempts.
-* AI answer evaluation.
-
-Interview sessions maintain:
-
-* `IN_PROGRESS`
-* `COMPLETED`
-
-status tracking.
+* Conversational AI interviews
+* Resume-based and type-specific questioning
+* Adaptive follow-ups
+* Text and voice answers
+* Session tracking (`IN_PROGRESS` / `COMPLETED`)
+* AI answer evaluation
+* Multiple attempts
 
 ---
 
 ## 🎥 AI Interview Monitoring
 
-The interview monitoring system supports:
-
-* Webcam monitoring.
-* Microphone input.
-* Speech-to-Text.
-* Transcript generation.
-* Emotion Detection.
-* Eye Contact Detection.
-* Filler Word Detection.
-* Fluency Analysis.
-* Communication Analysis.
-* Overall Monitoring Score.
-* AI Recommendation.
-* Monitoring Reports.
-* Timeline Monitoring Snapshots.
+* Webcam and microphone monitoring
+* Speech-to-Text and transcripts
+* Emotion detection
+* Eye contact detection
+* Filler-word detection and fluency analysis
+* Overall monitoring score and AI recommendation
+* Monitoring reports and timeline snapshots
 
 ---
 
 ## 📊 Analytics & Feedback
 
-The platform provides:
-
-* Overall Interview Score.
-* Fluency Score.
-* Eye Contact Score.
-* Filler Word Analysis.
-* Emotion Analysis.
-* Score Timeline.
-* Transcript History.
-* AI Feedback.
-* Strengths.
-* Weaknesses.
-* Suggestions.
-* Interview History.
-* Progress Tracking.
-* PDF Interview Reports.
+* Overall score, fluency, eye contact, fillers, emotion
+* Score timeline and transcript history
+* AI feedback (strengths, weaknesses, suggestions)
+* Interview history and progress views
+* PDF interview reports
 
 ---
 
 ## 🧑‍💼 Recruiter Dashboard
 
-Recruiters can:
-
-* View completed interview sessions.
-* Search interview sessions.
-* Filter sessions by score.
-* Open candidate analytics.
-* View interview reports.
-* Download PDF reports.
-* Mark candidates as:
-
-  * Pending
-  * Shortlisted
-  * Rejected
-* Persist shortlist decisions in the database.
-* Delete their account securely.
+* View completed sessions
+* Search and score filters
+* Open analytics / download PDF
+* Shortlist status: Pending / Shortlisted / Rejected (persisted in DB)
 
 ---
 
 ## 🛡️ Admin Dashboard
 
-Administrators can:
-
-* View total platform users.
-* View candidate count.
-* View recruiter count.
-* View admin count.
-* List users.
-* Search users by name or email.
-* Filter users by role.
-* Delete their account securely.
+* Platform user statistics
+* List / search users
+* Filter by role
 
 ---
 
@@ -245,17 +186,24 @@ Administrators can:
 
 ```text
                  +---------------------------+
-                 |       React Frontend      |
-                 |  TypeScript + TailwindCSS |
+                 |     React Frontend        |
+                 |  TypeScript + Tailwind    |
+                 |  (Vercel production)      |
                  +------------+--------------+
                               |
-                       REST API (Axios)
+                    REST API (Axios)
+                    VITE_API_URL
+                              |
+                 +------------v--------------+
+                 |   ngrok (optional live)   |
+                 +------------+--------------+
                               |
                  +------------v--------------+
                  |      FastAPI Backend      |
                  | Auth • Resume • JD        |
                  | Interview • Monitoring    |
                  | Analytics • Shortlist     |
+                 | (local / future cloud)    |
                  +------------+--------------+
                               |
          ----------------------------------------
@@ -275,33 +223,32 @@ Administrators can:
 
 ## Frontend
 
-| Technology       | Purpose            |
-| ---------------- | ------------------ |
-| React            | User Interface     |
-| TypeScript       | Type Safety        |
-| Vite             | Build Tool         |
-| Tailwind CSS     | Styling            |
-| React Router DOM | Routing            |
-| Axios            | API Communication  |
-| React Webcam     | Camera Integration |
-| Lucide React     | Icons              |
-| Recharts         | Data Visualization |
-
----
+| Technology | Purpose |
+|------------|---------|
+| React | User Interface |
+| TypeScript | Type Safety |
+| Vite | Build Tool |
+| Tailwind CSS | Styling |
+| React Router DOM | Routing |
+| Axios | API Communication |
+| React Webcam | Camera Integration |
+| Lucide React | Icons |
+| Recharts | Data Visualization |
+| Vercel | Production frontend hosting |
 
 ## Backend
 
-| Technology       | Purpose                      |
-| ---------------- | ---------------------------- |
-| FastAPI          | REST API Framework           |
-| Python           | Backend Programming Language |
-| SQLAlchemy       | ORM                          |
-| Alembic          | Database Migration           |
-| PostgreSQL       | Database                     |
-| Pydantic         | Data Validation              |
-| JWT              | Authentication               |
-| Passlib / BCrypt | Password Hashing             |
-| Uvicorn          | ASGI Server                  |
+| Technology | Purpose |
+|------------|---------|
+| FastAPI | REST API Framework |
+| Python | Backend language |
+| SQLAlchemy | ORM |
+| Alembic | Migrations |
+| PostgreSQL | Database |
+| Pydantic | Validation |
+| JWT | Authentication |
+| Passlib / BCrypt | Password Hashing |
+| Uvicorn | ASGI Server |
 
 ---
 
@@ -309,62 +256,24 @@ Administrators can:
 
 ## Large Language Model
 
-The platform uses the **Groq API** for LLM-powered functionality.
+**Groq API** for:
 
-Used for:
+- Resume analysis
+- Resume ↔ JD matching
+- Interview conversation and adaptive questions
+- Answer evaluation and feedback
 
-* Resume Analysis.
-* Resume ↔ JD Matching.
-* Interview Conversation Generation.
-* Adaptive Interview Questions.
-* Answer Evaluation.
-* AI Feedback.
-* Interview Recommendations.
+## Speech Processing
 
-Additional techniques include:
+**OpenAI Whisper** for speech-to-text and transcript support.
 
-* Prompt Engineering.
-* Structured JSON Output.
+## Emotion Recognition
 
----
+**DeepFace** for facial emotion analysis.
 
-## 🎙️ Speech Processing
+## Eye Contact Detection
 
-The platform uses **OpenAI Whisper** for speech processing.
-
-Used for:
-
-* Speech-to-Text.
-* Transcript generation.
-* Filler-word detection support.
-* Fluency analysis support.
-
----
-
-## 🙂 Emotion Recognition
-
-The platform uses **DeepFace** for facial emotion analysis.
-
-Used for:
-
-* Facial emotion detection.
-* Dominant emotion identification.
-* Interview monitoring.
-
----
-
-## 👁️ Eye Contact Detection
-
-The platform uses:
-
-* MediaPipe Face Mesh.
-* OpenCV.
-
-Used for:
-
-* Face landmark detection.
-* Eye/camera attention estimation.
-* Eye-contact scoring.
+**MediaPipe Face Mesh** and **OpenCV** for landmarks and attention estimation.
 
 ---
 
@@ -377,7 +286,7 @@ Resume Upload
 Resume Parsing
       │
       ▼
-Resume Analysis using Groq
+Resume Analysis (Groq)
       │
       ▼
 Optional Job Description Save
@@ -386,8 +295,7 @@ Optional Job Description Save
 Resume ↔ JD Matching
       │
       ▼
-Select Interview Type
-(HR / Technical / Managerial)
+Select Interview Type (HR / Technical / Managerial)
       │
       ▼
 Create Interview Session
@@ -397,7 +305,6 @@ Conversational AI Interview
       │
       ▼
 Speech + Webcam Monitoring
-      │
       ├── Speech-to-Text
       ├── Filler Detection
       ├── Fluency Analysis
@@ -408,9 +315,6 @@ Speech + Webcam Monitoring
 AI Answer Evaluation
       │
       ▼
-Overall Interview Analysis
-      │
-      ▼
 Analytics / Feedback / PDF Report
 ```
 
@@ -418,47 +322,36 @@ Analytics / Feedback / PDF Report
 
 # 🗄️ Database Design
 
-The SmartHire AI database is implemented using PostgreSQL.
+| Table | Description |
+|-------|-------------|
+| users | Platform users with roles |
+| resumes | Uploaded resumes |
+| resume_analysis | AI-generated resume insights |
+| job_descriptions | Job Description text per user |
+| interview_questions | Generated interview questions |
+| interview_sessions | Sessions with type and status |
+| interview_conversations | Conversational history |
+| interview_answers | Candidate answers |
+| interview_evaluations | AI evaluations |
+| interview_monitor_reports | Final monitoring report |
+| interview_monitor_snapshots | Timeline snapshots |
+| recruiter_shortlists | Recruiter decisions |
 
-| Table                         | Description                                       |
-| ----------------------------- | ------------------------------------------------- |
-| `users`                       | Platform users with roles                         |
-| `resumes`                     | Uploaded resumes                                  |
-| `resume_analysis`             | AI-generated resume insights                      |
-| `job_descriptions`            | Job Description text associated with users        |
-| `interview_questions`         | Generated interview questions                     |
-| `interview_sessions`          | Interview sessions with interview type and status |
-| `interview_conversations`     | Conversational interview history                  |
-| `interview_answers`           | Candidate answers                                 |
-| `interview_evaluations`       | AI evaluation of candidate answers                |
-| `interview_monitor_reports`   | Final interview monitoring report                 |
-| `interview_monitor_snapshots` | Timeline monitoring and analytics snapshots       |
-| `recruiter_shortlists`        | Recruiter shortlist decisions                     |
-
-The database architecture maintains referential integrity through foreign-key relationships and supports cascade-safe data cleanup.
+See `docs/DatabaseDesign.md` and `docs/ERDiagram.md` for full details.
 
 ---
 
 # 🔒️ Security Features
 
-SmartHire AI implements multiple security mechanisms:
-
-* JWT Authentication.
-* BCrypt Password Hashing.
-* Role-Based Access Control.
-* Protected API endpoints.
-* Protected frontend routes.
-* Owner-restricted resume access.
-* Authenticated interview access.
-* Role-restricted recruiter features.
-* Role-restricted administrator features.
-* Pydantic input validation.
-* SQLAlchemy ORM.
-* Environment-based secret configuration.
-* Secure account deletion.
-* Related data cleanup using database relationships.
-
-Sensitive credentials such as database passwords, JWT secrets, and API keys are stored using environment variables rather than hard-coded values.
+- JWT authentication and BCrypt password hashing
+- Role-Based Access Control
+- Protected API endpoints and frontend routes
+- Owner-restricted resume access
+- Role-restricted recruiter and admin features
+- Pydantic validation and SQLAlchemy ORM
+- Secrets via environment variables (`.env` not committed)
+- Secure account deletion with related data cleanup
+- CORS configured for local and Vercel origins
 
 ---
 
@@ -481,27 +374,14 @@ SmartHire-AI
 │   │   ├── services
 │   │   ├── utils
 │   │   └── main.py
-│   │
 │   ├── uploads
-│   │   ├── resumes
-│   │   ├── audio
-│   │   └── images
-│   │
 │   ├── reports
 │   ├── requirements.txt
-│   └── .env
+│   └── .env                  
 │
 ├── frontend
 │   ├── public
 │   ├── src
-│   │   ├── assets
-│   │   ├── components
-│   │   ├── contexts
-│   │   ├── pages
-│   │   ├── routes
-│   │   ├── services
-│   │   └── App.tsx
-│   │
 │   ├── package.json
 │   └── vite.config.ts
 │
@@ -512,8 +392,10 @@ SmartHire-AI
 │   ├── DatabaseDesign.md
 │   ├── ERDiagram.md
 │   ├── UIWireframes.md
-│   └── UserWorkflows.md
+│   ├── UserWorkflows.md
+│   └── Deployment.md
 │
+├── screenshots
 ├── .gitignore
 └── README.md
 ```
@@ -522,81 +404,75 @@ SmartHire-AI
 
 # 🌐 REST API Documentation
 
-## Base URL
+## Local base URL
 
 ```text
 http://127.0.0.1:8000/api/v1
 ```
 
-> Exact endpoint paths may vary slightly depending on router prefixes. Use the Swagger documentation available at `/docs` for live API confirmation.
+## Live hybrid base URL (example)
 
----
+```text
+https://xxxx.ngrok-free.dev/api/v1
+```
 
-## Authentication & User APIs
+Use Swagger at `/docs` for live confirmation of routes.
 
-| Method | Endpoint         | Description               |
-| ------ | ---------------- | ------------------------- |
-| POST   | `/auth/register` | Register a user with role |
-| POST   | `/auth/login`    | Login                     |
-| GET    | `/users/me`      | Get current user          |
-| DELETE | `/users/me`      | Delete own account        |
-| GET    | `/users`         | List users (Admin)        |
+### Authentication & User APIs
 
----
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/auth/register` | Register with role |
+| POST | `/auth/login` | Login |
+| GET | `/users/me` | Current user |
+| DELETE | `/users/me` | Delete own account |
+| GET | `/users` | List users (Admin) |
 
-## Resume APIs
+### Resume APIs
 
-| Method | Endpoint                | Description                 |
-| ------ | ----------------------- | --------------------------- |
-| POST   | `/resume/upload`        | Upload resume               |
-| GET    | `/resume/me`            | List current user's resumes |
-| GET    | `/resume/{id}`          | Get resume details          |
-| GET    | `/resume/download/{id}` | Download resume             |
-| GET    | `/resume/analyze/{id}`  | Analyze resume              |
-| DELETE | `/resume/{id}`          | Delete resume               |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/resume/upload` | Upload resume |
+| GET | `/resume/me` | List resumes |
+| GET | `/resume/{id}` | Resume details |
+| GET | `/resume/download/{id}` | Download |
+| GET | `/resume/analyze/{id}` | Analyze |
+| DELETE | `/resume/{id}` | Delete |
 
----
+### Job Description APIs
 
-## Job Description APIs
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/job-description` | Save JD |
+| GET | `/job-description` | Get JD |
+| POST | `/job-description/match/{resume_id}` | Match resume |
 
-| Method | Endpoint                             | Description                       |
-| ------ | ------------------------------------ | --------------------------------- |
-| POST   | `/job-description`                   | Save Job Description              |
-| GET    | `/job-description`                   | Get saved Job Description         |
-| POST   | `/job-description/match/{resume_id}` | Match resume with Job Description |
+### Interview APIs
 
----
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/interview/start/{resume_id}` | Start (with type) |
+| POST | `/interview/chat/{session_id}` | Chat turn |
+| POST | `/interview/finish/{session_id}` | Finish |
+| GET | `/interview/sessions` | Sessions |
+| GET | `/interview/report/{session_id}` | Report |
 
-## Interview APIs
+### Monitoring & Analytics APIs
 
-| Method | Endpoint                         | Description                        |
-| ------ | -------------------------------- | ---------------------------------- |
-| POST   | `/interview/start/{resume_id}`   | Start interview with selected type |
-| POST   | `/interview/chat/{session_id}`   | Continue conversational interview  |
-| POST   | `/interview/finish/{session_id}` | Finish interview                   |
-| GET    | `/interview/sessions`            | Get interview sessions             |
-| GET    | `/interview/report/{session_id}` | Get interview report               |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/interview-monitor/analyze` | Analyze media |
+| GET | `/interview-monitor/history` | History |
+| GET | `/interview-monitor/analytics/{session_id}` | Analytics |
+| GET | `/feedback/{session_id}` | Feedback |
+| GET | `/report/{session_id}` | PDF report |
 
----
+### Recruiter Shortlist APIs
 
-## Monitoring & Analytics APIs
-
-| Method | Endpoint                                    | Description                  |
-| ------ | ------------------------------------------- | ---------------------------- |
-| POST   | `/interview-monitor/analyze`                | Analyze interview media      |
-| GET    | `/interview-monitor/history`                | Get monitoring history       |
-| GET    | `/interview-monitor/analytics/{session_id}` | Get interview analytics      |
-| GET    | `/feedback/{session_id}`                    | Get AI feedback              |
-| GET    | `/report/{session_id}`                      | Generate/download PDF report |
-
----
-
-## Recruiter Shortlist APIs
-
-| Method | Endpoint               | Description                    |
-| ------ | ---------------------- | ------------------------------ |
-| GET    | `/recruiter/shortlist` | List shortlist statuses        |
-| POST   | `/recruiter/shortlist` | Create/update shortlist status |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/recruiter/shortlist` | List statuses |
+| POST | `/recruiter/shortlist` | Create/update status |
 
 ---
 
@@ -604,14 +480,11 @@ http://127.0.0.1:8000/api/v1
 
 ## Prerequisites
 
-Install the following:
-
-* Python 3.10+
-* Node.js 20+
-* PostgreSQL 15+
-* Git
-
-Verify the installations:
+- Python 3.10+
+- Node.js 20+
+- PostgreSQL 15+
+- Git
+- (Optional for live Vercel access) ngrok
 
 ```bash
 python --version
@@ -634,45 +507,26 @@ cd SmartHire-AI
 
 # 🐍 Backend Setup
 
-Navigate to the backend directory:
-
 ```bash
 cd backend
-```
-
-Create a virtual environment:
-
-```bash
 python -m venv .venv
 ```
 
-### Windows
+**Windows**
 
 ```bash
 .venv\Scripts\activate
 ```
 
-### Linux / macOS
+**Linux / macOS**
 
 ```bash
 source .venv/bin/activate
 ```
 
-Upgrade pip:
-
 ```bash
 python -m pip install --upgrade pip
-```
-
-Install dependencies:
-
-```bash
 pip install -r requirements.txt
-```
-
-Install the required spaCy model:
-
-```bash
 python -m spacy download en_core_web_sm
 ```
 
@@ -680,19 +534,13 @@ python -m spacy download en_core_web_sm
 
 # 🔐 Environment Variables
 
-Create a file named:
-
-```text
-backend/.env
-```
-
-Add the following configuration:
+Create `backend/.env`:
 
 ```env
 APP_NAME=SmartHire AI
 APP_VERSION=1.0.0
 DEBUG=True
-HOST=127.0.0.1
+HOST=0.0.0.0
 PORT=8000
 
 SECRET_KEY=your_long_random_secret_key
@@ -706,27 +554,32 @@ FRONTEND_URL=http://localhost:5173
 GROQ_API_KEY=your_groq_api_key
 ```
 
-Replace:
+For hybrid live access, set `FRONTEND_URL` to your Vercel URL after deployment.
 
-* `YOUR_PASSWORD` with the PostgreSQL password.
-* `your_long_random_secret_key` with a secure secret key.
-* `your_groq_api_key` with the Groq API key.
+**Do not commit `.env`.**
 
-**Do not commit `.env` to GitHub.**
+Frontend local environment (`frontend/.env`):
+
+```env
+VITE_API_URL=http://127.0.0.1:8000/api/v1
+```
+
+Vercel production environment:
+
+```text
+VITE_API_URL=https://YOUR-NGROK-HOST/api/v1
+```
 
 ---
 
 # 🐘 PostgreSQL Setup
 
-Create the database:
-
 ```sql
 CREATE DATABASE smarthire_ai;
 ```
 
-Run database migrations from the `backend` directory:
-
 ```bash
+cd backend
 alembic upgrade head
 ```
 
@@ -734,63 +587,34 @@ alembic upgrade head
 
 # 🚀 Start Backend
 
-From the `backend` directory:
-
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-Backend:
-
-```text
-http://127.0.0.1:8000
-```
-
-Swagger API documentation:
-
-```text
-http://127.0.0.1:8000/docs
-```
-
-ReDoc:
-
-```text
-http://127.0.0.1:8000/redoc
-```
+- API: `http://127.0.0.1:8000`
+- Swagger: `http://127.0.0.1:8000/docs`
 
 ---
 
 # ⚛️ Frontend Setup
 
-Open a new terminal and navigate to the frontend:
-
 ```bash
 cd frontend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Start the development server:
-
-```bash
 npm run dev
 ```
 
-Frontend:
+Open `http://localhost:5173`
 
-```text
-http://localhost:5173
+Production build check:
+
+```bash
+npm run build
 ```
 
 ---
 
 # 📂 Upload & Report Directories
-
-Ensure the following directories exist:
 
 ```text
 backend/uploads/resumes/
@@ -799,76 +623,70 @@ backend/uploads/images/
 backend/reports/
 ```
 
-These directories are used for storing uploaded resumes, audio/image processing data, and generated reports.
-
 ---
 
 # 🧪 Recommended Test Flow
 
-Follow the following sequence to test the complete platform:
-
-1. Register as a Candidate.
-2. Login as Candidate.
-3. Upload a PDF resume.
-4. Analyze the resume using AI.
-5. Save a Job Description.
-6. Run Resume ↔ JD Match.
-7. Select an interview type:
-   * HR
-   * Technical
-   * Managerial
-8. Start the AI interview.
-9. Allow microphone and webcam permissions.
-10. Answer interview questions.
-11. Complete the interview.
-12. Review interview analytics.
-13. Review AI feedback.
-14. Download the PDF report.
-15. Register/Login as Recruiter.
-16. View completed interview sessions.
-17. Shortlist, reject, or mark a session as pending.
-18. Register/Login as Admin.
-19. View platform users and role statistics.
+1. Register as Candidate → login
+2. Upload PDF resume → analyze
+3. Save Job Description → run match
+4. Select HR / Technical / Managerial → start interview
+5. Allow mic/camera → complete interview
+6. Review analytics, feedback, PDF
+7. Login as Recruiter → shortlist a session
+8. Login as Admin → view users
 
 ---
 
 # 📸 Screenshots
 
 ### Home Page
-![Home Page](screenshots/home.png)
+
+<img src="screenshots/home.png" alt="Home Page">
 
 ### Login Page
-![Login Page](screenshots/login.png)
+
+<img src="screenshots/login.png" alt="Login Page">
 
 ### Registration Page
-![Registration Page](screenshots/register.png)
+
+<img src="screenshots/register.png" alt="Registration Page">
 
 ### Candidate Dashboard
-![Candidate Dashboard](screenshots/candidate-dashboard.png)
+
+<img src="screenshots/candidate-dashboard.png" alt="Candidate Dashboard">
 
 ### Resume Analysis
-![Resume Analysis](screenshots/resume-analysis.png)
+
+<img src="screenshots/resume-analysis.png" alt="Resume Analysis">
 
 ### Job Description + Match
-![JD Match](screenshots/jd-match.png)
+
+<img src="screenshots/jd-match.png" alt="JD Match">
 
 ### Interview Type Selection
-![Interview Type](screenshots/interview-type.png)
+
+<img src="screenshots/interview-type.png" alt="Interview Type">
 
 ### Interview Room
-![Interview Room](screenshots/interview-room.png)
+
+<img src="screenshots/interview-room.png" alt="Interview Room">
 
 ### Interview Analytics
-![Interview Analytics](screenshots/interview-analytics.png)
+
+<img src="screenshots/interview-analytics.png" alt="Interview Analytics">
 
 ### AI Feedback
-![AI Feedback](screenshots/ai-feedback.png)
+
+<img src="screenshots/ai-feedback.png" alt="AI Feedback">
 
 ### Recruiter Dashboard
-![Recruiter Dashboard](screenshots/recruiter-dashboard.png)
+
+<img src="screenshots/recruiter-dashboard.png" alt="Recruiter Dashboard">
 
 ### Admin Dashboard
-![Admin Dashboard](screenshots/admin-dashboard.png)
+
+<img src="screenshots/admin-dashboard.png" alt="Admin Dashboard">
 
 ---
 
@@ -876,237 +694,117 @@ Follow the following sequence to test the complete platform:
 
 ## ✅ Milestone 1 — Foundation
 
-Completed:
-
-* Requirements and architecture.
-* Database design.
-* PostgreSQL integration.
-* Authentication.
-* JWT Authorization.
-* Role-Based Access Control.
-* Resume management.
-* Candidate dashboard foundation.
-
----
+Requirements, database, auth, RBAC, resume management, candidate dashboard foundation.
 
 ## ✅ Milestone 2 — AI Recruitment Engine
 
-Completed:
-
-* Resume parsing.
-* AI resume analysis.
-* Skill extraction.
-* Interview question generation.
-* Conversational interview generation.
-* Interview session management.
-* AI interview workflow.
-* Candidate answer evaluation.
-
----
+Resume parsing/analysis, interview generation, sessions, answer evaluation.
 
 ## ✅ Milestone 3 — AI Monitoring
 
-Completed:
-
-* Speech-to-Text.
-* Emotion Recognition.
-* Eye Contact Detection.
-* Filler Word Detection.
-* Fluency Analysis.
-* Communication Analysis.
-* Interview Monitoring.
-* Monitoring Reports.
-* Monitoring Snapshots.
-* Analytics support.
-
----
+Speech-to-text, emotion, eye contact, fillers, fluency, monitoring reports/snapshots, analytics.
 
 ## ✅ Milestone 4 — Platform Completion
 
-Completed:
+JD + match, interview types, recruiter shortlisting, admin dashboard, account deletion, documentation, **frontend deploy on Vercel**, hybrid live API via **ngrok**.
 
-* Job Description Management.
-* Resume ↔ JD Match.
-* Interview Type Selection.
-* HR / Technical / Managerial interviews.
-* Recruiter Dashboard.
-* Recruiter Shortlisting.
-* Admin Dashboard.
-* Admin User Visibility.
-* Account Deletion.
-* Full role-based frontend protection.
-* Documentation.
+## ⏳ Optional next
 
----
-
-## ⏳ Remaining
-
-* Cloud Deployment.
+Always-on **cloud backend + managed PostgreSQL** (no local PC/ngrok required).
 
 ---
 
 # 🛠️ Troubleshooting
 
-## PostgreSQL Connection Error
+**PostgreSQL connection** — service running, DB exists, `DATABASE_URL` correct.
 
-Check that:
+**Module not found** — activate venv, run `pip install -r requirements.txt`.
 
-* PostgreSQL is running.
-* The database `smarthire_ai` exists.
-* `DATABASE_URL` is correct.
-* PostgreSQL username and password are correct.
+**Frontend install issues** — delete `node_modules`, reinstall.
 
-Example:
+**Camera / mic** — grant permissions; prefer Chrome/Edge; HTTPS is required on a public site.
 
-```env
-DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/smarthire_ai
-```
+**AI features** — valid `GROQ_API_KEY`, backend running, network available.
 
----
-
-## Python Module Not Found
-
-Activate the virtual environment:
-
-### Windows
-
-```bash
-.venv\Scripts\activate
-```
-
-Then reinstall dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## Frontend Installation Issues
-
-If dependency installation causes problems, remove `node_modules` and reinstall.
-
-### Windows Command Prompt
-
-```cmd
-rmdir /s /q node_modules
-npm install
-```
-
-### PowerShell
-
-```powershell
-Remove-Item -Recurse -Force node_modules
-npm install
-```
-
----
-
-## Camera / Microphone Not Working
-
-Check the following:
-
-* Allow browser camera permissions.
-* Allow browser microphone permissions.
-* Prefer Google Chrome or Microsoft Edge.
-* Ensure another application is not using the camera or microphone.
-* Restart the browser after changing permissions.
-
----
-
-## AI Features Not Working
-
-Check:
-
-* `GROQ_API_KEY` is correctly configured.
-* The `.env` file is inside the `backend` directory.
-* The backend server is running.
-* Internet connectivity is available.
-* Required AI dependencies are installed.
+**Vercel site cannot reach API** — backend + ngrok running; `VITE_API_URL` matches the current ngrok URL + `/api/v1`; redeploy after environment-variable changes; CORS allows the Vercel origin.
 
 ---
 
 # 🚀 Deployment
 
-The current implementation is complete for local development and testing.
-
-**Cloud deployment remains the major production step.**
-
-Potential deployment architecture:
+## Current (hybrid) model
 
 ```text
-                   ┌─────────────────────┐
-                   │   Frontend Hosting  │
-                   │  Vercel / Netlify   │
-                   └──────────┬──────────┘
-                              │
-                         HTTPS / API
-                              │
-                   ┌──────────▼──────────┐
-                   │   Backend Hosting   │
-                   │ Render / Railway /  │
-                   │        AWS          │
-                   └──────────┬──────────┘
-                              │
-                   ┌──────────▼──────────┐
-                   │ Managed PostgreSQL   │
-                   │      Database       │
-                   └─────────────────────┘
+Vercel (Frontend)
+        │
+        ▼
+ngrok HTTPS URL
+        │
+        ▼
+Local FastAPI (0.0.0.0:8000)
+        │
+        ▼
+Local PostgreSQL
 ```
 
-Potential deployment targets include:
+### Daily live checklist
 
-* **Frontend:** Vercel / Netlify.
-* **Backend:** Render / Railway / AWS.
-* **Database:** Managed PostgreSQL.
-* **Containerization:** Docker.
-* **CI/CD:** GitHub Actions or equivalent.
+- [ ] Start PostgreSQL
+- [ ] Start backend: `uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload`
+- [ ] Start ngrok: `ngrok http 8000`
+- [ ] If ngrok URL changed → update Vercel `VITE_API_URL` → redeploy
+- [ ] Open the Vercel site
 
-Production deployment should also include appropriate environment configuration, HTTPS, secret management, logging, monitoring, and infrastructure hardening.
+Full details: `docs/Deployment.md`
+
+### Future (optional full cloud)
+
+```text
+Vercel Frontend → Cloud FastAPI → Managed PostgreSQL
+```
+
+Possible targets: Render / Railway / AWS for API; managed PostgreSQL; Docker + CI/CD.
 
 ---
 
 # 📊 Project Status
 
-| Category                   | Status      |
-| -------------------------- | ----------- |
-| Frontend                   | ✅ Completed |
-| Backend                    | ✅ Completed |
-| Database                   | ✅ Completed |
-| Authentication + Roles     | ✅ Completed |
-| Resume Management          | ✅ Completed |
-| Resume Analysis            | ✅ Completed |
-| Job Description + Match    | ✅ Completed |
-| Interview Types            | ✅ Completed |
-| Conversational Interviews  | ✅ Completed |
-| Interview Monitoring       | ✅ Completed |
-| Speech Analysis            | ✅ Completed |
-| Emotion Recognition        | ✅ Completed |
-| Eye Contact Detection      | ✅ Completed |
-| Filler / Fluency Analysis  | ✅ Completed |
-| AI Answer Evaluation       | ✅ Completed |
+| Category | Status |
+|----------|--------|
+| Frontend | ✅ Completed |
+| Backend | ✅ Completed |
+| Database | ✅ Completed |
+| Authentication + Roles | ✅ Completed |
+| Resume Management | ✅ Completed |
+| Resume Analysis | ✅ Completed |
+| Job Description + Match | ✅ Completed |
+| Interview Types | ✅ Completed |
+| Conversational Interviews | ✅ Completed |
+| Interview Monitoring | ✅ Completed |
+| Speech / Emotion / Eye Contact | ✅ Completed |
 | Analytics / Feedback / PDF | ✅ Completed |
-| Recruiter Shortlisting     | ✅ Completed |
-| Admin User View            | ✅ Completed |
-| Account Deletion           | ✅ Completed |
-| Documentation              | ✅ Completed |
-| Cloud Deployment           | ⏳ Pending   |
+| Recruiter Shortlisting | ✅ Completed |
+| Admin User View | ✅ Completed |
+| Account Deletion | ✅ Completed |
+| Documentation | ✅ Completed |
+| Frontend deploy (Vercel) | ✅ Completed |
+| Hybrid live API (ngrok) | ✅ Completed |
+| Full cloud backend + DB | ⏳ Optional |
 
 ---
 
 # 📚 Documentation
 
-Detailed project documentation is available inside the `docs` directory:
-
-| Document                       | Description                                                             |
-| ------------------------------ | ----------------------------------------------------------------------- |
-| `ProjectScope.md`              | Project scope, objectives, users, modules, and milestones               |
-| `FunctionalRequirements.md`    | Functional requirements of the platform                                 |
-| `NonFunctionalRequirements.md` | Performance, security, scalability, usability, and quality requirements |
-| `DatabaseDesign.md`            | Database schema and design                                              |
-| `ERDiagram.md`                 | Entity Relationship Diagram                                             |
-| `UIWireframes.md`              | Application interface wireframes                                        |
-| `UserWorkflows.md`             | Candidate, Recruiter, Admin, and AI workflows                           |
+| Document | Description |
+|----------|-------------|
+| `docs/ProjectScope.md` | Scope, objectives, modules |
+| `docs/FunctionalRequirements.md` | Functional requirements |
+| `docs/NonFunctionalRequirements.md` | Quality attributes |
+| `docs/DatabaseDesign.md` | Schema design |
+| `docs/ERDiagram.md` | ER diagram |
+| `docs/UIWireframes.md` | UI wireframes |
+| `docs/UserWorkflows.md` | User and operator workflows |
+| `docs/Deployment.md` | Hybrid Vercel + local API + ngrok |
 
 ---
 
@@ -1114,38 +812,18 @@ Detailed project documentation is available inside the `docs` directory:
 
 **Soham Dey**
 
-B.E. Computer Science & Engineering
+B.E. Computer Science & Engineering  
 University Institute of Technology, The University of Burdwan
 
 Machine Learning • Artificial Intelligence • Full-Stack Development
 
-* GitHub: https://github.com/SohamDey2005
-* LinkedIn: https://www.linkedin.com/in/sohamdeydurgapur
+- GitHub: https://github.com/SohamDey2005
+- LinkedIn: https://www.linkedin.com/in/sohamdeydurgapur
 
 ---
 
 # ⭐ Summary
 
-SmartHire AI is a complete AI-powered interview and recruitment support platform that integrates:
+SmartHire AI is a complete AI-powered interview and recruitment support platform integrating multi-role authentication, resume analysis, JD matching, type-specific AI interviews, real-time monitoring, analytics, recruiter shortlisting, and admin visibility.
 
-* Multi-role authentication.
-* Resume management.
-* AI-powered resume analysis.
-* Job Description matching.
-* HR / Technical / Managerial AI interviews.
-* Conversational interview workflows.
-* AI answer evaluation.
-* Speech-to-Text.
-* Emotion recognition.
-* Eye-contact detection.
-* Filler-word and fluency analysis.
-* Real-time interview monitoring.
-* Analytics and AI feedback.
-* PDF interview reports.
-* Recruiter shortlisting.
-* Admin user visibility.
-* Role-based dashboards.
-
-The platform provides an end-to-end workflow for candidates, recruiters, and administrators while maintaining a modular architecture suitable for future production deployment.
-
-**The only major remaining production step is cloud deployment.**
+The **frontend is deployed on Vercel**. The **API and database run locally**, with **ngrok** providing public access for the live site. Moving the backend and PostgreSQL to the cloud is the primary optional step for always-on production operation.

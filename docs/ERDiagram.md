@@ -1,6 +1,6 @@
 # SmartHire AI – Entity Relationship Diagram
 
-The following Entity Relationship Diagram (ERD) represents the complete database schema implemented in SmartHire AI.
+The following Entity Relationship Diagram (ERD) represents the **complete database schema implemented in SmartHire AI**.
 
 The schema includes user management, resume management, AI resume analysis, Job Description management, interview question generation, conversational interviews, candidate answer evaluation, real-time interview monitoring, analytics snapshots, and recruiter shortlisting.
 
@@ -170,7 +170,7 @@ erDiagram
 
 ## Users to Job Descriptions
 
-**One-to-One / Optional.** A user can store at most one Job Description for Resume-JD matching and interview personalization.
+**One-to-One / Optional.** A user can store at most one Job Description for Resume–JD matching and interview personalization.
 
 ## Users to Interview Sessions
 
@@ -251,7 +251,7 @@ The current database supports:
 - Resume management
 - AI-powered resume analysis
 - Job Description storage
-- Resume-JD matching support
+- Resume–JD matching support
 - Interview type selection (`hr`, `technical`, `managerial`)
 - Conversational interview history
 - Interview session management
@@ -272,7 +272,15 @@ The current database supports:
 
 # Database Status
 
-**Current Version:** Complete Platform (Pre-Deployment)
+**Current Version:** Complete platform schema (hybrid deployment)
+
+| Layer | Status |
+|---|---|
+| Relational schema | Complete |
+| Frontend | Deployed on Vercel |
+| Backend API | Local FastAPI |
+| Database host | Local PostgreSQL |
+| Public API access | ngrok tunnel |
 
 ## Completed Components
 
@@ -281,7 +289,7 @@ The current database supports:
 - Resume management
 - AI resume analysis
 - Job Description management
-- Resume-JD matching support
+- Resume–JD matching support
 - Interview type support
 - Conversational interview tracking
 - Interview session tracking
@@ -296,36 +304,38 @@ The current database supports:
 - Interview analytics
 - Recruiter shortlist workflow
 
+## Optional Next Step
+
+- Host PostgreSQL and the API on a cloud provider so the database and backend remain available without depending on the developer machine.
+
 ---
 
 # Database Architecture
 
-The SmartHire AI database architecture is designed to provide a normalized, scalable, and referentially consistent foundation for AI-powered recruitment workflows.
+The SmartHire AI database architecture provides a normalized, scalable, and referentially consistent foundation for AI-powered recruitment workflows.
 
-The ERD separates major system entities into independent tables while maintaining relationships through primary and foreign keys. One-to-one, one-to-many, and optional relationships are represented according to the implemented database structure.
+The ERD separates major system entities into independent tables and connects them with primary and foreign keys. One-to-one, one-to-many, and optional relationships match the implemented structure.
 
-The architecture supports the complete workflow from user registration and resume processing to AI-powered interviews, performance evaluation, real-time monitoring, analytics, and recruiter decision-making.
+The architecture supports the full path from registration and resume processing to AI interviews, evaluation, real-time monitoring, analytics, and recruiter decisions.
 
 ---
 
 # Design Principles
 
-The SmartHire AI database follows these core design principles:
-
-- **Normalized:** The schema follows Third Normal Form (3NF) principles.
-- **Modular:** Each major business entity is represented by a dedicated table.
-- **Scalable:** The structure supports future recruitment and AI features.
-- **Referentially Consistent:** Foreign keys maintain valid relationships between entities.
-- **Maintainable:** SQLAlchemy ORM and Alembic migrations support structured database management.
-- **Extensible:** Additional interview, analytics, and recruitment modules can be added without major schema redesign.
-- **Cloud-Ready:** PostgreSQL provides a robust foundation for future deployment.
+- **Normalized** — Third Normal Form (3NF) principles
+- **Modular** — Dedicated tables for major business entities
+- **Scalable** — Ready for additional recruitment and AI features
+- **Referentially consistent** — Foreign keys maintain valid relationships
+- **Maintainable** — SQLAlchemy ORM and Alembic migrations
+- **Extensible** — New modules can be added without major redesign
+- **Cloud-ready** — Schema can move to managed PostgreSQL without redesign
 
 ---
 
 # Conclusion
 
-The SmartHire AI Entity Relationship Diagram represents the complete relational database architecture of the platform.
+The SmartHire AI Entity Relationship Diagram describes the complete relational architecture of the platform.
 
-It connects user management, resume processing, AI analysis, Job Description management, interview generation, conversational interviews, answer evaluation, real-time monitoring, analytics, and recruiter shortlisting into a single coherent database structure.
+It links user management, resume processing, AI analysis, Job Description management, interview generation, conversational interviews, answer evaluation, real-time monitoring, analytics, and recruiter shortlisting in one coherent structure.
 
-The architecture maintains data integrity through primary keys, foreign keys, unique constraints, and application-level validation while providing a scalable foundation for the complete AI-powered recruitment workflow.
+Data integrity is maintained through primary keys, foreign keys, unique constraints, and application-level validation, providing a solid base for the current hybrid deployment and for a future fully cloud-hosted stack.
