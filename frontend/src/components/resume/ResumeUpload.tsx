@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { uploadResume } from "../../services/resumeService";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
-import { Upload, CloudUpload } from "lucide-react";
+import { Upload, CloudUpload, FileText } from "lucide-react";
 
 interface ResumeUploadProps {
     onUploadSuccess: () => void;

@@ -19,6 +19,7 @@ import {
     Cell,
 } from "recharts";
 import {
+    ArrowLeft,
     Award,
     Eye,
     Mic,

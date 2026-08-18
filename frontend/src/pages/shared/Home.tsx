@@ -5,6 +5,7 @@ import {
     BarChart3,
     FileSearch,
     ArrowRight,
+    CheckCircle2,
 } from "lucide-react";
 
 export default function Home() {

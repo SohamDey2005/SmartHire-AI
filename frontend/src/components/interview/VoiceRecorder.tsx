@@ -10,7 +10,7 @@ export default function VoiceRecorder({
     onRecordingComplete,
     disabled,
 }: Props) {
-    const recorder = useRef<MediaRecorder | null>(null);
+    const recorder = useRef<MediaRecorder>();
     const chunks = useRef<Blob[]>([]);
     const [recording, setRecording] = useState(false);
 
